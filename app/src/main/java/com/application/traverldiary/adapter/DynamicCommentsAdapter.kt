@@ -1,5 +1,6 @@
 package com.application.traverldiary.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,12 +33,12 @@ class DynamicCommentsAdapter : RecyclerView.Adapter<DynamicCommentsAdapter.MyVie
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(mComments[position])
+        Log.v("comment", position.toString())
     }
 
     //设置数据
     fun setData(comments: List<Comment>) {
         mComments = comments
-        notifyDataSetChanged()
     }
 
 }
