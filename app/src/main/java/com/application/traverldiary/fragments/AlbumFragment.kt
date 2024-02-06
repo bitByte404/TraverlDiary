@@ -76,6 +76,11 @@ class AlbumFragment : Fragment() {
             openImageSelector()
         })
 
+        //刷新逻辑
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            mViewModel.albumList.postValue(mAlbumManager.loadPictures(requireContext()))
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     //打开图片选择的Intent
