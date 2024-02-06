@@ -1,3 +1,5 @@
+package com.application.traverldiary
+
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -35,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             // 申请 相机 麦克风权限
             ActivityCompat.requestPermissions(
                 this, arrayOf<String>(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 ), 100
             )
