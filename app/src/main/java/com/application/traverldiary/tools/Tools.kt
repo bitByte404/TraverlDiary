@@ -1,4 +1,6 @@
 package com.application.traverldiary.tools
+
+import android.view.View
 import com.application.traverldiary.items.TimeItem
 
 object Tools {
@@ -17,3 +19,4 @@ object Tools {
     }
 
 }
+

@@ -29,8 +29,13 @@ class JourneyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val jLayoutManger = LinearLayoutManager(requireContext())
 
-        binding.journeyRecyclerView.apply {
+        binding.timeAxisRecyclerView.apply {
             layoutManager = jLayoutManger
+            adapter = TimelineAdapter(Tools.timeCreator())
+        }
+        val jLayoutManger0 = LinearLayoutManager(requireContext())
+        binding.tasksRecyclerView.apply {
+            layoutManager = jLayoutManger0
             adapter = TimelineAdapter(Tools.timeCreator())
         }
 
