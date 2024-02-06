@@ -1,31 +1,23 @@
 package com.application.traverldiary.manager
 
-import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
-import android.widget.ImageView
-import androidx.core.util.rangeTo
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 
 class AlbumManager private constructor() {
-
     companion object {
         private var instance: AlbumManager? = null
+        //保存的照片路径
         private var fileDir = ""
 
         fun getInstance(fileDir:String):AlbumManager {
@@ -41,18 +33,13 @@ class AlbumManager private constructor() {
         }
     }
 
-    fun addPicture(){       //传入照片资源
-        val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日") // HH:mm:ss
-        val date = Date(System.currentTimeMillis())
-        val location = "${fileDir}${simpleDateFormat.format(date)}${System.currentTimeMillis()}.jpg"
-//        Picture(,date,location) TODO()
-
+    fun addPicture(src: Uri, context: Context){
+        val sourceFile = File(getRealPathFromURI(context, src))
+        copyFile(sourceFile)
     }
 
-    fun addPictures(list: List<Any>){
 
-    }
-
+    //加载图片
     fun loadPictures(context: Context): MutableList<Any> {
         val folder = File(fileDir)
         if (!folder.exists()) {
@@ -90,7 +77,8 @@ class AlbumManager private constructor() {
 
 
 
-    fun copyFile(src: File) {
+    //复制照片文件
+    private fun copyFile(src: File) {
         val dst = File(fileDir, generateUniqueFileName())
         val inStream = FileInputStream(src)
         val outStream = FileOutputStream(dst)
@@ -107,7 +95,9 @@ class AlbumManager private constructor() {
         outStream.close()
     }
 
-    fun getRealPathFromURI(context: Context, contentUri: Uri): String {
+
+    //从Uri得到文件路径
+    private fun getRealPathFromURI(context: Context, contentUri: Uri): String {
         var cursor: Cursor? = null
         try {
             val proj = arrayOf(MediaStore.Images.Media.DATA)
@@ -119,6 +109,8 @@ class AlbumManager private constructor() {
             cursor?.close()
         }
     }
+
+    //产生一个独立的文件名
     private fun generateUniqueFileName(): String {
         val dateFormat = SimpleDateFormat("yyyyMMdd_HH时mm分ss秒_SSS", Locale.getDefault())
         val dateStr = dateFormat.format(Date())

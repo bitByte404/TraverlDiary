@@ -20,16 +20,19 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val PIC = 1
 
 
+    fun updateData(newData:List<Any>){
+        mList = newData
+        notifyDataSetChanged()  //数据改变通知视图改变
+    }
+
     //包含日期和照片 所以分两个Holder
     class DateHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView:TextView = itemView.findViewById(R.id.date) as TextView
-
     }
-
     class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView:ImageView = itemView.findViewById(R.id.image) as ImageView
-
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == DATE){
@@ -54,6 +57,7 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return mList.size
     }
 
+    //得到itemview的类型
     override fun getItemViewType(position: Int): Int {
         return if (mList[position] is String){
             DATE
@@ -62,11 +66,11 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+
+    //区分日期和照片 使日期占满一行
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         val manager: RecyclerView.LayoutManager? = recyclerView.layoutManager;
-        Log.v("wq","${manager==null}")
         if(manager is GridLayoutManager) {
-            Log.v("wq","GridManager")
            val gridLayoutManager = manager as GridLayoutManager
             gridLayoutManager.spanSizeLookup = object : SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -76,7 +80,9 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     }
-     private fun setImageViewFromFile(imageView: ImageView, file: File) {
+
+    //读取文件 设置到imageview上
+    private fun setImageViewFromFile(imageView: ImageView, file: File) {
         if (file.exists()) {
             val bitmap = BitmapFactory.decodeFile(file.absolutePath)
             imageView.setImageBitmap(bitmap)
