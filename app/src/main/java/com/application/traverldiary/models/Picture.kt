@@ -7,6 +7,7 @@ import java.util.Date
 class Picture(
     val picture: Bitmap,
     val takeTime: Date,
+    val title:String,
     val location: String            //fileDir +
 ) {
 

@@ -1,5 +1,7 @@
 package com.application.traverldiary.views.adapter
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traverldiary.R
+import java.io.File
 
 class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var mList = listOf<Any>()
@@ -41,7 +44,7 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             Log.v("wq","${mList[position]}")
             holder.textView.text = (mList[position] as String)
         }else if (holder is PhotoHolder){
-            holder.imageView.setImageResource(mList[position] as Int)
+            setImageViewFromFile(holder.imageView,mList[position] as File)
         }
     }
 
@@ -71,5 +74,10 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     }
-
+     private fun setImageViewFromFile(imageView: ImageView, file: File) {
+        if (file.exists()) {
+            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+            imageView.setImageBitmap(bitmap)
+        }
+    }
 }
