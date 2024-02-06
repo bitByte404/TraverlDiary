@@ -60,7 +60,6 @@ class AlbumManager private constructor() {
         }
 
         if (!folder.isDirectory) {
-            Log.v("wq","${folder}")
             throw IllegalArgumentException("Path must be a directory.")
         }
 
@@ -126,5 +125,6 @@ class AlbumManager private constructor() {
             cursor?.close()
         }
     }
+
 
 }
