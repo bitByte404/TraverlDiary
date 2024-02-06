@@ -61,4 +61,8 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(mDynamics[position])
     }
+
+    fun setData(dynamics: List<Dynamic>) {
+        mDynamics = dynamics
+    }
 }
