@@ -1,10 +1,13 @@
 package com.application.traverldiary.adapter
 
 import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.application.traverldiary.application.MyApplication
 import com.application.traverldiary.databinding.LayoutPiictureDynamicBinding
+import com.bumptech.glide.Glide
 
 class DynamicPictureAdapter(private val mDataset: List<Bitmap>) :
     RecyclerView.Adapter<DynamicPictureAdapter.MyViewHolder>() {
@@ -12,7 +15,10 @@ class DynamicPictureAdapter(private val mDataset: List<Bitmap>) :
     class MyViewHolder(val binding: LayoutPiictureDynamicBinding) :
     RecyclerView.ViewHolder(binding.root) {
         fun bind(bitmap: Bitmap) {
-            binding.imageView.setImageBitmap(bitmap)
+            Glide.with(MyApplication.getContext())
+                .load(bitmap)
+                .into(binding.imageView)
+            //binding.imageView.setImageBitmap(bitmap)
         }
     }
 

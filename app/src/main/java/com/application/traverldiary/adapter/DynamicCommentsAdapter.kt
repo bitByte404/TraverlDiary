@@ -37,6 +37,7 @@ class DynamicCommentsAdapter : RecyclerView.Adapter<DynamicCommentsAdapter.MyVie
     //设置数据
     fun setData(comments: List<Comment>) {
         mComments = comments
+        notifyDataSetChanged()
     }
 
 }

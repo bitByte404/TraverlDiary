@@ -46,13 +46,24 @@ class CommunityFragment : Fragment() {
 
     fun initTestData() {
         val testDynamics = arrayListOf<Dynamic>()
-        val bitmap1 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images1)
-        val bitmap2 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images2)
-        val bitmap3 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images3)
-        val bitmap4 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images4)
-        val bitmap5 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images5)
+        val option = BitmapFactory.Options()
+        option.inSampleSize = 4
+        val bitmap1 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images1, option)
+        val bitmap2 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images2, option)
+        val bitmap3 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images3, option)
+        val bitmap4 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images4, option)
+        val bitmap5 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images5, option)
 
-        val avatar = BitmapFactory.decodeResource(requireContext().resources, R.drawable.avater)
+//        val testDynamics = arrayListOf<Dynamic>()
+//        val option = BitmapFactory.Options()
+//        option.inSampleSize = 4
+//        val bitmap1 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images1)
+//        val bitmap2 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images2)
+//        val bitmap3 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images3)
+//        val bitmap4 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images4)
+//        val bitmap5 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_images5)
+
+        val avatar = BitmapFactory.decodeResource(requireContext().resources, R.drawable.avater, option)
         val testData = Date(System.currentTimeMillis())
 
         val picture1 = Picture(bitmap1, testData, "")
@@ -73,7 +84,7 @@ class CommunityFragment : Fragment() {
 
         testDynamics.add(Dynamic(
             "0",
-            "测试1",
+            "这里真的好美啊",
             "这是一个测试",
             pictures,
             50,

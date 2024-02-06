@@ -1,5 +1,6 @@
 package com.application.traverldiary.models
 
+import BitmapUtils
 import android.graphics.Bitmap
 import java.util.Date
 
@@ -23,5 +24,13 @@ class Dynamic(
             bitmaps.add(it.picture)
         }
         return bitmaps
+    }
+
+    fun getThubnails(width: Int = 500, height: Int = 500) : List<Bitmap> {
+        val thubnail = arrayListOf<Bitmap>()
+        pictures.forEach {
+            thubnail.add(BitmapUtils.getThumbnail(it.picture, width, height))
+        }
+        return thubnail
     }
 }
