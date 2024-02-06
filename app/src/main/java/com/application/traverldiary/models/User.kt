@@ -8,7 +8,7 @@ class User(
     var name: String,
     var password: String,
     var phone: String,
-    var sex: IntDef,
+    var sex: Int, //TODO 为了测试进行了修改
     var head: Bitmap,
     var IP: String,
 ) {
