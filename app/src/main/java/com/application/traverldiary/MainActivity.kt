@@ -1,8 +1,13 @@
 package com.application.traverldiary
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -17,42 +22,35 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mPermissionManager = PermissionManager.getInstance()
 
 
         requestReadPermission()
-
     }
 
 
-    fun requestReadPermission() {
-        if (
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Toast.makeText(this, "申请权限", Toast.LENGTH_SHORT).show()
 
-            // 申请 相机 麦克风权限
-            ActivityCompat.requestPermissions(
-                this, arrayOf<String>(
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                ), 100
-            )
-        }
-    }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            mPermissionManager.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE -> {
-                // 如果请求被取消，那么结果数组为空
-                mPermissionManager.READ_EXTERNAL_STORAGE_GET = (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                return
+    fun requestReadPermission(){
+        if (Build.VERSION.SDK_INT in 23..31) {
+            val perms = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            for (p in perms) {
+                val f = ContextCompat.checkSelfPermission(this, p)
+                if (f != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(perms, 0XCF)
+                    break
+                }
             }
         }
+        if (Build.VERSION.SDK_INT >= 32) {
+            if (Environment.isExternalStorageManager()) {
+                // 已经开启权限
+            } else {
+                // 未开启权限,弹窗申请权限
+                val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                startActivity(intent)
+            }
+        }
+
     }
 
 }

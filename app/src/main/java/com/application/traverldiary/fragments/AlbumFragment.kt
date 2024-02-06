@@ -32,13 +32,11 @@ class AlbumFragment : Fragment() {
             val selectedImageUri = result.data?.data
             if (selectedImageUri != null) {
                 val sourceFile = File(mAlbumManager.getRealPathFromURI(requireContext(),selectedImageUri))
-                val destFile = File(requireActivity().filesDir.absoluteFile, mAlbumManager.generateUniqueFileName())
-                mAlbumManager.copyFile(sourceFile, destFile)
+                mAlbumManager.copyFile(sourceFile)
+                Log.v("wq","copy")
             }
         }
     }
-    val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
-    var READ_EXTERNAL_STORAGE_GET = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,11 +49,12 @@ class AlbumFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        //manager
         mAlbumManager = AlbumManager.getInstance(requireContext().filesDir.absolutePath)
         mPermissionManager = PermissionManager.getInstance()
         val albumList = mAlbumManager.loadPictures(requireContext())
 
+        //配置 recyclerview 照片
         val mAdapter = DateAlbumAdapter()
         mAdapter.mList = albumList
         val gridLayoutManager = GridLayoutManager(context,5)
@@ -66,7 +65,7 @@ class AlbumFragment : Fragment() {
         }
 
         binding.addPic.setOnClickListener(View.OnClickListener {
-            if (mPermissionManager.checkAndRequestPermissions(requireActivity())) {
+            if (true) {
                 openImageSelector()
             }else{
                 return@OnClickListener

@@ -19,6 +19,8 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val DATE = 0
     private val PIC = 1
 
+
+    //包含日期和照片 所以分两个Holder
     class DateHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView:TextView = itemView.findViewById(R.id.date) as TextView
 

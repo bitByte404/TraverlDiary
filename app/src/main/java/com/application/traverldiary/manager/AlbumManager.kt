@@ -9,6 +9,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import androidx.core.util.rangeTo
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
@@ -53,23 +54,21 @@ class AlbumManager private constructor() {
     }
 
     fun loadPictures(context: Context): MutableList<Any> {
-        val folderPath = fileDir
-        val folder = File(folderPath)
-        if (!folder.exists()){
-            folder.mkdir()
+        val folder = File(fileDir)
+        if (!folder.exists()) {
+            folder.mkdirs()
         }
-
         if (!folder.isDirectory) {
             throw IllegalArgumentException("Path must be a directory.")
         }
 
-        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-        val strFormat = SimpleDateFormat("yyyy/MM/dd",Locale.getDefault())
+        val fileDateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        val stringDateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
 
         val files = folder.listFiles { file -> file.extension in listOf("jpg", "png", "jpeg") }
-            ?.sortedWith(compareBy {
-                val dateStr = it.nameWithoutExtension
-                dateFormat.parse(dateStr)
+            ?.sortedWith(compareByDescending {
+                val dateStr = it.nameWithoutExtension.substring(0..7)
+                fileDateFormat.parse(dateStr)
             })
             ?: emptyList()
 
@@ -77,27 +76,22 @@ class AlbumManager private constructor() {
         var lastDate: String? = null
 
         for (file in files) {
-            val dateStr = file.nameWithoutExtension.substring(0,8)
+            val dateStr = file.nameWithoutExtension.substring(0..7)
             if (dateStr != lastDate) {
-                val date = dateFormat.parse(dateStr)
-                val strDate = strFormat.format(date!!)
-                resultList.add(strDate)
-                lastDate = strDate
+                val date = fileDateFormat.parse(dateStr)
+                resultList.add(stringDateFormat.format(date))
+                lastDate = dateStr
             }
             resultList.add(file)
         }
+
         return resultList
     }
 
-    fun generateUniqueFileName(): String {
-        val dateFormat = SimpleDateFormat("yyyyMMdd_HH时mm分ss秒_SSS", Locale.getDefault())
-        val dateStr = dateFormat.format(Date())
-        val randomNum = (Math.random() * 1000).toInt()
-        return "${dateStr}_$randomNum.jpg"
-    }
 
-    @Throws(IOException::class)
-    fun copyFile(src: File, dst: File) {
+
+    fun copyFile(src: File) {
+        val dst = File(fileDir, generateUniqueFileName())
         val inStream = FileInputStream(src)
         val outStream = FileOutputStream(dst)
         val bufferedInStream = BufferedInputStream(inStream)
@@ -125,6 +119,10 @@ class AlbumManager private constructor() {
             cursor?.close()
         }
     }
-
-
+    private fun generateUniqueFileName(): String {
+        val dateFormat = SimpleDateFormat("yyyyMMdd_HH时mm分ss秒_SSS", Locale.getDefault())
+        val dateStr = dateFormat.format(Date())
+        val randomNum = (Math.random() * 1000).toInt()
+        return "${dateStr}_$randomNum.jpg"
+    }
 }
