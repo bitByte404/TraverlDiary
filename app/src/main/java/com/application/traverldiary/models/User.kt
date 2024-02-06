@@ -10,6 +10,6 @@ class User(
     var phone: String,
     var sex: IntDef,
     var head: Bitmap,
-    var IP: String
+    var IP: String,
 ) {
 }
