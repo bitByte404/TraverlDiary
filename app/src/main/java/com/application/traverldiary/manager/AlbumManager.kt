@@ -27,4 +27,8 @@ class AlbumManager private constructor() {
 //        Picture(,date,location) TODO()
 
     }
+
+    fun addPictures(list: List<Any>){
+
+    }
 }

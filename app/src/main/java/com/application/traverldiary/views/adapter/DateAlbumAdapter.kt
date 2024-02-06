@@ -1,46 +1,45 @@
-package com.application.traverldiary.views
+package com.application.traverldiary.views.adapter
 
-import android.media.Image
-import android.provider.ContactsContract.Contacts.Photo
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traverldiary.R
-import com.application.traverldiary.models.Picture
-import java.util.Date
-import java.util.Objects
 
 class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val mList = listOf<Any>()
-    val DATE = 0
-    val PIC = 0
+    var mList = listOf<Any>()
+    private val DATE = 0
+    private val PIC = 1
 
     class DateHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView:TextView = itemView as TextView
+        val textView:TextView = itemView.findViewById(R.id.date) as TextView
 
     }
 
     class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView:ImageView = itemView as ImageView
+        val imageView:ImageView = itemView.findViewById(R.id.image) as ImageView
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == DATE){
+        return if (viewType == DATE){
             val view  = LayoutInflater.from(parent.context).inflate(R.layout.layout_date_holder,parent,false);
-            return DateHolder(view)
+            DateHolder(view)
         }else{
             val view  = LayoutInflater.from(parent.context).inflate(R.layout.layout_album_holder,parent,false);
-            return PhotoHolder(view)
+            PhotoHolder(view)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is DateHolder){
-            holder.textView.text = mList[position] as String
+            Log.v("wq","${mList[position]}")
+            holder.textView.text = (mList[position] as String)
         }else if (holder is PhotoHolder){
             holder.imageView.setImageResource(mList[position] as Int)
         }
@@ -58,5 +57,19 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        val manager: RecyclerView.LayoutManager? = recyclerView.layoutManager;
+        Log.v("wq","${manager==null}")
+        if(manager is GridLayoutManager) {
+            Log.v("wq","GridManager")
+           val gridLayoutManager = manager as GridLayoutManager
+            gridLayoutManager.spanSizeLookup = object : SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (getItemViewType(position) == DATE) gridLayoutManager.spanCount else 1
+                }
+            }
+        }
+
+    }
 
 }
