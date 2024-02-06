@@ -42,7 +42,7 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             binding.recyclerviewComments.layoutManager = LinearLayoutManager(
                 MyApplication.getContext())
 
-            //设置评论
+            //设置评论Adapter
             val commentsAdapter = DynamicCommentsAdapter()
             commentsAdapter.setData(dynamic.comments)
             binding.recyclerviewComments.adapter = commentsAdapter
@@ -68,6 +68,7 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
         holder.bind(mDynamics[position])
     }
 
+    //设置动态的数据
     fun setData(dynamics: List<Dynamic>) {
         mDynamics = dynamics
     }

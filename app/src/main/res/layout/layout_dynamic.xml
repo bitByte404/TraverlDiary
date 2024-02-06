@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
+    android:layout_margin="15dp"
     android:layout_width="match_parent">
 
 
@@ -43,33 +44,31 @@
         android:id="@+id/publish_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:text="2023-03-29"
         android:textColor="#c7c7c7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="陕西咸阳渭河生态公园打卡！"
+        android:text="标题！"
         android:textColor="#2f2e2e"
         android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar" />
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
 
     <TextView
         android:id="@+id/phone"
         android:layout_width="60dp"
         android:layout_height="15dp"
         android:text="HUAWEI"
+        android:gravity="right"
         android:textColor="#c7c7c7"
-        app:layout_constraintBottom_toBottomOf="@+id/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title" />
+        app:layout_constraintEnd_toEndOf="@+id/publish_time"
+        app:layout_constraintTop_toBottomOf="@+id/publish_time" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_pictures"
@@ -136,7 +135,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/love_count" />
+        app:layout_constraintTop_toBottomOf="@+id/love_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
