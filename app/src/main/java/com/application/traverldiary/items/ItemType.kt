@@ -1,7 +1,6 @@
-package com.application.traverldiary
+package com.application.traverldiary.items
 
 enum class ItemType(val value: Int) {
-    TIME(0),
     TASK(1),
     TICKET(2)
 }

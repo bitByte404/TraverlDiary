@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.application.traverldiary.TimelineAdapter
+import com.application.traverldiary.JourneyLayoutManager
+import com.application.traverldiary.adapters.JourneyAdapter
+import com.application.traverldiary.adapters.TimelineAdapter
 import com.application.traverldiary.databinding.FragmentJourneyBinding
-import com.application.traverldiary.tools.Tools
+import com.application.traverldiary.journeyCreator
+import com.application.traverldiary.timeCreator
 
 
 class JourneyFragment : Fragment() {
@@ -27,18 +30,17 @@ class JourneyFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val jLayoutManger = LinearLayoutManager(requireContext())
+        val tLayoutManger = LinearLayoutManager(requireContext())
 
         binding.timeAxisRecyclerView.apply {
-            layoutManager = jLayoutManger
-            adapter = TimelineAdapter(Tools.timeCreator())
+            layoutManager = tLayoutManger
+            adapter = TimelineAdapter(timeCreator())
         }
-        val jLayoutManger0 = LinearLayoutManager(requireContext())
+
+        val jLayoutManger = JourneyLayoutManager(journeyCreator())
         binding.tasksRecyclerView.apply {
-            layoutManager = jLayoutManger0
-            adapter = TimelineAdapter(Tools.timeCreator())
+            layoutManager = jLayoutManger
+            adapter = JourneyAdapter(journeyCreator())
         }
-
-
     }
 }
