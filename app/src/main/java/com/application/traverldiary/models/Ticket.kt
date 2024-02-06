@@ -1,15 +1,11 @@
 package com.application.traverldiary.models
 
-import java.util.Date
-
 class Ticket(
-    val ticketId:String,
-    val date:Date,
-    val fromTime:String,
-    val toTime:String,
-    val fromLocation:String,
-    val toLocation:String,
-    val seat:String,
-    var isHappened:Boolean = false
-) {
-}
+    private val ticketId: String,
+    val fromLocation: String,
+    val toLocation: String,
+    val seat: String,
+    fromTime: Int,
+    toTime: Int,
+    isHappened: Boolean
+) : Journey(nameOrId = ticketId, fromTime, toTime, isHappened)
