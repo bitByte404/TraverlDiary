@@ -2,13 +2,19 @@ package com.application.traverldiary.manager
 
 import android.content.ContentUris
 import android.content.Context
+import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -84,15 +90,41 @@ class AlbumManager private constructor() {
         return resultList
     }
 
-
-    fun isSameDay(date1: Date, date2: Date): Boolean {
-        val cal1 = Calendar.getInstance()
-        val cal2 = Calendar.getInstance()
-        cal1.time = date1
-        cal2.time = date2
-        return cal1[Calendar.YEAR] == cal2[Calendar.YEAR] &&
-                cal1[Calendar.DAY_OF_YEAR] == cal2[Calendar.DAY_OF_YEAR]
+    fun generateUniqueFileName(): String {
+        val dateFormat = SimpleDateFormat("yyyyMMdd_HH时mm分ss秒_SSS", Locale.getDefault())
+        val dateStr = dateFormat.format(Date())
+        val randomNum = (Math.random() * 1000).toInt()
+        return "${dateStr}_$randomNum.jpg"
     }
 
+    @Throws(IOException::class)
+    fun copyFile(src: File, dst: File) {
+        val inStream = FileInputStream(src)
+        val outStream = FileOutputStream(dst)
+        val bufferedInStream = BufferedInputStream(inStream)
+        val bufferedOutStream = BufferedOutputStream(outStream)
+        val buf = ByteArray(1024)
+        var len: Int
+        while (bufferedInStream.read(buf).also { len = it } > 0) {
+            bufferedOutStream.write(buf, 0, len)
+        }
+        bufferedInStream.close()
+        bufferedOutStream.close()
+        inStream.close()
+        outStream.close()
+    }
+
+    fun getRealPathFromURI(context: Context, contentUri: Uri): String {
+        var cursor: Cursor? = null
+        try {
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
+            val column_index = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor?.moveToFirst()
+            return cursor?.getString(column_index ?: 0) ?: ""
+        } finally {
+            cursor?.close()
+        }
+    }
 
 }
