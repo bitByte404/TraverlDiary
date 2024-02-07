@@ -24,13 +24,21 @@ class CommunityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentCommunityBinding.inflate(inflater)
         initTestData() //TODO 测试数据，后面需要关闭
         initData()
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //配置热门分类是默认分类
+        binding.hotBar.setDefaultSort()
+    }
+
+
+
+    //初始话数据
     fun initData() {
         val adapter = DynamicAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(
@@ -102,7 +110,7 @@ class CommunityFragment : Fragment() {
             50,
             user,
             testData,
-            "Huawei",
+            "Huawei P60 Pro",
             comments
         ))
 
@@ -114,7 +122,7 @@ class CommunityFragment : Fragment() {
             34,
             user2,
             testData,
-            "Apple",
+            "iPhone15 Pro Max",
             comments
         ))
 

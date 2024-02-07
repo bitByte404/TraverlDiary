@@ -15,6 +15,7 @@ class PaginationView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
     private var defaultHeightColor = ContextCompat.getColor(context, R.color.height_blue)
     private var heightColor: Int
     private var unslectedColor: Int = ContextCompat.getColor(context, R.color.unselected_color)
+    private var isDefaultSort = false
 
     init {
         binding = LayoutPaginationViewBinding.inflate(LayoutInflater.from(context))
@@ -30,8 +31,7 @@ class PaginationView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
 //        binding.sortName.setTextColor(heightColor)
         //设置分类名称
         binding.sortName.text = sortName
-
-        changeState(sortName == "热门") //TODO 只是为了测试效果，后面需要修改
+        changeState(false)
     }
 
     //根据是否选中，修改
@@ -43,5 +43,10 @@ class PaginationView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
             binding.underline.visibility = View.INVISIBLE
             binding.sortName.setTextColor(unslectedColor)
         }
+    }
+
+    //设置是否是默认分类
+    fun setDefaultSort() {
+        changeState(true)
     }
 }
