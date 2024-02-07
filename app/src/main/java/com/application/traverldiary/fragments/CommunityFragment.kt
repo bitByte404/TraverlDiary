@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traverldiary.R
 import com.application.traverldiary.adapter.DynamicAdapter
+import com.application.traverldiary.customView.PaginationView
 import com.application.traverldiary.databinding.FragmentCommunityBinding
 import com.application.traverldiary.models.Comment
 import com.application.traverldiary.models.Dynamic
@@ -20,6 +21,7 @@ import java.util.Date
 class CommunityFragment : Fragment() {
     private lateinit var binding: FragmentCommunityBinding
     private lateinit var dynamics: ArrayList<Dynamic>
+    private lateinit var lastSelectedBar: PaginationView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +29,7 @@ class CommunityFragment : Fragment() {
         binding = FragmentCommunityBinding.inflate(inflater)
         initTestData() //TODO 测试数据，后面需要关闭
         initData()
+        addTouchEvent()
         return binding.root
     }
 
@@ -34,12 +37,33 @@ class CommunityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //配置热门分类是默认分类
         binding.hotBar.setDefaultSort()
+        lastSelectedBar = binding.hotBar
+    }
+
+    //添加点击事件
+    private fun addTouchEvent() {
+        addPaginationViewTouchEvent()
+    }
+
+    private fun addPaginationViewTouchEvent() {
+        val barList = arrayListOf(binding.hotBar, binding.primeBar, binding.latestBar)
+        barList.forEach { bar ->
+            bar.setOnClickListener {
+                val selected = it as PaginationView
+                if (selected == lastSelectedBar) {
+                    return@setOnClickListener
+                }
+                selected.changeState(true)
+                lastSelectedBar.changeState(false)
+                lastSelectedBar = selected
+            }
+        }
     }
 
 
 
     //初始话数据
-    fun initData() {
+   private fun initData() {
         val adapter = DynamicAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -52,7 +76,7 @@ class CommunityFragment : Fragment() {
 
 
     //TODO 供测试使用
-    fun initTestData() {
+    private fun initTestData() {
         val testDynamics = arrayListOf<Dynamic>()
         val bitmap1 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic1)
         val bitmap2 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic2)
@@ -66,7 +90,7 @@ class CommunityFragment : Fragment() {
         val bitmap10 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic10)
 
 
-        val avatar = BitmapFactory.decodeResource(requireContext().resources, R.drawable.avater)
+        val avatar = BitmapFactory.decodeResource(requireContext().resources, R.drawable.avatar1)
         val avatar2 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.avatar2)
 
         val testData = Date(System.currentTimeMillis())
@@ -85,21 +109,32 @@ class CommunityFragment : Fragment() {
         val pictures = arrayListOf(picture1, picture2, picture3, picture4, picture5)
         val pictures2 = arrayListOf(picture6, picture7, picture8, picture9, picture10)
 
-        val user = User(0, "阿伟", "123", "110", 0, avatar, "")
-        val user1 = User(0, "大橘子", "123", "110", 0, avatar2, "")
-        val user2 = User(0, "小橙子", "123", "110", 0, avatar2, "")
-        val user3 = User(0, "wuliner", "123", "110", 0, avatar, "")
-        val user4 = User(0, "大孙", "123", "110", 0, avatar, "")
-        val user5 = User(0, "阿成", "123", "110", 0, avatar, "")
+        val users = listOf("阿伟", "小橙子", "大橘子", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺").mapIndexed { index, name ->
+            User(index, name, "123", "110", 0, if (index % 2 == 0) avatar else avatar2, "")
+        }
 
+        val commentsContent = listOf("我简直无法用语言来形容。",
+            "我真的感到非常的幸福和满足。",
+            "这张图片让我想起了我曾经去过的一个地方",
+            "它让我感到非常的平静和放松。",
+            "这张图片真的很有艺术感",
+            "这张图片让我想起了一首诗",
+            "我真的很羡慕摄影师",
+            "这张图片让我想起了我的家乡",
+            "它让我感到非常的舒适和愉快。",
+            "我可以感受到对于美景的热爱和敬仰。")
 
-        val comment1 = Comment("1", "1", user1, "今天真的太开心了哈哈哈哈哈哈", 10, testData, "")
-        val comment2 = Comment("2", "2", user2, "666", 10, testData, "")
-        val comment3 = Comment("3", "3", user3, "好美啊", 10, testData, "")
-        val comment4 = Comment("4", "4", user4, "我也想去看看", 10, testData, "")
-        val comment5 = Comment("5", "5", user5, "太棒了", 10, testData, "")
+        val comments1 = arrayListOf<Comment>()
+        val comments2 = arrayListOf<Comment>()
+        commentsContent.mapIndexed { index, content ->
+            val comment = Comment((index + 1).toString(), (index + 1).toString(), users[index], content, 10, testData, "")
+            if (index < commentsContent.size / 2) {
+                comments1.add(comment)
+            } else {
+                comments2.add(comment)
+            }
+        }
 
-        val comments = arrayListOf(comment1, comment2, comment3, comment3, comment4, comment5)
 
 
         testDynamics.add(Dynamic(
@@ -108,10 +143,10 @@ class CommunityFragment : Fragment() {
             "这是一个测试",
             pictures,
             50,
-            user,
+            users[0],
             testData,
             "Huawei P60 Pro",
-            comments
+            comments1
         ))
 
         testDynamics.add(Dynamic(
@@ -120,13 +155,15 @@ class CommunityFragment : Fragment() {
             "这个一个测试",
             pictures2,
             34,
-            user2,
+            users[1],
             testData,
             "iPhone15 Pro Max",
-            comments
+            comments2
         ))
 
         dynamics = testDynamics
     }
+
+
 
 }
