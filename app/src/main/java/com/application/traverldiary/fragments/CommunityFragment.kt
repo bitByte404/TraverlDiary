@@ -1,6 +1,5 @@
 package com.application.traverldiary.fragments
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.application.traverldiary.R
 import com.application.traverldiary.adapter.DynamicAdapter
 import com.application.traverldiary.customView.PaginationView
 import com.application.traverldiary.databinding.FragmentCommunityBinding
@@ -84,16 +82,16 @@ class CommunityFragment : Fragment() {
             "https://imgs.wuliner.cn/imgs/demo_pic2.jpg",
             "https://imgs.wuliner.cn/imgs/demo_pic3.jpg",
             "https://imgs.wuliner.cn/imgs/demo_pic4.jpg",
-            "https://blog-img-bitebyte.oss-cn-chengdu.aliyuncs.com/img/demo_pic5.png",
+            "https://imgs.wuliner.cn/imgs/demo_pic5.png",
             "https://imgs.wuliner.cn/imgs/demo_pic6.jpg",
             "https://imgs.wuliner.cn/imgs/demo_pic7.jpg",
             "https://imgs.wuliner.cn/imgs/demo_pic8.jpg",
-            "https://blog-img-bitebyte.oss-cn-chengdu.aliyuncs.com/img/demo_pic9.png",
+            "https://imgs.wuliner.cn/imgs/demo_pic9.png",
             "https://imgs.wuliner.cn/imgs/demo_pic10.jpg"
         )
 
 
-        val avatar = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
+        val avatar1 = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
         val avatar2 = "https://imgs.wuliner.cn/imgs/avatar2.jpg"
 
         val testData = Date(System.currentTimeMillis())
@@ -114,7 +112,7 @@ class CommunityFragment : Fragment() {
         val pictures2 = arrayListOf(picture6, picture7, picture8, picture9, picture10)
 
         val users = listOf("阿伟", "小橙子", "大橘子", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺").mapIndexed { index, name ->
-            User(index, name, "123", "110", 0, if (index % 2 == 0) avatar else avatar2, "")
+            User(index, name, "123", "110", 0, if (index % 2 == 0) avatar1 else avatar2, "")
         }
 
         val commentsContent = listOf("我简直无法用语言来形容。",
@@ -143,8 +141,8 @@ class CommunityFragment : Fragment() {
 
         testDynamics.add(Dynamic(
             "0",
-            "落日沉溺于橘色的海，晚风沦陷于赤诚的爱",
-            "这是一个测试",
+            "落日沉溺于橘色的海，\n晚风沦陷于赤诚的爱。",
+            "\t我在黄昏写上一封书信，载着落日的余晖和银河的浪漫。 寄给你，寄给温柔本身。",
             pictures,
             50,
             users[0],
@@ -156,7 +154,7 @@ class CommunityFragment : Fragment() {
         testDynamics.add(Dynamic(
             "1",
             "与其幻想，不如追寻",
-            "这个一个测试",
+            "\t白云恋我一往情深，蓝天赐我无限盼望，选我所爱，爱我所选。",
             pictures2,
             34,
             users[1],

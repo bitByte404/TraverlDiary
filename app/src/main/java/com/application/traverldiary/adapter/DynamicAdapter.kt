@@ -40,6 +40,8 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             binding.phone.text = dynamic.phone
             //设置日期
             binding.publishTime.text = DateUtils.getStringFromDate(dynamic.postTime)
+            //设置内容
+            binding.contextText.text = dynamic.content
             //设置评论
             //设置评论为垂直
             binding.recyclerviewComments.layoutManager = LinearLayoutManager(
