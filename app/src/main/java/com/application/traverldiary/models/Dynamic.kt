@@ -1,7 +1,5 @@
 package com.application.traverldiary.models
 
-import BitmapUtils
-import android.graphics.Bitmap
 import java.util.Date
 
 class Dynamic(
