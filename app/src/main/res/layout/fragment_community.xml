@@ -19,21 +19,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <com.application.traverldiary.customView.PaginationView
+        android:id="@+id/hot_bar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        app:sort_name="热门"
+        app:layout_constraintEnd_toStartOf="@+id/latest_bar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+
+    <com.application.traverldiary.customView.PaginationView
+        android:id="@+id/latest_bar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:sort_name="最新"
+        app:layout_constraintEnd_toStartOf="@+id/prime_bar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/hot_bar"
+        app:layout_constraintTop_toTopOf="@+id/hot_bar" />
+
+    <com.application.traverldiary.customView.PaginationView
+        android:id="@+id/prime_bar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:sort_name="精华"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/latest_bar"
+        app:layout_constraintTop_toTopOf="@+id/latest_bar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/hot_bar" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/icon_group"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="@+id/search_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/search_view"

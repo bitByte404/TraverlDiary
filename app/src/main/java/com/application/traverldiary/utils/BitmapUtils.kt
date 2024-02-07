@@ -9,22 +9,7 @@ import java.io.ByteArrayOutputStream
 
 object BitmapUtils {
 
-    //将bitmap设置给ImageView
-//    fun setBitmapToImageView(imageView: ImageView, bitmap: Bitmap) {
-//        val context = MyApplication.getContext()
-//        // 将Bitmap转为Url
-//        val bytes = ByteArrayOutputStream()
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
-//        val imageUri = Uri.parse(path)
-//
-//        // 通过Glide将Bitmap设置给imageView
-//        Glide.with(context)
-//            .load(imageUri)
-//            .into(imageView)
-//    }
-
-
+    //获取Bitmap的缩略图
     fun getThumbnail(bitmap: Bitmap, width: Int, height: Int): Bitmap {
         return Bitmap.createScaledBitmap(bitmap, width, height, true)
     }

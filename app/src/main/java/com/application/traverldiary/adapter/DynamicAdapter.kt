@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.application.traverldiary.application.MyApplication
 import com.application.traverldiary.databinding.LayoutDynamicBinding
 import com.application.traverldiary.models.Dynamic
+import com.application.traverldiary.utils.DateUtils
 import com.bumptech.glide.Glide
 
 class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
@@ -37,6 +38,8 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             binding.allComment.text = "查看全部${dynamic.comments.size}条评论"
             //设置手机型号
             binding.phone.text = dynamic.phone
+            //设置日期
+            binding.publishTime.text = DateUtils.getStringFromDate(dynamic.postTime)
             //设置评论
             //设置评论为垂直
             binding.recyclerviewComments.layoutManager = LinearLayoutManager(
