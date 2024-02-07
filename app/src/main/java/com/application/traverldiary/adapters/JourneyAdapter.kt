@@ -4,13 +4,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traverldiary.R
 import com.application.traverldiary.items.JourneyItem
 
 class JourneyAdapter(private val items: List<JourneyItem>) :
     RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>() {
+
 
     inner class JourneyViewHolder(journeyView: View) : RecyclerView.ViewHolder(journeyView) {
         val journeyTextView: TextView = journeyView.findViewById(R.id.journeyTextView)
@@ -27,6 +30,7 @@ class JourneyAdapter(private val items: List<JourneyItem>) :
     }
 
     override fun onBindViewHolder(holder: JourneyViewHolder, position: Int) {
-        holder.journeyTextView.text = items[position].journey.nameOrId
+        holder.journeyTextView.setText(items[position].journey.nameOrId)
     }
+
 }

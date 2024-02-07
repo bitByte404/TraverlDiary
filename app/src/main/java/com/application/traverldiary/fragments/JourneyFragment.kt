@@ -37,7 +37,7 @@ class JourneyFragment : Fragment() {
             adapter = TimelineAdapter(timeCreator())
         }
 
-        val jLayoutManger = JourneyLayoutManager(journeyCreator())
+        val jLayoutManger = JourneyLayoutManager(requireContext(), journeyCreator())
         binding.tasksRecyclerView.apply {
             layoutManager = jLayoutManger
             adapter = JourneyAdapter(journeyCreator())
