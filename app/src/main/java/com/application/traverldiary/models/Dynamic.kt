@@ -17,20 +17,20 @@ class Dynamic(
     //添加评论
     var comments : ArrayList<Comment>
 ) {
-    //将动态的bitmap全部取出
-    fun getPictureBitmaps() : List<Bitmap> {
-        val bitmaps = arrayListOf<Bitmap>()
+    //将动态的图片Url全部取出
+    fun getPictureUrls() : List<String> {
+        val urls = arrayListOf<String>()
         pictures.forEach {
-            bitmaps.add(it.picture)
+            urls.add(it.picture)
         }
-        return bitmaps
+        return urls
     }
 
-    fun getThubnails(width: Int = 500, height: Int = 500) : List<Bitmap> {
-        val thubnail = arrayListOf<Bitmap>()
-        pictures.forEach {
-            thubnail.add(BitmapUtils.getThumbnail(it.picture, width, height))
-        }
-        return thubnail
-    }
+//    fun getThubnails(width: Int = 500, height: Int = 500) : List<Bitmap> {
+//        val thubnail = arrayListOf<Bitmap>()
+//        pictures.forEach {
+//            thubnail.add(BitmapUtils.getThumbnail(it.picture, width, height))
+//        }
+//        return thubnail
+//    }
 }

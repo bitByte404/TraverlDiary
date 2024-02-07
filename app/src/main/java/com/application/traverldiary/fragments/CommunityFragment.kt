@@ -78,33 +78,37 @@ class CommunityFragment : Fragment() {
     //TODO 供测试使用
     private fun initTestData() {
         val testDynamics = arrayListOf<Dynamic>()
-        val bitmap1 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic1)
-        val bitmap2 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic2)
-        val bitmap3 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic3)
-        val bitmap4 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic4)
-        val bitmap5 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic5)
-        val bitmap6 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic6)
-        val bitmap7 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic7)
-        val bitmap8 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic8)
-        val bitmap9 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic9)
-        val bitmap10 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.demo_pic10)
+
+        val pictureList = listOf(
+            "https://imgs.wuliner.cn/imgs/demo_pic1.jpg",
+            "https://imgs.wuliner.cn/imgs/demo_pic2.jpg",
+            "https://imgs.wuliner.cn/imgs/demo_pic3.jpg",
+            "https://imgs.wuliner.cn/imgs/demo_pic4.jpg",
+            "https://blog-img-bitebyte.oss-cn-chengdu.aliyuncs.com/img/demo_pic5.png",
+            "https://imgs.wuliner.cn/imgs/demo_pic6.jpg",
+            "https://imgs.wuliner.cn/imgs/demo_pic7.jpg",
+            "https://imgs.wuliner.cn/imgs/demo_pic8.jpg",
+            "https://blog-img-bitebyte.oss-cn-chengdu.aliyuncs.com/img/demo_pic9.png",
+            "https://imgs.wuliner.cn/imgs/demo_pic10.jpg"
+        )
 
 
-        val avatar = BitmapFactory.decodeResource(requireContext().resources, R.drawable.avatar1)
-        val avatar2 = BitmapFactory.decodeResource(requireContext().resources, R.drawable.avatar2)
+        val avatar = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
+        val avatar2 = "https://imgs.wuliner.cn/imgs/avatar2.jpg"
 
         val testData = Date(System.currentTimeMillis())
 
-        val picture1 = Picture(bitmap1, testData, "")
-        val picture2 = Picture(bitmap2, testData, "")
-        val picture3 = Picture(bitmap3, testData, "")
-        val picture4 = Picture(bitmap4, testData, "")
-        val picture5 = Picture(bitmap5, testData, "")
-        val picture6 = Picture(bitmap6, testData, "")
-        val picture7 = Picture(bitmap7, testData, "")
-        val picture8 = Picture(bitmap8, testData, "")
-        val picture9 = Picture(bitmap9, testData, "")
-        val picture10 = Picture(bitmap10, testData, "")
+        val picture1 = Picture(pictureList[0], testData, "")
+        val picture2 = Picture(pictureList[1], testData, "")
+        val picture3 = Picture(pictureList[2], testData, "")
+        val picture4 = Picture(pictureList[3], testData, "")
+        val picture5 = Picture(pictureList[4], testData, "")
+        val picture6 = Picture(pictureList[5], testData, "")
+        val picture7 = Picture(pictureList[6], testData, "")
+        val picture8 = Picture(pictureList[7], testData, "")
+        val picture9 = Picture(pictureList[8], testData, "")
+        val picture10 = Picture(pictureList[9], testData, "")
+
 
         val pictures = arrayListOf(picture1, picture2, picture3, picture4, picture5)
         val pictures2 = arrayListOf(picture6, picture7, picture8, picture9, picture10)

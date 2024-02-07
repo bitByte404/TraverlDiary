@@ -9,7 +9,7 @@ class User(
     var password: String,
     var phone: String,
     var sex: Int, //TODO 为了测试进行了修改
-    var head: Bitmap,
+    var head: String, //TODO 修改头像为链接地址
     var IP: String,
 ) {
 }

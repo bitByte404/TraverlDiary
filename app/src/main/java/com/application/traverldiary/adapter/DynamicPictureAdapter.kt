@@ -9,16 +9,17 @@ import com.application.traverldiary.application.MyApplication
 import com.application.traverldiary.databinding.LayoutPiictureDynamicBinding
 import com.bumptech.glide.Glide
 
-class DynamicPictureAdapter(private val mDataset: List<Bitmap>) :
+class DynamicPictureAdapter(private val mDataset: List<String>) :
     RecyclerView.Adapter<DynamicPictureAdapter.MyViewHolder>() {
 
     class MyViewHolder(val binding: LayoutPiictureDynamicBinding) :
     RecyclerView.ViewHolder(binding.root) {
-        fun bind(bitmap: Bitmap) {
+        fun bind(pictureUrl: String) {
             Glide.with(MyApplication.getContext())
-                .load(bitmap)
+                .load(pictureUrl)
+                .override(500, 500)
+                .centerCrop()
                 .into(binding.imageView)
-            //binding.imageView.setImageBitmap(bitmap)
         }
     }
 
