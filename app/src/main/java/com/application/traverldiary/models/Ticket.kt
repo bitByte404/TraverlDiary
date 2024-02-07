@@ -5,7 +5,7 @@ class Ticket(
     val fromLocation: String,
     val toLocation: String,
     val seat: String,
-    fromTime: Int,
-    toTime: Int,
+    fromTime: Float,
+    toTime: Float,
     isHappened: Boolean
 ) : Journey(nameOrId = ticketId, fromTime, toTime, isHappened)
