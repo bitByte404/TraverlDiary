@@ -1,5 +1,6 @@
 package com.application.traverldiary.models
 
+import cn.bmob.v3.BmobObject
 import java.util.Date
 
 class Dynamic(
@@ -14,7 +15,7 @@ class Dynamic(
     val phone: String = "Huawei P60",
     //添加评论
     var comments : ArrayList<Comment>
-) {
+) : BmobObject() {
     //将动态的图片Url全部取出
     fun getPictureUrls() : List<String> {
         val urls = arrayListOf<String>()

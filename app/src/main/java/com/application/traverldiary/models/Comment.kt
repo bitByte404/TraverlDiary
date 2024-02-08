@@ -1,5 +1,6 @@
 package com.application.traverldiary.models
 
+import cn.bmob.v3.BmobObject
 import java.util.Date
 
 class Comment(
@@ -10,5 +11,5 @@ class Comment(
     var likes: Int,
     var postTime: Date,
     val IP: String
-) {
+) : BmobObject() {
 }

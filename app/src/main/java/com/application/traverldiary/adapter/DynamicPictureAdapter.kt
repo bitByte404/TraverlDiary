@@ -1,11 +1,9 @@
 package com.application.traverldiary.adapter
 
-import android.graphics.Bitmap
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.application.traverldiary.application.MyApplication
+import com.application.traverldiary.application.BmobApp
 import com.application.traverldiary.databinding.LayoutPiictureDynamicBinding
 import com.bumptech.glide.Glide
 
@@ -15,7 +13,7 @@ class DynamicPictureAdapter(private val mDataset: List<String>) :
     class MyViewHolder(val binding: LayoutPiictureDynamicBinding) :
     RecyclerView.ViewHolder(binding.root) {
         fun bind(pictureUrl: String) {
-            Glide.with(MyApplication.getContext())
+            Glide.with(BmobApp.getContext())
                 .load(pictureUrl)
                 .override(500, 500)
                 .centerCrop()

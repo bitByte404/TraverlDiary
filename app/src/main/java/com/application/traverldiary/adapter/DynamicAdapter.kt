@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.application.traverldiary.application.MyApplication
+import com.application.traverldiary.application.BmobApp
 import com.application.traverldiary.databinding.LayoutDynamicBinding
 import com.application.traverldiary.models.Dynamic
 import com.application.traverldiary.utils.DateUtils
@@ -18,7 +17,7 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
     private var mDynamics = emptyList<Dynamic>()
 
     class MyViewHolder(val binding: LayoutDynamicBinding) : RecyclerView.ViewHolder(binding.root) {
-        val context = MyApplication.getContext()
+        val context = BmobApp.getContext()
         fun bind(dynamic: Dynamic) {
 
             //设置头像
@@ -45,7 +44,7 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             //设置评论
             //设置评论为垂直
             binding.recyclerviewComments.layoutManager = LinearLayoutManager(
-                MyApplication.getContext())
+                BmobApp.getContext())
 
             //设置评论Adapter
             val commentsAdapter = DynamicCommentsAdapter()
