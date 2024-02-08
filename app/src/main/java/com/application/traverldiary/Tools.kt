@@ -49,6 +49,25 @@ fun journeyCreator(): List<JourneyItem> {
     return destinationList
 }
 
+/**
+ * 将Float类型的时间格式化为00:00
+ */
+fun formatTime(time: Float): String {
+    val hour = time.toInt()
+    val minute = (60 * (time - time.toInt())).toInt()
+    val hourCondition: Boolean = hour < 10
+    val minuteCondition: Boolean = minute < 10
+    val hourString = when (hourCondition) {
+        true -> "0${hour}"
+        false -> "$hour"
+    }
+    val minuteString = when (minuteCondition) {
+        true -> "0${minute}"
+        false -> "$minute"
+    }
+    return "${hourString}:${minuteString}"
+}
+
 fun View.dp2px(dp: Int): Int {
     return (context.resources.displayMetrics.density * dp).toInt()
 }

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traverldiary.R
+import com.application.traverldiary.formatTime
 import com.application.traverldiary.items.JourneyItem
 
 class JourneyAdapter(private val items: List<JourneyItem>) :
@@ -16,6 +17,8 @@ class JourneyAdapter(private val items: List<JourneyItem>) :
 
 
     inner class JourneyViewHolder(journeyView: View) : RecyclerView.ViewHolder(journeyView) {
+        val fromTextView: TextView = journeyView.findViewById(R.id.fromTextView)
+        val toTextView: TextView = journeyView.findViewById(R.id.toTextView)
         val journeyTextView: TextView = journeyView.findViewById(R.id.journeyTextView)
     }
 
@@ -30,7 +33,9 @@ class JourneyAdapter(private val items: List<JourneyItem>) :
     }
 
     override fun onBindViewHolder(holder: JourneyViewHolder, position: Int) {
-        holder.journeyTextView.setText(items[position].journey.nameOrId)
+        holder.journeyTextView.text = items[position].journey.nameOrId
+        holder.fromTextView.text = formatTime(items[position].journey.fromTime)
+        holder.toTextView.text = formatTime(items[position].journey.toTime)
     }
 
 }
