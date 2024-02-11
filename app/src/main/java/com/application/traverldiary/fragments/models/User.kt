@@ -1,4 +1,4 @@
-package com.application.traverldiary.models
+package com.application.traverldiary.fragments.models
 
 import android.graphics.Bitmap
 import androidx.annotation.IntDef
