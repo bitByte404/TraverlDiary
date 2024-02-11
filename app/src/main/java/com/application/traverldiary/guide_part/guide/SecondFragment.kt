@@ -10,6 +10,7 @@ import com.application.traverldiary.R
 import com.application.traverldiary.databinding.FragmentSecondBinding
 import com.example.booting.ui.tool.AnimationTools
 import com.example.booting.ui.tool.SPTools
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding
@@ -23,7 +24,9 @@ class SecondFragment : Fragment() {
             SPTools.defaultTools(requireContext()).isFirst = false
             //切换到主页
             findNavController().navigate(R.id.action_guideFragment_to_navigation_journey)
+            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility = View.VISIBLE
         }
+
         return binding.root
     }
 

@@ -16,6 +16,7 @@ import com.application.traverldiary.R
 import com.application.traverldiary.manager.PermissionManager
 
 import android.view.View
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var mPermissionManager: PermissionManager
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         requestReadPermission()
     }
