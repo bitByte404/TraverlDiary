@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.application.traverldiary.R
 import com.application.traverldiary.manager.PermissionManager
 
+import android.view.View
 
 class MainActivity : AppCompatActivity() {
     lateinit var mPermissionManager: PermissionManager

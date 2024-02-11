@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PaginationView">
+        <!--突出的颜色-->
+        <attr name="highlight_color" format="string|color"/>
+        <!--分类名称-->
+        <attr name="sort_name" format="string|reference"/>
+        <!--设置未选中颜色-->
+        <attr name="unselected_color" format="color|reference"/>
+    </declare-styleable>
+</resources>

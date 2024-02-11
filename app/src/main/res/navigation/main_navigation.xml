@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/albumFragment">
-    <!--    TODO() Album调试-->
+    app:startDestination="@id/communityFragment">
 
     <fragment
         android:id="@+id/journeyFragment"
