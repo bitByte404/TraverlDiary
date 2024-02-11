@@ -8,4 +8,16 @@
 
     <color name="height_blue">#2265d5</color>
     <color name="unselected_color">#9d9ea0</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#009688</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorMain">#d43433</color>
+    <color name="colorA">#35D3AE</color>
+    <color name="colorB">#877A7A</color>
 </resources>

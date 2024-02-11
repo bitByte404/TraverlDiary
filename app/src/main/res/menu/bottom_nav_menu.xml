@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_journey"
+        android:icon="@drawable/ic_journey"
+        android:title="Journey" />
+
+    <item
+        android:id="@+id/navigation_album"
+        android:icon="@drawable/ic_album"
+        android:title="Album" />
+
+    <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/ic_community"
+        android:title="Commmunity" />
+
+    <item
+        android:id="@+id/navigation_person"
+        android:icon="@drawable/ic_person"
+        android:title="Person" />
+</menu>

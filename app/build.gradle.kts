@@ -66,4 +66,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.8.1")
     implementation("com.squareup.okio:okio:2.2.2")
     implementation("com.google.code.gson:gson:2.8.5")
+
+    //lottie
+    implementation("com.airbnb.android:lottie:6.1.0")
 }
