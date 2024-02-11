@@ -11,6 +11,7 @@ import com.application.traverldiary.R
 import com.application.traverldiary.databinding.FragmentWelcomeBinding
 import com.example.booting.ui.tool.AnimationTools
 import com.example.booting.ui.tool.SPTools
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class WelcomeFragment : Fragment() {
@@ -44,6 +45,9 @@ class WelcomeFragment : Fragment() {
         }else{
             findNavController().
             navigate(R.id.action_welcomeFragment_to_navigation_journey)
+            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
+                    View.VISIBLE
+
         }
     }
 }
