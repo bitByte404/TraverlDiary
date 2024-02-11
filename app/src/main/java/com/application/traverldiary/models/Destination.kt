@@ -1,4 +1,4 @@
-package com.application.traverldiary.fragments.models
+package com.application.traverldiary.models
 
 class Destination(
     var name: String,
