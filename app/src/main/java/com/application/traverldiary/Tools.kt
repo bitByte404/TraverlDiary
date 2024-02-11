@@ -22,25 +22,25 @@ fun timeCreator(): List<TimeItem> {
 fun journeyCreator(): List<JourneyItem> {
     // 生成五个以上的 Destination 对象
     val destinationList = mutableListOf<JourneyItem>()
-    for (i in 0..3) {
+    for (i in 1..3) {
         val destination = Destination(
             name = "Destination $i",
-            fromTime = 5.2f * i,
-            toTime = 2 + 5.3f * i,
+            fromTime = 6.2f * i,
+            toTime = 1.5f + 6.3f * i,
             isHappened = true
         )
         destinationList.add(JourneyItem(destination))
     }
 
     // 生成五个以上的 Ticket 对象
-    for (i in 1..5) {
+    for (i in 0..3) {
         val ticket = Ticket(
             ticketId = "Ticket $i",
             fromLocation = "Location $i",
             toLocation = "Location ${i + 1}",
             seat = "Seat $i",
-            fromTime = 5 + 3f * i,
-            toTime = 6 + 3f * i,
+            fromTime = 4 + 6.01f * i,
+            toTime = 5 + 6.11f * i,
             isHappened = true
         )
         destinationList.add(JourneyItem(ticket))
