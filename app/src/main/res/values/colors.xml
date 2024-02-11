@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="journey_fragment_background">#e5e5e5</color>
+    <color name="time_axis_background">#c4cdd4</color>
+
 </resources>
