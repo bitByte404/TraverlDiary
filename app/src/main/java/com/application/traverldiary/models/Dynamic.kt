@@ -25,11 +25,4 @@ class Dynamic(
         return urls
     }
 
-//    fun getThubnails(width: Int = 500, height: Int = 500) : List<Bitmap> {
-//        val thubnail = arrayListOf<Bitmap>()
-//        pictures.forEach {
-//            thubnail.add(BitmapUtils.getThumbnail(it.picture, width, height))
-//        }
-//        return thubnail
-//    }
 }

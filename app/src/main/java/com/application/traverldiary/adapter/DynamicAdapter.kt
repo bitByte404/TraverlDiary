@@ -11,6 +11,9 @@ import com.application.traverldiary.models.Dynamic
 import com.application.traverldiary.utils.DateUtils
 import com.bumptech.glide.Glide
 
+/**
+ * 动态的Adapter
+ */
 class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
 
     //保存动态信息

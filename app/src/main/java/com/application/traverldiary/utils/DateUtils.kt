@@ -3,6 +3,7 @@ package com.application.traverldiary.utils
 import android.icu.util.Calendar
 import java.util.Date
 
+//日期工具类
 object DateUtils {
 
     //根据Date对象，获得2023-03-29格式的string

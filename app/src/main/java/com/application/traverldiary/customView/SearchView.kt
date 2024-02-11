@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.application.traverldiary.databinding.LayoutSearchViewBinding
 
+//自定义搜索视图
 class SearchView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
     private var binding: LayoutSearchViewBinding
     init {

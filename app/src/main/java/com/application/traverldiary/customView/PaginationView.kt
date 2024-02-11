@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.application.traverldiary.R
 import com.application.traverldiary.databinding.LayoutPaginationViewBinding
 
+//自定义动态分类视图
 class PaginationView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
     private var binding: LayoutPaginationViewBinding
     private var defaultHeightColor = ContextCompat.getColor(context, R.color.height_blue)

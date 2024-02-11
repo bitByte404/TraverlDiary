@@ -8,6 +8,9 @@ import com.application.traverldiary.databinding.LayoutCommentsDynamicBinding
 import com.application.traverldiary.models.Comment
 
 
+/**
+ * 动态评论适配器
+ */
 class DynamicCommentsAdapter : RecyclerView.Adapter<DynamicCommentsAdapter.MyViewHolder>() {
     //保存评论信息
     private var mComments = emptyList<Comment>()

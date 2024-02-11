@@ -7,6 +7,9 @@ import com.application.traverldiary.application.BmobApp
 import com.application.traverldiary.databinding.LayoutPiictureDynamicBinding
 import com.bumptech.glide.Glide
 
+/**
+ * 动态图片的Adapter
+ */
 class DynamicPictureAdapter(private val mDataset: List<String>) :
     RecyclerView.Adapter<DynamicPictureAdapter.MyViewHolder>() {
 
