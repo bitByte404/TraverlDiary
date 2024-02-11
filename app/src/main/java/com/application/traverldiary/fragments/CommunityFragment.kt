@@ -142,7 +142,7 @@ class CommunityFragment : Fragment() {
         testDynamics.add(Dynamic(
             "0",
             "落日沉溺于橘色的海，\n晚风沦陷于赤诚的爱。",
-            "\t我在黄昏写上一封书信，载着落日的余晖和银河的浪漫。 寄给你，寄给温柔本身。",
+            "我在黄昏写上一封书信，载着落日的余晖和银河的浪漫。 寄给你，寄给温柔本身。",
             pictures,
             50,
             users[0],
@@ -154,7 +154,7 @@ class CommunityFragment : Fragment() {
         testDynamics.add(Dynamic(
             "1",
             "与其幻想，不如追寻",
-            "\t白云恋我一往情深，蓝天赐我无限盼望，选我所爱，爱我所选。",
+            "白云恋我一往情深，蓝天赐我无限盼望，选我所爱，爱我所选。",
             pictures2,
             34,
             users[1],

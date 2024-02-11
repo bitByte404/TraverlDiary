@@ -13,6 +13,7 @@ class BmobApp : Application() {
     companion object {
         private var instance : BmobApp? = null
 
+        //获取全局上下文
         fun getContext() : Context {
             return instance!!.applicationContext
         }
