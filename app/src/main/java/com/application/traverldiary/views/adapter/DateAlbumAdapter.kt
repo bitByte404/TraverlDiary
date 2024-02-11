@@ -86,6 +86,6 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (file.exists()) {
             val bitmap = BitmapFactory.decodeFile(file.absolutePath)
             imageView.setImageBitmap(bitmap)
-        }
+        };
     }
 }

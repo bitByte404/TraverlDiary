@@ -20,7 +20,6 @@ import com.application.traverldiary.models.AlbumViewModel
 import com.application.traverldiary.views.adapter.DateAlbumAdapter
 
 class AlbumFragment : Fragment() {
-    val liveList = MutableLiveData<List<Any>>()		//创建LiveData对象
     private lateinit var binding: FragmentAlbumBinding
     private lateinit var mAlbumManager:AlbumManager
     private lateinit var mPermissionManager:PermissionManager
