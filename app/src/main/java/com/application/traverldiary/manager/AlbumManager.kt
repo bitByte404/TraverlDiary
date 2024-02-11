@@ -20,7 +20,7 @@ class AlbumManager private constructor() {
         //保存的照片路径
         private var fileDir = ""
 
-        fun getInstance(fileDir:String):AlbumManager {
+        fun getInstance(fileDir:String): AlbumManager {
             if(instance == null) {
                 synchronized(this){
                     if (instance == null){
@@ -28,7 +28,7 @@ class AlbumManager private constructor() {
                     }
                 }
             }
-            this.fileDir = "$fileDir/album/"
+            Companion.fileDir = "$fileDir/album/"
             return instance!!
         }
     }

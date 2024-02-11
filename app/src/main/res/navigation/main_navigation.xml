@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/journeyFragment"
-        android:name="com.application.traverldiary.fragments.JourneyFragment"
+        android:name="com.application.traverldiary.views.fragments.JourneyFragment"
         android:label="fragment_journey"
         tools:layout="@layout/fragment_journey" />
     <fragment
         android:id="@+id/albumFragment"
-        android:name="com.application.traverldiary.fragments.AlbumFragment"
+        android:name="com.application.traverldiary.views.fragments.AlbumFragment"
         android:label="fragment_album"
         tools:layout="@layout/fragment_album" />
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.application.traverldiary.fragments.CommunityFragment"
+        android:name="com.application.traverldiary.views.fragments.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
     <fragment
         android:id="@+id/personFragment"
-        android:name="com.application.traverldiary.fragments.PersonFragment"
+        android:name="com.application.traverldiary.views.fragments.PersonFragment"
         android:label="fragment_person"
         tools:layout="@layout/fragment_person" />
 </navigation>

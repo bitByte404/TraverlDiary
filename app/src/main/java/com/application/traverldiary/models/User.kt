@@ -3,7 +3,7 @@ package com.application.traverldiary.models
 import android.graphics.Bitmap
 import androidx.annotation.IntDef
 import cn.bmob.v3.BmobObject
-import com.application.traverldiary.application.BmobApp
+import com.application.traverldiary.views.application.BmobApp
 
 class User(
     val userId: Int,

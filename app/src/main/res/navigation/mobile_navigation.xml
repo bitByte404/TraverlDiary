@@ -7,30 +7,30 @@
 
     <fragment
         android:id="@+id/navigation_journey"
-        android:name="com.application.traverldiary.fragments.JourneyFragment"
+        android:name="com.application.traverldiary.views.fragments.JourneyFragment"
         android:label="Journey"
         tools:layout="@layout/fragment_journey" />
 
     <fragment
         android:id="@+id/navigation_album"
-        android:name="com.application.traverldiary.fragments.AlbumFragment"
+        android:name="com.application.traverldiary.views.fragments.AlbumFragment"
         android:label="Album"
         tools:layout="@layout/fragment_album" />
 
     <fragment
         android:id="@+id/navigation_community"
-        android:name="com.application.traverldiary.fragments.CommunityFragment"
+        android:name="com.application.traverldiary.views.fragments.CommunityFragment"
         android:label="Community"
         tools:layout="@layout/fragment_community" />
 
     <fragment
         android:id="@+id/navigation_person"
-        android:name="com.application.traverldiary.fragments.PersonFragment"
+        android:name="com.application.traverldiary.views.fragments.PersonFragment"
         android:label="Person"
         tools:layout="@layout/fragment_person" />
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.application.traverldiary.ui.welcome.WelcomeFragment"
+        android:name="com.application.traverldiary.guide_part.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/guideFragment"
-        android:name="com.application.traverldiary.ui.guide.GuideFragment"
+        android:name="com.application.traverldiary.guide_part.guide.GuideFragment"
         android:label="fragment_guide"
         tools:layout="@layout/fragment_guide" >
         <action

@@ -17,7 +17,7 @@ class PermissionManager private constructor(){
     companion object {
         private var instance: PermissionManager? = null
 
-        fun getInstance():PermissionManager {
+        fun getInstance(): PermissionManager {
             if(instance == null) {
                 synchronized(this){
                     if (instance == null){
