@@ -89,7 +89,7 @@
                 android:layout_margin="5dp">
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@android:color/transparent"
@@ -101,7 +101,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -110,7 +110,7 @@
                     android:textColorHint="@color/hint_grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText" />
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
@@ -120,7 +120,7 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                    app:layout_constraintTop_toBottomOf="@+id/content" />
 
                 <com.application.traveldiary.views.customView.AddImagesView
                     android:id="@+id/add_view"

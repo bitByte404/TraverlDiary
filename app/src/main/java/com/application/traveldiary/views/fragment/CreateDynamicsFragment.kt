@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
@@ -49,9 +52,13 @@ class CreateDynamicsFragment : Fragment() {
                 for (i in 0 until clipData.itemCount) {
                     val uri = clipData.getItemAt(i).uri
                     uriList.add(uri)
-                    pictureAdapter.setData(uriList)
+                }
+            } else {
+                result.data?.data?.let { uri ->
+                    uriList.add(uri)
                 }
             }
+            pictureAdapter.setData(uriList)
         }
     }
 
@@ -68,6 +75,7 @@ class CreateDynamicsFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        addTextListener()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -128,5 +136,42 @@ class CreateDynamicsFragment : Fragment() {
         val intent = Intent("android.media.action.IMAGE_CAPTURE")
         intent.putExtra(MediaStore.EXTRA_OUTPUT, this.imageUri)
         takePhotoLauncher.launch(intent)
+    }
+
+
+    fun addTextListener() {
+        binding.title.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        checkPublish()
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+})
+
+binding.content.addTextChangedListener(object : TextWatcher {
+    override fun afterTextChanged(s: Editable?) {
+        checkPublish()
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+})
+
+    pictureAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+        override fun onChanged() {
+        super.onChanged()
+        checkPublish()
+            }
+        })
+    }
+
+// 更新 checkPublish 方法
+    fun checkPublish() {
+        binding.publishButton.isEnabled = binding.title.text.toString().isNotEmpty() &&
+                binding.content.text.toString().isNotEmpty() &&
+                uriList.isNotEmpty()
     }
 }
