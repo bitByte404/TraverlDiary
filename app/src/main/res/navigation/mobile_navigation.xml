@@ -24,7 +24,11 @@
         tools:layout="@layout/fragment_community" >
         <action
             android:id="@+id/action_navigation_community_to_createDynamicsFragment"
-            app:destination="@id/createDynamicsFragment" />
+            app:destination="@id/createDynamicsFragment"
+            app:enterAnim="@anim/enter_from_right_anim"
+            app:exitAnim="@anim/exit_to_left_anim"
+            app:popEnterAnim="@anim/pop_enter_from_left_anim"
+            app:popExitAnim="@anim/pop_exit_to_right_anim" />
     </fragment>
 
     <fragment
