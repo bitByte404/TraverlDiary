@@ -16,6 +16,10 @@ import com.application.traverldiary.R
 import com.application.traverldiary.manager.PermissionManager
 
 import android.view.View
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         requestReadPermission()
+        relateBottom()
     }
 
 
@@ -52,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun relateBottom(){
+        val navController = Navigation.findNavController(this,R.id.nav_host_fragment_activity_main)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        NavigationUI.setupWithNavController(navView,navController)
     }
 
 }
