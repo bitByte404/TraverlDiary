@@ -1,4 +1,4 @@
-package com.application.traveldiary.views.fragments
+package com.application.traveldiary.views.fragment
 
 import android.os.Build
 import android.os.Bundle
