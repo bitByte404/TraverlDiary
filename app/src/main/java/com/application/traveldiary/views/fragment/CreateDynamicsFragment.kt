@@ -13,9 +13,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
 import com.application.traveldiary.databinding.LayoutAddImagesViewBinding
+import com.application.traveldiary.views.customView.BottomDialogView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.File
 
 class CreateDynamicsFragment : Fragment() {
@@ -76,30 +79,50 @@ class CreateDynamicsFragment : Fragment() {
     }
 
     private fun touchEvent() {
-        binding.takePhotoBtn.setOnClickListener {
-            //创建File对象，用于存储拍照后的图片
-            outputImage = File(requireContext().externalCacheDir, "output_image.jpg")
-            if (outputImage.exists()) {
-                outputImage.delete()
-            }
-            outputImage.createNewFile()
-            this.imageUri =
-                FileProvider.getUriForFile(
-                    requireContext(),
-                    "com.application.traveldiary.fileprovider",
-                    outputImage
-                )
-            //启动相机程序
-            val intent = Intent("android.media.action.IMAGE_CAPTURE")
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, this.imageUri)
-            takePhotoLauncher.launch(intent)
-        }
 
-        binding.fromAlbumBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            fromAlbumLauncher.launch(intent)
+        binding.addView.setOnClickListener {
+            val bottomSheetDialog = BottomSheetDialog(requireContext())
+            val contentView = BottomDialogView(requireContext(), attrs = null)
+            bottomSheetDialog.setContentView(contentView)
+            contentView.addFromAlbumCallback {
+                getPhotoFromAlbum()
+                bottomSheetDialog.dismiss()
+            }
+            contentView.addTakePhotoCallback {
+                takePhoto()
+                bottomSheetDialog.dismiss()
+            }
+            contentView.cancelBtnCallback {
+                bottomSheetDialog.dismiss()
+            }
+            bottomSheetDialog.show()
         }
+    }
+
+
+    fun getPhotoFromAlbum() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        fromAlbumLauncher.launch(intent)
+    }
+
+    fun takePhoto() {
+        //创建File对象，用于存储拍照后的图片
+        outputImage = File(requireContext().externalCacheDir, "output_image.jpg")
+        if (outputImage.exists()) {
+            outputImage.delete()
+        }
+        outputImage.createNewFile()
+        this.imageUri =
+            FileProvider.getUriForFile(
+                requireContext(),
+                "com.application.traveldiary.fileprovider",
+                outputImage
+            )
+        //启动相机程序
+        val intent = Intent("android.media.action.IMAGE_CAPTURE")
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, this.imageUri)
+        takePhotoLauncher.launch(intent)
     }
 }
