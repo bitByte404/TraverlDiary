@@ -2,6 +2,8 @@ package com.application.traveldiary.views.fragment
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -75,15 +77,17 @@ class CreateDynamicsFragment : Fragment() {
         binding.recyclerView.layoutManager =
             GridLayoutManager(context, 3)
         binding.recyclerView.adapter = pictureAdapter
-        val addImagesView = LayoutAddImagesViewBinding.inflate(layoutInflater).root
     }
 
     private fun touchEvent() {
 
         binding.addView.setOnClickListener {
-            val bottomSheetDialog = BottomSheetDialog(requireContext())
+            val bottomSheetDialog = BottomSheetDialog(
+                requireContext()
+            )
             val contentView = BottomDialogView(requireContext(), attrs = null)
             bottomSheetDialog.setContentView(contentView)
+            bottomSheetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             contentView.addFromAlbumCallback {
                 getPhotoFromAlbum()
                 bottomSheetDialog.dismiss()
