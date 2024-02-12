@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/community_bar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <com.application.traveldiary.views.customView.SearchView
+        android:id="@+id/search_view"
+        app:layout_constraintEnd_toStartOf="@+id/friends"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:elevation="8dp"
+        android:layout_margin="10dp"
+        tools:layout_editor_absoluteX="73dp"
+        tools:layout_editor_absoluteY="40dp" />
+
+
+    <ImageView
+        android:id="@+id/friends"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/icon_group"
+        app:layout_constraintBottom_toBottomOf="@+id/search_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/search_view"
+        app:layout_constraintTop_toTopOf="@+id/search_view" />
+
+    <com.application.traveldiary.views.customView.PaginationView
+        android:id="@+id/hot_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/latest_bar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        app:sort_name="热门" />
+
+    <com.application.traveldiary.views.customView.PaginationView
+        android:id="@+id/latest_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/prime_bar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/hot_bar"
+        app:layout_constraintTop_toTopOf="@+id/hot_bar"
+        app:sort_name="最新" />
+
+    <com.application.traveldiary.views.customView.PaginationView
+        android:id="@+id/prime_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/latest_bar"
+        app:layout_constraintTop_toTopOf="@+id/latest_bar"
+        app:sort_name="精华" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

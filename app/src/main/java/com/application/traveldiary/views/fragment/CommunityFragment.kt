@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicAdapter
 import com.application.traveldiary.views.customView.PaginationView
 import com.application.traveldiary.databinding.FragmentCommunityBinding
+import com.application.traveldiary.databinding.LayoutCommunityBarViewBinding
 import com.application.traveldiary.models.Comment
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.models.Picture
@@ -20,11 +23,13 @@ class CommunityFragment : Fragment() {
     private lateinit var binding: FragmentCommunityBinding
     private lateinit var dynamics: ArrayList<Dynamic>
     private lateinit var lastSelectedBar: PaginationView
+    private lateinit var barbinding: LayoutCommunityBarViewBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCommunityBinding.inflate(inflater)
+        barbinding = LayoutCommunityBarViewBinding.inflate(inflater)
         initTestData() //TODO 测试数据，后面需要关闭
         initData()
         addTouchEvent()
@@ -34,17 +39,18 @@ class CommunityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //配置热门分类是默认分类
-        binding.hotBar.setDefaultSort()
-        lastSelectedBar = binding.hotBar
+        barbinding.hotBar.setDefaultSort()
+        lastSelectedBar = barbinding.hotBar
     }
 
     //添加点击事件
     private fun addTouchEvent() {
-        addPaginationViewTouchEvent()
+        paginationViewTouchEvent()
+        addButtonTouchEvent()
     }
 
-    private fun addPaginationViewTouchEvent() {
-        val barList = arrayListOf(binding.hotBar, binding.primeBar, binding.latestBar)
+    private fun paginationViewTouchEvent() {
+        val barList = arrayListOf(barbinding.hotBar, barbinding.primeBar, barbinding.latestBar)
         barList.forEach { bar ->
             bar.setOnClickListener {
                 val selected = it as PaginationView
@@ -58,10 +64,16 @@ class CommunityFragment : Fragment() {
         }
     }
 
+    private fun addButtonTouchEvent() {
+        binding.addButton.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_community_to_createDynamicsFragment)
+        }
+    }
+
 
 
     //初始话数据
-   private fun initData() {
+    private fun initData() {
         val adapter = DynamicAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -165,7 +177,4 @@ class CommunityFragment : Fragment() {
 
         dynamics = testDynamics
     }
-
-
-
 }

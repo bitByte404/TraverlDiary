@@ -5,4 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="publish_text">发表</string>
+    <string name="add_title_text">取个好听的标题吧</string>
+    <string name="add_content_text">分享新鲜事</string>
 </resources>
