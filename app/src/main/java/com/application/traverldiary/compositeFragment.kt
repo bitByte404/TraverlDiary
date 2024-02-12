@@ -34,7 +34,7 @@ class compositeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_composite, container, false)
+        return inflater.inflate(R.layout.fragment_community, container, false)
     }
 
     companion object {

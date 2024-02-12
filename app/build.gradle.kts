@@ -49,11 +49,11 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     //RecyclerView
-    implementation ("androidx.recyclerview:recyclerview:1.1.0")
+    implementation ("androidx.recyclerview:recyclerview:1.3.0")
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -63,9 +63,9 @@ dependencies {
     implementation("io.github.bmob:android-sdk:3.9.4")
     implementation("io.reactivex.rxjava2:rxjava:2.2.8")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
-    implementation("com.squareup.okhttp3:okhttp:4.8.1")
-    implementation("com.squareup.okio:okio:2.2.2")
-    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okio:okio:3.6.0")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     //lottie
     implementation("com.airbnb.android:lottie:6.1.0")
