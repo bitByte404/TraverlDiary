@@ -6,7 +6,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import com.application.traveldiary.R
-import com.example.booting.ui.tool.dp2px
+import com.application.traveldiary.guide_part.tool.dp2px
 
 
 class IndicatorViewL(context: Context,attrs:AttributeSet?):View(context,attrs) {

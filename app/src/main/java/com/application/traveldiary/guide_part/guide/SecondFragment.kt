@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.application.traveldiary.R
 import com.application.traveldiary.databinding.FragmentSecondBinding
-import com.example.booting.ui.tool.AnimationTools
-import com.example.booting.ui.tool.SPTools
+import com.application.traveldiary.guide_part.tool.AnimationTools
+import com.application.traveldiary.guide_part.tool.SPTools
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SecondFragment : Fragment() {

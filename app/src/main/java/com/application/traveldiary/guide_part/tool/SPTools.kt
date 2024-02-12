@@ -1,4 +1,4 @@
-package com.example.booting.ui.tool
+package com.application.traveldiary.guide_part.tool
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,9 +11,9 @@ class SPTools private constructor(){
         weakContext.get()!!.getSharedPreferences(Constants.SharedFileName,Context.MODE_PRIVATE)
     }
     companion object{
-        private var instance:SPTools? = null
-        fun defaultTools(context:Context):SPTools{
-            return instance?:SPTools().also {
+        private var instance: SPTools? = null
+        fun defaultTools(context:Context): SPTools {
+            return instance ?: SPTools().also {
                 instance = it
                 it.weakContext = WeakReference(context)
             }

@@ -1,4 +1,4 @@
-package com.example.booting.ui.tool
+package com.application.traveldiary.guide_part.tool
 
 object Constants {
     const val SharedFileName = "config"

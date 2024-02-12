@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.application.traveldiary.databinding.FragmentFristBinding
-import com.example.booting.ui.tool.AnimationTools
+import com.application.traveldiary.guide_part.tool.AnimationTools
 
 
 class FirstFragment : Fragment() {
