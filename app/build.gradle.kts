@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.application.traverldiary"
+    namespace = "com.application.traveldiary"
     compileSdk = 34
     viewBinding {
         enable = true
     }
     defaultConfig {
-        applicationId = "com.application.traverldiary"
+        applicationId = "com.application.traveldiary"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
