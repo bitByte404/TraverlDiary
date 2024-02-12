@@ -1,4 +1,4 @@
-package com.application.traverldiary.views.fragments
+package com.application.traverldiary.views.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.application.traverldiary.databinding.FragmentAlbumBinding
 import com.application.traverldiary.manager.AlbumManager
 import com.application.traverldiary.manager.PermissionManager
-import com.application.traverldiary.models.AlbumViewModel
-import com.application.traverldiary.views.adapter.DateAlbumAdapter
+import com.application.traverldiary.viewModel.AlbumViewModel
+import com.application.traverldiary.adapter.DateAlbumAdapter
 
 class AlbumFragment : Fragment() {
     private lateinit var binding: FragmentAlbumBinding

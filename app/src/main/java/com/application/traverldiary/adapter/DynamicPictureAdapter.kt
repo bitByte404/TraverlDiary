@@ -1,9 +1,9 @@
-package com.application.traverldiary.views.adapter
+package com.application.traverldiary.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.application.traverldiary.views.application.BmobApp
+import com.application.traverldiary.application.BmobApp
 import com.application.traverldiary.databinding.LayoutPiictureDynamicBinding
 import com.bumptech.glide.Glide
 

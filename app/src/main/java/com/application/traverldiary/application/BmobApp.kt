@@ -1,4 +1,4 @@
-package com.application.traverldiary.views.application
+package com.application.traverldiary.application
 
 import android.app.Application
 import android.content.Context

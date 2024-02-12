@@ -1,4 +1,4 @@
-package com.application.traverldiary.models
+package com.application.traverldiary.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

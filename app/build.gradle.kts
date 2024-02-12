@@ -53,7 +53,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     //RecyclerView
-    implementation ("androidx.recyclerview:recyclerview:1.3.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")

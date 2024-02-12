@@ -1,4 +1,4 @@
-package com.application.traverldiary.views.adapter
+package com.application.traverldiary.adapter
 
 import android.util.Log
 import android.view.LayoutInflater

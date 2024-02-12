@@ -1,11 +1,10 @@
-package com.application.traverldiary.views.fragments
+package com.application.traverldiary.views.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.application.traverldiary.R
 import com.application.traverldiary.databinding.FragmentPersonBinding
 
 class PersonFragment : Fragment() {

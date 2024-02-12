@@ -1,4 +1,4 @@
-package com.application.traverldiary.views.fragments
+package com.application.traverldiary.views.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.application.traverldiary.views.adapter.DynamicAdapter
+import com.application.traverldiary.adapter.DynamicAdapter
 import com.application.traverldiary.views.customView.PaginationView
 import com.application.traverldiary.databinding.FragmentCommunityBinding
 import com.application.traverldiary.models.Comment

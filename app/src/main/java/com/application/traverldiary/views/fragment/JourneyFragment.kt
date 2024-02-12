@@ -1,4 +1,4 @@
-package com.application.traverldiary.views.fragments
+package com.application.traverldiary.views.fragment
 
 import android.os.Build
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.traverldiary.manager.JourneyLayoutManager
-import com.application.traverldiary.views.adapter.JourneyAdapter
-import com.application.traverldiary.views.adapter.TimelineAdapter
+import com.application.traverldiary.adapter.JourneyAdapter
+import com.application.traverldiary.adapter.TimelineAdapter
 import com.application.traverldiary.databinding.FragmentJourneyBinding
 import com.application.traverldiary.utils.journeyCreator
 import com.application.traverldiary.utils.timeCreator

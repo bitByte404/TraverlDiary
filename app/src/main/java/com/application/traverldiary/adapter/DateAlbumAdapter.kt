@@ -1,4 +1,4 @@
-package com.application.traverldiary.views.adapter
+package com.application.traverldiary.adapter
 
 import android.graphics.BitmapFactory
 import android.util.Log
