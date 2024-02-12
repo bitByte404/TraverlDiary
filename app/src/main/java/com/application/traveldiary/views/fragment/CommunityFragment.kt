@@ -99,7 +99,9 @@ class CommunityFragment : Fragment() {
             "https://imgs.wuliner.cn/imgs/demo_pic7.jpg",
             "https://imgs.wuliner.cn/imgs/demo_pic8.jpg",
             "https://imgs.wuliner.cn/imgs/demo_pic9.png",
-            "https://imgs.wuliner.cn/imgs/demo_pic10.jpg"
+            "https://imgs.wuliner.cn/imgs/demo_pic10.jpg",
+            "https://imgs.wuliner.cn/imgs/demo_pic11.jpg",
+            "https://imgs.wuliner.cn/imgs/demo_pic12.jpg"
         )
 
 
@@ -118,10 +120,13 @@ class CommunityFragment : Fragment() {
         val picture8 = Picture(pictureList[7], testData, "")
         val picture9 = Picture(pictureList[8], testData, "")
         val picture10 = Picture(pictureList[9], testData, "")
+        val picture11 = Picture(pictureList[10], testData, "")
+        val picture12 = Picture(pictureList[11], testData, "")
 
 
-        val pictures = arrayListOf(picture1, picture2, picture3, picture4, picture5)
-        val pictures2 = arrayListOf(picture6, picture7, picture8, picture9, picture10)
+
+        val pictures = arrayListOf(picture1, picture2, picture3, picture4, picture5, picture11)
+        val pictures2 = arrayListOf(picture6, picture7, picture8, picture9, picture10, picture12)
 
         val users = listOf("阿伟", "小橙子", "大橘子", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺").mapIndexed { index, name ->
             User(index, name, "123", "110", 0, if (index % 2 == 0) avatar1 else avatar2, "")
