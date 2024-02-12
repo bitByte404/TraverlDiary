@@ -58,7 +58,9 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             binding.recyclerviewComments.adapter = commentsAdapter
 
             //配置动态的图片
-            val pictureAdapter = DynamicPictureAdapter(dynamic.getPictureUrls())
+            val pictureAdapter = DynamicPictureAdapter()
+            pictureAdapter.setData(dynamic.getPictureUrls())
+
             binding.recyclerviewPictures.layoutManager =
                 GridLayoutManager(context, 3)
             binding.recyclerviewPictures.adapter = pictureAdapter

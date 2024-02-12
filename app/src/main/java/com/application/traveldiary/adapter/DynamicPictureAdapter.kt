@@ -1,5 +1,6 @@
 package com.application.traveldiary.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,12 +11,14 @@ import com.bumptech.glide.Glide
 /**
  * 动态图片的Adapter
  */
-class DynamicPictureAdapter(private val mDataset: List<String>) :
+class DynamicPictureAdapter() :
     RecyclerView.Adapter<DynamicPictureAdapter.MyViewHolder>() {
+
+        private var mDataset = arrayListOf<Uri>()
 
     class MyViewHolder(val binding: LayoutPiictureDynamicBinding) :
     RecyclerView.ViewHolder(binding.root) {
-        fun bind(pictureUrl: String) {
+        fun bind(pictureUrl: Uri) {
             Glide.with(BmobApp.getContext())
                 .load(pictureUrl)
                 .override(500, 500)
@@ -35,5 +38,19 @@ class DynamicPictureAdapter(private val mDataset: List<String>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(mDataset[position])
+    }
+
+    fun setData(datas: ArrayList<Uri>) {
+        mDataset = datas
+        notifyDataSetChanged()
+    }
+
+    fun update(newData: Uri) {
+        mDataset.add(newData)
+        if (mDataset.size != 0) {
+            notifyItemInserted(mDataset.size-1)
+        } else {
+            notifyItemInserted(0)
+        }
     }
 }

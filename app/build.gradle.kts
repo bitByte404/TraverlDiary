@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "1.6.10-1.0.2"
 }
 
 android {
@@ -57,7 +58,8 @@ dependencies {
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    ksp("com.github.bumptech.glide:compiler:4.16.0")
+
 
     //Bmob
     implementation("io.github.bmob:android-sdk:3.9.4")
@@ -69,4 +71,7 @@ dependencies {
 
     //lottie
     implementation("com.airbnb.android:lottie:6.1.0")
+
+    implementation("androidx.activity:activity-ktx:1.8.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 }

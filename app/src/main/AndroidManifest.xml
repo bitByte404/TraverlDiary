@@ -42,6 +42,15 @@
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.application.traveldiary.BmobContentProvider">
         </provider>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.application.traveldiary.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>

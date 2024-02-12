@@ -1,14 +1,57 @@
 package com.application.traveldiary.views.fragment
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.application.traveldiary.R
+import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
+import com.application.traveldiary.databinding.LayoutAddImagesViewBinding
+import com.application.traveldiary.views.customView.BottomDialogView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.File
 
 class CreateDynamicsFragment : Fragment() {
     private lateinit var binding: FragmentCreateDynamicsBinding
+    private lateinit var imageUri: Uri // 图片的Uri
+    private lateinit var outputImage: File // 输出的图片文件
+    val uriList = arrayListOf<Uri>()
+    private lateinit var pictureAdapter: DynamicPictureAdapter
+
+    // 初测一个启动活动的结果回调，用于处理拍照后的结果
+    private val takePhotoLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                uriList.add(imageUri)
+                pictureAdapter.setData(uriList)
+            }
+        }
+
+
+    //注册启动活动的结果回调，用于处理从相册选择图片
+    private val fromAlbumLauncher =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val clipData = result.data?.clipData
+            if (clipData != null) {
+                for (i in 0 until clipData.itemCount) {
+                    val uri = clipData.getItemAt(i).uri
+                    uriList.add(uri)
+                    pictureAdapter.setData(uriList)
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -16,6 +59,70 @@ class CreateDynamicsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCreateDynamicsBinding.inflate(inflater)
+        touchEvent()
+        initData()
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun initData() {
+        //配置动态的图片
+        pictureAdapter = DynamicPictureAdapter()
+        binding.recyclerView.layoutManager =
+            GridLayoutManager(context, 3)
+        binding.recyclerView.adapter = pictureAdapter
+        val addImagesView = LayoutAddImagesViewBinding.inflate(layoutInflater).root
+    }
+
+    private fun touchEvent() {
+
+        binding.addView.setOnClickListener {
+            val bottomSheetDialog = BottomSheetDialog(requireContext())
+            val contentView = BottomDialogView(requireContext(), attrs = null)
+            bottomSheetDialog.setContentView(contentView)
+            contentView.addFromAlbumCallback {
+                getPhotoFromAlbum()
+                bottomSheetDialog.dismiss()
+            }
+            contentView.addTakePhotoCallback {
+                takePhoto()
+                bottomSheetDialog.dismiss()
+            }
+            contentView.cancelBtnCallback {
+                bottomSheetDialog.dismiss()
+            }
+            bottomSheetDialog.show()
+        }
+    }
+
+
+    fun getPhotoFromAlbum() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        fromAlbumLauncher.launch(intent)
+    }
+
+    fun takePhoto() {
+        //创建File对象，用于存储拍照后的图片
+        outputImage = File(requireContext().externalCacheDir, "output_image.jpg")
+        if (outputImage.exists()) {
+            outputImage.delete()
+        }
+        outputImage.createNewFile()
+        this.imageUri =
+            FileProvider.getUriForFile(
+                requireContext(),
+                "com.application.traveldiary.fileprovider",
+                outputImage
+            )
+        //启动相机程序
+        val intent = Intent("android.media.action.IMAGE_CAPTURE")
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, this.imageUri)
+        takePhotoLauncher.launch(intent)
     }
 }
