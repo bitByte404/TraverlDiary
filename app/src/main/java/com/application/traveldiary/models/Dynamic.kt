@@ -17,7 +17,7 @@ class Dynamic(
     var comments : ArrayList<Comment>
 ) : BmobObject() {
     //将动态的图片Url全部取出
-    fun getPictureUrls() : List<String> {
+    fun getPictureUrls() : ArrayList<String> {
         val urls = arrayListOf<String>()
         pictures.forEach {
             urls.add(it.picture)
