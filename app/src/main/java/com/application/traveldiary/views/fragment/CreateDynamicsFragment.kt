@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,10 +25,15 @@ import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
 import com.application.traveldiary.databinding.LayoutAddImagesViewBinding
 import com.application.traveldiary.models.Dynamic
+import com.application.traveldiary.utils.CommunityTest
+import com.application.traveldiary.utils.DateUtils
+import com.application.traveldiary.utils.ImageUploader
 import com.application.traveldiary.views.customView.BottomDialogView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 import java.io.File
+import java.util.Date
 
 class CreateDynamicsFragment : Fragment() {
     private lateinit var binding: FragmentCreateDynamicsBinding
@@ -99,14 +105,28 @@ class CreateDynamicsFragment : Fragment() {
         binding.cancelText.setOnClickListener {
             findNavController().navigateUp()
         }
+        publishBtnClicked()
     }
 
     private fun publishBtnClicked() {
         // TODO
         binding.publishButton.setOnClickListener {
-            val title = binding.title.text
-            val content = binding.content.text
-            //Dynamic("", title, content, urisToString(), 0, )
+            val title = binding.title.text.toString()
+            val content = binding.content.text.toString()
+            val list = arrayListOf<String>()
+            lifecycleScope.launch {
+                val imageUploader = ImageUploader()
+                imageUploader.setSuccessCallback {
+                    list.add(it)
+                }
+                imageUploader.setOnStartCallback {
+
+                }
+                uriList.forEach {
+                    imageUploader.uploadByUri(it)
+                }
+                val dynamic = Dynamic("", title, content, list, 0, CommunityTest.getUser(), Date(), comments = arrayListOf())
+            }
         }
     }
 

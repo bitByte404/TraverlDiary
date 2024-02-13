@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,12 +14,16 @@ import com.application.traveldiary.adapter.DynamicAdapter
 import com.application.traveldiary.databinding.FragmentCommunityBinding
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.utils.CommunityTest
+import com.application.traveldiary.viewModel.CommunityViewModel
 import com.application.traveldiary.views.customView.PaginationView
 
 class CommunityFragment : Fragment() {
     private lateinit var binding: FragmentCommunityBinding
     private lateinit var dynamics: ArrayList<Dynamic>
     private lateinit var lastSelectedBar: PaginationView
+
+    // 获取ViewModel的实例
+    private val viewModel: CommunityViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
