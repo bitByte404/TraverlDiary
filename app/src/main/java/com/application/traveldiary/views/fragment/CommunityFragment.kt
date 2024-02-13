@@ -21,6 +21,9 @@ class CommunityFragment : Fragment() {
     private lateinit var binding: FragmentCommunityBinding
     private lateinit var dynamics: ArrayList<Dynamic>
     private lateinit var lastSelectedBar: PaginationView
+    val adapter: DynamicAdapter by lazy {
+        DynamicAdapter()
+    }
 
     // 获取ViewModel的实例
     private val viewModel: CommunityViewModel by viewModels()
@@ -29,7 +32,6 @@ class CommunityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCommunityBinding.inflate(inflater)
-        initTestData() //TODO 测试数据，后面需要关闭
         initData()
         addTouchEvent()
         return binding.root
@@ -40,12 +42,21 @@ class CommunityFragment : Fragment() {
         //配置热门分类是默认分类
         binding.hotBar.setDefaultSort()
         lastSelectedBar = binding.hotBar
+        observeData()
     }
 
     //添加点击事件
     private fun addTouchEvent() {
         paginationViewTouchEvent()
         addButtonTouchEvent()
+    }
+
+    private fun observeData() {
+        viewModel.dynamics.observe(viewLifecycleOwner) {
+            if (it != null) {
+                adapter.setDataAndRefresh(it)
+            }
+        }
     }
 
     private fun paginationViewTouchEvent() {
@@ -73,19 +84,13 @@ class CommunityFragment : Fragment() {
 
     //初始话数据
     private fun initData() {
-        val adapter = DynamicAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.VERTICAL,
             false
         )
         binding.recyclerView.adapter = adapter
+        dynamics = viewModel.loadDynamic()
         adapter.setData(dynamics)
-    }
-
-
-    //TODO 供测试使用
-    private fun initTestData() {
-        dynamics = arrayListOf(CommunityTest.getDynamic(0), CommunityTest.getDynamic(1))
     }
 }

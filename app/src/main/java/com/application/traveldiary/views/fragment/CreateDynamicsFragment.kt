@@ -13,21 +13,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicPictureAdapter
+import com.application.traveldiary.application.BmobApp
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
 import com.application.traveldiary.databinding.LayoutAddImagesViewBinding
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.utils.CommunityTest
 import com.application.traveldiary.utils.DateUtils
 import com.application.traveldiary.utils.ImageUploader
+import com.application.traveldiary.viewModel.CommunityViewModel
 import com.application.traveldiary.views.customView.BottomDialogView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,6 +45,8 @@ class CreateDynamicsFragment : Fragment() {
     private lateinit var outputImage: File // 输出的图片文件
     val uriList = arrayListOf<Uri>()
     private lateinit var pictureAdapter: DynamicPictureAdapter
+    val viewModel: CommunityViewModel by viewModels()
+
 
     // 初测一个启动活动的结果回调，用于处理拍照后的结果
     private val takePhotoLauncher =
@@ -113,22 +119,21 @@ class CreateDynamicsFragment : Fragment() {
         binding.publishButton.setOnClickListener {
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
-            val list = arrayListOf<String>()
-            lifecycleScope.launch {
-                val imageUploader = ImageUploader()
-                imageUploader.setSuccessCallback {
-                    list.add(it)
+            val dynamic = viewModel.uploadAndGetDynamic(
+                uriList,
+                title,
+                content,
+                onStart = {
+                    Toast.makeText(requireContext(), "正在上传", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                },
+                onEnd = {
+                    Toast.makeText(requireContext(), "上传成功", Toast.LENGTH_SHORT).show()
                 }
-                imageUploader.setOnStartCallback {
-
-                }
-                uriList.forEach {
-                    imageUploader.uploadByUri(it)
-                }
-                val dynamic = Dynamic("", title, content, list, 0, CommunityTest.getUser(), Date(), comments = arrayListOf())
+            )
+                viewModel.addDynamic(dynamic)
             }
         }
-    }
 
     private fun addViewClicked() {
         val bottomSheetDialog = BottomSheetDialog(
@@ -187,32 +192,32 @@ class CreateDynamicsFragment : Fragment() {
     //添加输入文本监听
     private fun addTextListener() {
         binding.title.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-        checkPublish()
-    }
+            override fun afterTextChanged(s: Editable?) {
+                checkPublish()
+            }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}})
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}})
         binding.content.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-            checkPublish()
-    }
+            override fun afterTextChanged(s: Editable?) {
+                checkPublish()
+            }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-})
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
-    pictureAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-        override fun onChanged() {
-        super.onChanged()
-        checkPublish()
+        pictureAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                checkPublish()
             }
         })
     }
 
-// 更新 checkPublish 方法
+    // 更新 checkPublish 方法
     fun checkPublish() {
         binding.publishButton.isEnabled = binding.title.text.toString().isNotEmpty() &&
                 binding.content.text.toString().isNotEmpty() &&

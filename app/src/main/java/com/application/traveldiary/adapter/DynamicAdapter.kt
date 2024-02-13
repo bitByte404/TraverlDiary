@@ -88,4 +88,9 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
     fun setData(dynamics: List<Dynamic>) {
         mDynamics = dynamics
     }
+
+    fun setDataAndRefresh(dynamics: List<Dynamic>) {
+        mDynamics = dynamics
+        notifyDataSetChanged()
+    }
 }
