@@ -7,6 +7,7 @@ import android.location.Location
 import android.media.ExifInterface
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import com.application.traveldiary.models.Picture
 import com.google.gson.Gson
 import java.io.BufferedInputStream
@@ -61,12 +62,13 @@ class AlbumManager private constructor() {
         val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
 
         val picArr = arrayListOf<Picture>()
-        val fileDir: File = File(fileDir) // 你的文件夹
+        val fileDir: File = File(fileDir) // 文件夹
         fileDir.listFiles()?.forEach { file ->
             val picture = readPictureFromFile(file)
             // 使用picture...
             picArr.add(picture)
         }
+        if (picArr.isEmpty()) return mutableListOf()
         picArr.sortedByDescending {
             val date = dateFormat.parse(it.takeTime)
             date
@@ -77,6 +79,7 @@ class AlbumManager private constructor() {
         val tempArr = mutableListOf<Picture>()
         val locationStr = StringBuilder()
         picArr.forEach{
+            Log.v("wq","${it.takeTime}  ${it.uri}")
             if (it.location != ""){
                 locationStr.append(",${it.location}")
             }
@@ -87,6 +90,10 @@ class AlbumManager private constructor() {
                 locationStr.clear()
                 tempArr.clear()
             }
+        }
+        if (resultList.isEmpty()){
+            resultList.add("${lastDate}${locationStr}")
+            resultList.addAll(tempArr)
         }
 
 
@@ -121,6 +128,7 @@ class AlbumManager private constructor() {
             location.latitude = latLong[0].toDouble()
             location.latitude = latLong[1].toDouble()
             // 获取地址列表
+            Log.v("wq","${location.latitude}  ${location.longitude}")
             val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
             // 获取第一个地址
             val address = addresses?.get(0)
@@ -139,15 +147,16 @@ class AlbumManager private constructor() {
     }
 
     private fun readPictureFromFile(file: File): Picture {
-        val gson = Gson()
+        val gson = FileManager.getUriGson()
         val jsonString = FileInputStream(file).bufferedReader().use { it.readText() }
         return gson.fromJson(jsonString, Picture::class.java)
     }
 
     //产生一个独立的文件名
     private fun generateUniqueFileName(picture: Picture): String {
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
         val randomNum = (Math.random() * 1000).toInt()
-        return "${picture.takeTime}_$randomNum.jpg"
+        return "${dateFormat.parse(picture.takeTime)}_$randomNum"
     }
 
 

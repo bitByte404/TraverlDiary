@@ -1,6 +1,7 @@
 package com.application.traveldiary.adapter
 
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -88,10 +89,13 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.v("wq","${mList[position]}")
         if (holder is DateHolder) {
             holder.textView.text = (mList[position] as String)
         } else if (holder is PhotoHolder) {
-            holder.imageView.setImageURI((mList[position] as File).toUri())
+            holder.imageView.setImageURI(mList[position] as Uri)
+
+
             holder.bind(spanCount)
 
             holder.imageView.apply {
@@ -149,11 +153,4 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     }
 
-    //读取文件 设置到imageview上
-    private fun setImageViewFromFile(imageView: ImageView, file: File) {
-        if (file.exists()) {
-            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-            imageView.setImageBitmap(bitmap)
-        };
-    }
 }

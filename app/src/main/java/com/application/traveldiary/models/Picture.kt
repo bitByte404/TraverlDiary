@@ -9,4 +9,5 @@ class Picture(
     val takeTime: String,
     val location: String
 ) : BmobObject() {
+    val picture = ""
 }
