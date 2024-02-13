@@ -1,11 +1,14 @@
 package com.application.traveldiary.models
 
 import android.net.Uri
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import cn.bmob.v3.BmobObject
 import java.util.Date
 
-class Dynamic(
-    val dynamicId: String,
+@Entity
+data class Dynamic(
+    @PrimaryKey val dynamicId: String,
     val title: String,
     val content: String,
     val pictures: List<String>, //图片不只一张

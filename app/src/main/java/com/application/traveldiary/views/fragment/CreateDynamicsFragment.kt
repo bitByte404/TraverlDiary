@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
@@ -92,14 +93,16 @@ class CreateDynamicsFragment : Fragment() {
 
     //处理触摸事件
     private fun touchEvent() {
-
         binding.addView.setOnClickListener {
             addViewClicked()
-
+        }
+        binding.cancelText.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
     private fun publishBtnClicked() {
+        // TODO
         binding.publishButton.setOnClickListener {
             val title = binding.title.text
             val content = binding.content.text

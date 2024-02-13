@@ -1,7 +1,6 @@
 package com.application.traveldiary.utils
 
 import android.os.Build
-import com.application.traveldiary.application.BmobApp
 import com.application.traveldiary.models.Comment
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.models.User
@@ -112,7 +111,7 @@ object CommunityTest {
             50,
             getUser(0),
             currentData(),
-            getModel(),
+            getPhoneBrand(),
             getComment(0)
         )
         )
@@ -135,7 +134,7 @@ object CommunityTest {
         return testDynamics[index]
     }
 
-    fun getModel(): String {
+    fun getPhoneBrand(): String {
         return Build.BRAND
     }
 }
