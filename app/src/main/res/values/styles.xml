@@ -12,4 +12,7 @@
     <style name="NoPaddingBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
     <item name="android:windowBackground">@android:color/transparent</item>
 </style>
+    <style name="MyFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+    <item name="colorOnPrimary">@color/white</item>
+</style>
 </resources>

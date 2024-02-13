@@ -25,6 +25,7 @@ import com.application.traveldiary.databinding.LayoutAddImagesViewBinding
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.views.customView.BottomDialogView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.File
 
 class CreateDynamicsFragment : Fragment() {

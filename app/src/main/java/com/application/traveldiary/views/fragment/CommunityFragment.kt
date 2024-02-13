@@ -1,10 +1,12 @@
 package com.application.traveldiary.views.fragment
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,7 @@ import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.models.Picture
 import com.application.traveldiary.models.User
 import com.application.traveldiary.utils.CommunityTest
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.Date
 
 class CommunityFragment : Fragment() {

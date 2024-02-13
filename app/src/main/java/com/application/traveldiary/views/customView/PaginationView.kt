@@ -41,6 +41,7 @@ class PaginationView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         if (isSelected) {
             binding.underline.visibility = View.VISIBLE
             binding.sortName.setTextColor(heightColor)
+            binding.underline.setBackgroundColor(heightColor)
         } else {
             binding.underline.visibility = View.INVISIBLE
             binding.sortName.setTextColor(unselectedColor)
