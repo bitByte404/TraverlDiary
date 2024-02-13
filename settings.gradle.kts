@@ -10,9 +10,17 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven (url ="https://www.jitpack.io" )
+        maven (url ="https://jitpack.io" )
     }
+
 }
 
+    buildscript {
+        repositories {
+            maven (url ="https://www.jitpack.io" )
+        }
+    }
 rootProject.name = "TravelDiary"
 include(":app")
  

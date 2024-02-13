@@ -1,3 +1,5 @@
+import java.util.regex.Pattern.compile
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -69,4 +71,8 @@ dependencies {
 
     //lottie
     implementation("com.airbnb.android:lottie:6.1.0")
+
+    //photoView
+    implementation ("com.github.chrisbanes.photoview:library:+")
+    implementation ("com.github.bumptech.glide:glide:3.7.0")
 }
