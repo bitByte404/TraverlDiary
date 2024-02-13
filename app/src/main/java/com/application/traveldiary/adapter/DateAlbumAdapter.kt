@@ -5,13 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
 import java.io.File
 
 class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -19,7 +24,7 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var spanCount = 4
     private val DATE = 0
     private val PIC = 1
-
+    private var choosing = false
 
     fun updateData(newData: List<Any>) {
         mList = newData
@@ -33,7 +38,27 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.image) as ImageView
+        val chooseView: ImageView = itemView.findViewById(R.id.circle) as ImageView
+        var isChosen:OptionState = OptionState.Null
+            set(bool:OptionState){
+                when(bool){
+                    OptionState.Null -> chooseView.setImageResource(0)
+                    OptionState.Choose -> chooseView.setImageResource(R.drawable.icon_circle_choose)
+                    OptionState.Chosen -> chooseView.setImageResource(R.drawable.icon_circle_chosen)
+                }
+                Log.v("wq","set")
+                field = bool
+            }
+            get(){
+                return field
+            }
+
         fun bind(spanCount: Int) {
+            setShape(spanCount)
+
+        }
+
+        private fun setShape(spanCount:Int){
             val screenWidth = itemView.resources.displayMetrics.widthPixels
             val imageViewWidth = screenWidth / spanCount
 
@@ -41,6 +66,10 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             layoutParams.width = imageViewWidth
             layoutParams.height = imageViewWidth
             imageView.layoutParams = layoutParams
+        }
+
+        enum class OptionState(){
+            Choose,Chosen,Null
         }
 
     }
@@ -60,11 +89,35 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is DateHolder) {
-            Log.v("wq", "${mList[position]}")
             holder.textView.text = (mList[position] as String)
         } else if (holder is PhotoHolder) {
             holder.imageView.setImageURI((mList[position] as File).toUri())
             holder.bind(spanCount)
+
+            holder.imageView.apply {
+                setOnLongClickListener {
+                    choosing = true
+                    Log.v("wq","${choosing}")
+                    notifyDataSetChanged()
+                    return@setOnLongClickListener true
+                }
+                setOnClickListener {
+                    holder.isChosen
+                    if (holder.isChosen == PhotoHolder.OptionState.Chosen) {
+                        PhotoHolder.OptionState.Choose
+                    } else{
+                        PhotoHolder.OptionState.Chosen
+                    }
+                    notifyDataSetChanged()
+                }
+            }
+
+            if (choosing){
+                holder.chooseView.setImageResource(R.drawable.icon_circle_choose)
+            }else{
+                holder.chooseView.setImageResource(0)
+                Log.v("wq","${choosing}")
+            }
         }
     }
 
