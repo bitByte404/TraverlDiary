@@ -62,16 +62,25 @@ dependencies {
 
 
     //Bmob
-    implementation("io.github.bmob:android-sdk:3.9.4")
-    implementation("io.reactivex.rxjava2:rxjava:2.2.8")
+    implementation("io.github.bmob:android-sdk:3.9.8")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.21")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okio:okio:3.6.0")
+    implementation("com.squareup.okio:okio:3.8.0")
     implementation("com.google.code.gson:gson:2.10.1")
 
     //lottie
-    implementation("com.airbnb.android:lottie:6.1.0")
+    implementation("com.airbnb.android:lottie:6.3.0")
 
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+
+    //协程
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
