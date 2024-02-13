@@ -1,12 +1,12 @@
 package com.application.traveldiary.models
 
+import android.net.Uri
 import cn.bmob.v3.BmobObject
 import java.util.Date
 
 class Picture(
-    val picture: String, //TODO 修改为链接地址
-    val takeTime: Date,
-    val location: String,
-    val title: String = "",
+    var uri: Uri,
+    val takeTime: String,
+    val location: String
 ) : BmobObject() {
 }

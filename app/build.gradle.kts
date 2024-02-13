@@ -75,4 +75,7 @@ dependencies {
     //photoView
     implementation ("com.github.chrisbanes.photoview:library:+")
     implementation ("com.github.bumptech.glide:glide:3.7.0")
+
+    //Gson
+    implementation ("com.google.code.gson:gson:2.10.1")
 }
