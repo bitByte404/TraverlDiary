@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +28,7 @@ class CommunityFragment : Fragment() {
     }
 
     // 获取ViewModel的实例
-    private val viewModel: CommunityViewModel by viewModels()
+    private val viewModel: CommunityViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +36,21 @@ class CommunityFragment : Fragment() {
         binding = FragmentCommunityBinding.inflate(inflater)
         initData()
         addTouchEvent()
+
+        binding.swipeFresh.setColorSchemeResources(R.color.colorA)
+        binding.swipeFresh.setOnRefreshListener {
+            refreshData()
+        }
+
         return binding.root
+    }
+
+    private fun refreshData() {
+        //viewModel.addDynamic(CommunityTest.getDynamic())
+        adapter.setData(viewModel.dynamics.value!!)
+        Toast.makeText(requireContext(), "添加中 ${viewModel.dynamics.value!!.size}", Toast.LENGTH_LONG).show()
+        adapter.notifyDataSetChanged()
+        binding.swipeFresh.isRefreshing = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,5 +108,6 @@ class CommunityFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         dynamics = viewModel.loadDynamic()
         adapter.setData(dynamics)
+        Toast.makeText(requireContext(), "被调用", Toast.LENGTH_LONG).show()
     }
 }

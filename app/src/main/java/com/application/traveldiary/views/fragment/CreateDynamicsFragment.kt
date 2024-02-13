@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -45,7 +46,7 @@ class CreateDynamicsFragment : Fragment() {
     private lateinit var outputImage: File // 输出的图片文件
     val uriList = arrayListOf<Uri>()
     private lateinit var pictureAdapter: DynamicPictureAdapter
-    val viewModel: CommunityViewModel by viewModels()
+    val viewModel: CommunityViewModel by activityViewModels()
 
 
     // 初测一个启动活动的结果回调，用于处理拍照后的结果
@@ -119,19 +120,28 @@ class CreateDynamicsFragment : Fragment() {
         binding.publishButton.setOnClickListener {
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
-            val dynamic = viewModel.uploadAndGetDynamic(
-                uriList,
-                title,
-                content,
-                onStart = {
-                    Toast.makeText(requireContext(), "正在上传", Toast.LENGTH_SHORT).show()
-                    findNavController().navigateUp()
-                },
-                onEnd = {
-                    Toast.makeText(requireContext(), "上传成功", Toast.LENGTH_SHORT).show()
-                }
-            )
+
+//            val dynamic = viewModel.uploadAndGetDynamic(
+//                uriList,
+//                title,
+//                content,
+//                onStart = {
+//                    Toast.makeText(requireContext(), "正在上传", Toast.LENGTH_SHORT).show()
+//                    findNavController().navigateUp()
+//                },
+//                onEnd = {
+//                    Toast.makeText(requireContext(), "上传成功", Toast.LENGTH_SHORT).show()
+//                }
+//            )
+
+                val dynamic = Dynamic("", title, content, urisToString(), 0, viewModel.currentUser.value!!, Date(), comments = arrayListOf())
                 viewModel.addDynamic(dynamic)
+                val dynamics = viewModel.dynamics.value
+                if (dynamics == null) {
+                    Toast.makeText(requireContext(), "压根没有", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), "添加数据成功 ${dynamics.size}", Toast.LENGTH_LONG).show()
+                }
             }
         }
 

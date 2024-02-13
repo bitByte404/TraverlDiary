@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.application.traveldiary.manager.PermissionManager
@@ -14,11 +15,13 @@ import com.application.traveldiary.manager.PermissionManager
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.application.traveldiary.R
+import com.application.traveldiary.viewModel.CommunityViewModel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var mPermissionManager: PermissionManager
+    private val communityViewModel: CommunityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
