@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
@@ -36,36 +35,43 @@
         android:id="@+id/hot_bar"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        app:sort_name="热门"
         app:layout_constraintEnd_toStartOf="@+id/latest_bar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        app:sort_name="热门" />
 
     <com.application.traveldiary.views.customView.PaginationView
         android:id="@+id/latest_bar"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        app:sort_name="最新"
         app:layout_constraintEnd_toStartOf="@+id/prime_bar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/hot_bar"
-        app:layout_constraintTop_toTopOf="@+id/hot_bar" />
+        app:layout_constraintTop_toTopOf="@+id/hot_bar"
+        app:sort_name="最新" />
 
     <com.application.traveldiary.views.customView.PaginationView
         android:id="@+id/prime_bar"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        app:sort_name="精华"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mine_bar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/latest_bar"
-        app:layout_constraintTop_toTopOf="@+id/latest_bar" />
+        app:layout_constraintTop_toTopOf="@+id/latest_bar"
+        app:sort_name="精华" />
+
+
+    <com.application.traveldiary.views.customView.PaginationView
+        android:id="@+id/mine_bar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/prime_bar"
+        app:layout_constraintTop_toTopOf="@+id/prime_bar"
+        app:sort_name="我的" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

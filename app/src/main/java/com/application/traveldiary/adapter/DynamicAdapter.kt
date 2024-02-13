@@ -39,7 +39,11 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             //设置标题
             binding.title.text = dynamic.title
             //设置评论的条数
-            binding.allComment.text = "查看全部${dynamic.comments.size}条评论"
+            binding.allComment.text = if (dynamic.comments.size == 0) {
+                "暂无评论，快来评论一下吧"
+            } else {
+                "查看全部${dynamic.comments.size}条评论"
+            }
             //设置手机型号
             binding.phone.text = dynamic.phone
             //设置日期

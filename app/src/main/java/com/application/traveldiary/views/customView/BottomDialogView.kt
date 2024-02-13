@@ -8,9 +8,6 @@ import com.application.traveldiary.databinding.LayoutBottomDialogBinding
 
 class BottomDialogView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
     private val binding: LayoutBottomDialogBinding
-//    private var takePhotoCallback: () -> Unit = {}
-//    private var fromAlbumCallback: () -> Unit = {}
-//    private var cancelBtnCallback: () -> Unit = {}
     init {
         binding = LayoutBottomDialogBinding.inflate(LayoutInflater.from(context))
         addView(binding.root)

@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="拍摄"
+            android:textColor="@color/hint_grey"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="20sp" />
@@ -24,6 +25,7 @@
             android:id="@+id/fromAlbumBtn"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:textColor="@color/hint_grey"
             android:text="从相册选择"
             android:textStyle="bold"
             android:gravity="center"
@@ -33,6 +35,7 @@
             android:id="@+id/cancelBtn"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:textColor="@color/hint_grey"
             android:text="取消"
             android:textStyle="bold"
             android:gravity="center"

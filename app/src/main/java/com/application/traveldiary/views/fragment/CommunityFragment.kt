@@ -1,27 +1,19 @@
 package com.application.traveldiary.views.fragment
 
-import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicAdapter
-import com.application.traveldiary.views.customView.PaginationView
 import com.application.traveldiary.databinding.FragmentCommunityBinding
-import com.application.traveldiary.databinding.LayoutCommunityBarViewBinding
-import com.application.traveldiary.models.Comment
 import com.application.traveldiary.models.Dynamic
-import com.application.traveldiary.models.Picture
-import com.application.traveldiary.models.User
 import com.application.traveldiary.utils.CommunityTest
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.util.Date
+import com.application.traveldiary.views.customView.PaginationView
 
 class CommunityFragment : Fragment() {
     private lateinit var binding: FragmentCommunityBinding
@@ -52,7 +44,7 @@ class CommunityFragment : Fragment() {
     }
 
     private fun paginationViewTouchEvent() {
-        val barList = arrayListOf(binding.hotBar, binding.primeBar, binding.latestBar)
+        val barList = arrayListOf(binding.hotBar, binding.primeBar, binding.latestBar, binding.mineBar)
         barList.forEach { bar ->
             bar.setOnClickListener {
                 val selected = it as PaginationView
