@@ -23,13 +23,11 @@ class CommunityFragment : Fragment() {
     private lateinit var binding: FragmentCommunityBinding
     private lateinit var dynamics: ArrayList<Dynamic>
     private lateinit var lastSelectedBar: PaginationView
-    private lateinit var barbinding: LayoutCommunityBarViewBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCommunityBinding.inflate(inflater)
-        barbinding = LayoutCommunityBarViewBinding.inflate(inflater)
         initTestData() //TODO 测试数据，后面需要关闭
         initData()
         addTouchEvent()
@@ -39,8 +37,8 @@ class CommunityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //配置热门分类是默认分类
-        barbinding.hotBar.setDefaultSort()
-        lastSelectedBar = barbinding.hotBar
+        binding.hotBar.setDefaultSort()
+        lastSelectedBar = binding.hotBar
     }
 
     //添加点击事件
@@ -50,7 +48,7 @@ class CommunityFragment : Fragment() {
     }
 
     private fun paginationViewTouchEvent() {
-        val barList = arrayListOf(barbinding.hotBar, barbinding.primeBar, barbinding.latestBar)
+        val barList = arrayListOf(binding.hotBar, binding.primeBar, binding.latestBar)
         barList.forEach { bar ->
             bar.setOnClickListener {
                 val selected = it as PaginationView
@@ -107,6 +105,7 @@ class CommunityFragment : Fragment() {
 
         val avatar1 = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
         val avatar2 = "https://imgs.wuliner.cn/imgs/avatar2.jpg"
+        val avatar3 = "https://imgs.wuliner.cn/imgs/avatar3.jpg"
 
         val testData = Date(System.currentTimeMillis())
 
@@ -128,8 +127,8 @@ class CommunityFragment : Fragment() {
         val pictures = arrayListOf(picture1, picture2, picture3, picture4, picture5, picture11)
         val pictures2 = arrayListOf(picture6, picture7, picture8, picture9, picture10, picture12)
 
-        val users = listOf("阿伟", "小橙子", "大橘子", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺").mapIndexed { index, name ->
-            User(index, name, "123", "110", 0, if (index % 2 == 0) avatar1 else avatar2, "")
+        val users = listOf("伍柠贰", "小橙子", "大橘子", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺").mapIndexed { index, name ->
+            User(index, name, "123", "110", 0, if (index % 2 == 0) avatar3 else avatar2, "")
         }
 
         val commentsContent = listOf("我简直无法用语言来形容。",
