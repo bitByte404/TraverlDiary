@@ -1,24 +1,16 @@
 package com.application.traveldiary.adapter
 
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
-import okhttp3.internal.notify
-import okhttp3.internal.notifyAll
-import java.io.File
+import com.application.traveldiary.models.Picture
 
 class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var mList = listOf<Any>()
@@ -93,7 +85,7 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (holder is DateHolder) {
             holder.textView.text = (mList[position] as String)
         } else if (holder is PhotoHolder) {
-            holder.imageView.setImageURI(mList[position] as Uri)
+            holder.imageView.setImageURI((mList[position] as Picture).uri)
 
 
             holder.bind(spanCount)

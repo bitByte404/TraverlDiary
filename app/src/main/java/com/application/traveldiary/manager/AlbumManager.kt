@@ -2,14 +2,12 @@ package com.application.traveldiary.manager
 
 import android.content.Context
 import android.database.Cursor
-import android.location.Geocoder
-import android.location.Location
 import android.media.ExifInterface
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import androidx.core.net.toUri
 import com.application.traveldiary.models.Picture
-import com.google.gson.Gson
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
@@ -26,7 +24,9 @@ class AlbumManager private constructor() {
     companion object {
         private var instance: AlbumManager? = null
         //保存的照片路径
-        private var fileDir = ""
+        private var fileDirHead = ""
+        private var fileDirPic = ""
+
 
         fun getInstance(fileDir:String): AlbumManager {
             if(instance == null) {
@@ -36,7 +36,8 @@ class AlbumManager private constructor() {
                     }
                 }
             }
-            Companion.fileDir = "$fileDir/album/"
+            Companion.fileDirHead = "$fileDir/albumHead"
+            Companion.fileDirPic = "$fileDir/albumPic"
             return instance!!
         }
     }
@@ -49,36 +50,34 @@ class AlbumManager private constructor() {
     //加载图片
     fun loadPictures(context: Context): MutableList<Any> {
         //判断文件夹是否存在
-        val folder = File(fileDir)
-        if (!folder.exists()) {
-            folder.mkdirs()
-            return mutableListOf()
-        }
-        if (!folder.isDirectory) {
-            throw IllegalArgumentException("Path must be a directory.")
-        }
+        checkFileDir(fileDirHead)
+        checkFileDir(fileDirPic)
+
 
         //用来比较日期
         val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
 
+        //所有的Picture
         val picArr = arrayListOf<Picture>()
-        val fileDir: File = File(fileDir) // 文件夹
+        val fileDir: File = File(fileDirHead) // 文件夹
         fileDir.listFiles()?.forEach { file ->
             val picture = readPictureFromFile(file)
-            // 使用picture...
             picArr.add(picture)
         }
+        //如果为空就过
         if (picArr.isEmpty()) return mutableListOf()
-        picArr.sortedByDescending {
+
+        //调整图片顺序
+        val list = picArr.sortedByDescending {
             val date = dateFormat.parse(it.takeTime)
             date
         }
         //穿插进去时间地点
         val resultList = mutableListOf<Any>()
-        var lastDate = picArr[0].takeTime
+        var lastDate = list[0].takeTime
         val tempArr = mutableListOf<Picture>()
         val locationStr = StringBuilder()
-        picArr.forEach{
+        list.forEach{
             Log.v("wq","${it.takeTime}  ${it.uri}")
             if (it.location != ""){
                 locationStr.append(",${it.location}")
@@ -90,12 +89,12 @@ class AlbumManager private constructor() {
                 locationStr.clear()
                 tempArr.clear()
             }
+            tempArr.add(it)
         }
-        if (resultList.isEmpty()){
-            resultList.add("${lastDate}${locationStr}")
+        if (tempArr.isNotEmpty()) {
+            resultList.add("${tempArr[0].takeTime}${locationStr}")
             resultList.addAll(tempArr)
         }
-
 
         return resultList
     }
@@ -120,32 +119,36 @@ class AlbumManager private constructor() {
         val latLong = FloatArray(2)
         val hasLatLong = exifInterface?.getLatLong(latLong)
         var picAddress:String = ""
-        if (hasLatLong == true) {
-            //创建一个新的Geocoder实例
-            val geocoder = Geocoder(context, Locale.getDefault())
-            // 创建一个新的Location实例
-            val location: Location = Location("") // 你的位置
-            location.latitude = latLong[0].toDouble()
-            location.latitude = latLong[1].toDouble()
-            // 获取地址列表
-            Log.v("wq","${location.latitude}  ${location.longitude}")
-            val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-            // 获取第一个地址
-            val address = addresses?.get(0)
-            if (address != null) {
-                picAddress = address.getAddressLine(0)
-            }
-        }
-        return Picture(uri,picDate,picAddress)
+//        if (hasLatLong == true) {
+//            //创建一个新的Geocoder实例
+//            val geocoder = Geocoder(context, Locale.getDefault())
+//            // 创建一个新的Location实例
+//            val location: Location = Location("") // 你的位置
+//            location.latitude = latLong[0].toDouble()
+//            location.latitude = latLong[1].toDouble()
+//            // 获取地址列表
+//            Log.v("wq","${location.latitude}  ${location.longitude}")
+//            val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+//            // 获取第一个地址
+//            val address = addresses?.get(0)
+//            if (address != null) {
+//                picAddress = address.getAddressLine(0)
+//            }
+//        }
+        val mUri = savePicFile(File(getRealPathFromURI(context,uri)),picDate)
+
+        return Picture(mUri,picDate,picAddress)
     }
 
+    //保存Picture类
     private fun savePicture(picture: Picture){
-        val jsonString = Gson().toJson(picture)
-        FileOutputStream(File(fileDir,generateUniqueFileName(picture))).bufferedWriter().use { out ->
+        val jsonString = FileManager.getUriGson().toJson(picture)
+        FileOutputStream(File(fileDirHead,generateUniqueFileName(picture.takeTime))).bufferedWriter().use { out ->
             out.write(jsonString)
         }
     }
 
+    //从文件读取单个的Picture类
     private fun readPictureFromFile(file: File): Picture {
         val gson = FileManager.getUriGson()
         val jsonString = FileInputStream(file).bufferedReader().use { it.readText() }
@@ -153,46 +156,47 @@ class AlbumManager private constructor() {
     }
 
     //产生一个独立的文件名
-    private fun generateUniqueFileName(picture: Picture): String {
+    private fun generateUniqueFileName(takeTime:String): String {
         val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
         val randomNum = (Math.random() * 1000).toInt()
-        return "${dateFormat.parse(picture.takeTime)}_$randomNum"
+        return "${dateFormat.parse(takeTime)}_$randomNum"
     }
 
+    //从Uri得到文件路径
+    private fun getRealPathFromURI(context: Context, contentUri: Uri): String {
+        var cursor: Cursor? = null
+        try {
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
+            val column_index = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor?.moveToFirst()
+            return cursor?.getString(column_index ?: 0) ?: ""
+        } finally {
+            cursor?.close()
+        }
+    }
 
-
-
-
-
-//    //从Uri得到文件路径
-//    private fun getRealPathFromURI(context: Context, contentUri: Uri): String {
-//        var cursor: Cursor? = null
-//        try {
-//            val proj = arrayOf(MediaStore.Images.Media.DATA)
-//            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
-//            val column_index = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-//            cursor?.moveToFirst()
-//            return cursor?.getString(column_index ?: 0) ?: ""
-//        } finally {
-//            cursor?.close()
-//        }
-//    }
-//
-    //复制照片文件
-//    private fun copyFile(src: File) {
-////        val dst = File(fileDir, generateUniqueFileName())
-//        val inStream = FileInputStream(src)
-//        val outStream = FileOutputStream(dst)
-//        val bufferedInStream = BufferedInputStream(inStream)
-//        val bufferedOutStream = BufferedOutputStream(outStream)
-//        val buf = ByteArray(1024)
-//        var len: Int
-//        while (bufferedInStream.read(buf).also { len = it } > 0) {
-//            bufferedOutStream.write(buf, 0, len)
-//        }
-//        bufferedInStream.close()
-//        bufferedOutStream.close()
-//        inStream.close()
-//        outStream.close()
-//    }
+//    复制照片文件
+    private fun savePicFile(src: File, takeTime: String):Uri {
+        val dst = File(fileDirPic, "${generateUniqueFileName(takeTime)}.jpg)")
+        val inStream = FileInputStream(src)
+        val outStream = FileOutputStream(dst)
+        val bufferedInStream = BufferedInputStream(inStream)
+        val bufferedOutStream = BufferedOutputStream(outStream)
+        val buf = ByteArray(1024)
+        var len: Int
+        while (bufferedInStream.read(buf).also { len = it } > 0) {
+            bufferedOutStream.write(buf, 0, len)
+        }
+        bufferedInStream.close()
+        bufferedOutStream.close()
+        inStream.close()
+        outStream.close()
+        return dst.toUri()
+    }
+    //检查文件夹是否存在 然后创建
+    private fun checkFileDir(fileDir: String){
+        val file = File(fileDir)
+        if (!file.exists()) file.mkdir()
+    }
 }

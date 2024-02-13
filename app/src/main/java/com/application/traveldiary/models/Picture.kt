@@ -2,7 +2,6 @@ package com.application.traveldiary.models
 
 import android.net.Uri
 import cn.bmob.v3.BmobObject
-import java.util.Date
 
 class Picture(
     var uri: Uri,
@@ -10,4 +9,11 @@ class Picture(
     val location: String
 ) : BmobObject() {
     val picture = ""
+
+//    fun setUri(path: Uri) {
+////        uri = path.toString()
+//    }
+//    fun getUri(): Uri {
+////        return Uri.parse(uri)
+//    }
 }
