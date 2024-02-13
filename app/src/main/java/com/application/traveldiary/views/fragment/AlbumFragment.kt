@@ -54,7 +54,7 @@ class AlbumFragment : Fragment() {
         val mRecyclerView: RecyclerView = binding.recyclerviewMyAlbum
 
         //配置layoutmanager
-        val gridLayoutManager = GridLayoutManager(context,5)
+        val gridLayoutManager = GridLayoutManager(context,mAdapter.spanCount)
         //配置recyclerview
         mRecyclerView.apply {
             layoutManager = gridLayoutManager
