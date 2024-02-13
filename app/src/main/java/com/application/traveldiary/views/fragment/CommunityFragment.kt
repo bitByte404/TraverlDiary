@@ -48,7 +48,6 @@ class CommunityFragment : Fragment() {
     private fun refreshData() {
         //viewModel.addDynamic(CommunityTest.getDynamic())
         adapter.setData(viewModel.dynamics.value!!)
-        Toast.makeText(requireContext(), "添加中 ${viewModel.dynamics.value!!.size}", Toast.LENGTH_LONG).show()
         adapter.notifyDataSetChanged()
         binding.swipeFresh.isRefreshing = false
     }
