@@ -5,8 +5,10 @@
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/image"
         android:padding="5dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
 
 
 </LinearLayout>

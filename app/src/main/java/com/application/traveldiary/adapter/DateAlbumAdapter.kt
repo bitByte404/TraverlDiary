@@ -1,23 +1,28 @@
 package com.application.traveldiary.adapter
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.drawToBitmap
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
+import com.application.traveldiary.databinding.LayoutAlbumHolderBinding
+import uk.co.senab.photoview.PhotoView
 import java.io.File
 
 class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var mList = listOf<Any>()
     private val DATE = 0
     private val PIC = 1
-
+    var callback:((PhotoView)->Unit)? = null
 
     fun updateData(newData:List<Any>){
         mList = newData
@@ -28,8 +33,24 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class DateHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView:TextView = itemView.findViewById(R.id.date) as TextView
     }
-    class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PhotoHolder(itemView: View,callback:((PhotoView)->Unit)?) : RecyclerView.ViewHolder(itemView) {
         val imageView:ImageView = itemView.findViewById(R.id.image) as ImageView
+        init {
+            itemView.setOnClickListener {
+                // 创建一个新的PhotoView
+                val photoView = PhotoView(itemView.context)
+                photoView.setImageBitmap(imageView.drawToBitmap())
+                val layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                photoView.layoutParams = layoutParams
+                Log.v("wq","click")
+                Log.v("wq","${callback == null}")
+                // 设置ContentView为PhotoView
+                callback!!(photoView)
+            }
+        }
     }
 
 
@@ -39,16 +60,15 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             DateHolder(view)
         }else{
             val view  = LayoutInflater.from(parent.context).inflate(R.layout.layout_album_holder,parent,false);
-            PhotoHolder(view)
+            PhotoHolder(view,callback)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is DateHolder){
-            Log.v("wq","${mList[position]}")
             holder.textView.text = (mList[position] as String)
         }else if (holder is PhotoHolder){
-            setImageViewFromFile(holder.imageView,mList[position] as File)
+            holder.imageView.setImageBitmap(fileToBitmap(mList[position] as File))
         }
     }
 
@@ -81,10 +101,7 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     //读取文件 设置到imageview上
-    private fun setImageViewFromFile(imageView: ImageView, file: File) {
-        if (file.exists()) {
-            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-            imageView.setImageBitmap(bitmap)
-        };
+    private fun fileToBitmap(file: File):Bitmap {
+        return BitmapFactory.decodeFile(file.absolutePath)
     }
 }

@@ -3,6 +3,7 @@ package com.application.traveldiary.views.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,10 +52,14 @@ class AlbumFragment : Fragment() {
         mPermissionManager = PermissionManager.getInstance()
         mViewModel = ViewModelProvider(this)[AlbumViewModel::class.java]
         val mAdapter = DateAlbumAdapter()
+        mAdapter.callback = {
+            requireActivity().setContentView(it)
+            Log.v("wq","Helo")
+        }
         val mRecyclerView: RecyclerView = binding.recyclerviewMyAlbum
 
         //配置layoutmanager
-        val gridLayoutManager = GridLayoutManager(context,5)
+        val gridLayoutManager = GridLayoutManager(context,4)
         //配置recyclerview
         mRecyclerView.apply {
             layoutManager = gridLayoutManager
