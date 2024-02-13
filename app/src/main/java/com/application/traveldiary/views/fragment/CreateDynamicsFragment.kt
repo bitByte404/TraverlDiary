@@ -135,13 +135,8 @@ class CreateDynamicsFragment : Fragment() {
 //            )
 
                 val dynamic = Dynamic("", title, content, urisToString(), 0, viewModel.currentUser.value!!, Date(), comments = arrayListOf())
-                viewModel.addDynamic(dynamic)
-                val dynamics = viewModel.dynamics.value
-                if (dynamics == null) {
-                    Toast.makeText(requireContext(), "压根没有", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(requireContext(), "添加数据成功 ${dynamics.size}", Toast.LENGTH_LONG).show()
-                }
+                viewModel.addDynamicFromTop(dynamic)
+                findNavController().navigateUp()
             }
         }
 

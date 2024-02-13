@@ -40,12 +40,11 @@ class CommunityViewModel : ViewModel() {
 
     //
     fun addDynamic(dynamic: Dynamic) {
-//        val newDynamics = dynamics.value?.let { ArrayList(it) }
-//        newDynamics?.add(dynamic)
-//        // 将新的集合赋值给LiveData
-//        dynamics.value = newDynamics
-
         dynamics.value?.add(dynamic)
+    }
+
+    fun addDynamicFromTop(dynamic: Dynamic) {
+        dynamics.value?.add(0, dynamic)
     }
 
     fun uploadPic(uris: List<Uri>, onStart: () -> Unit = {}, onEnd: () -> Unit = {}): ArrayList<String> {

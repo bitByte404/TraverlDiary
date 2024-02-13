@@ -108,6 +108,5 @@ class CommunityFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         dynamics = viewModel.loadDynamic()
         adapter.setData(dynamics)
-        Toast.makeText(requireContext(), "被调用", Toast.LENGTH_LONG).show()
     }
 }
