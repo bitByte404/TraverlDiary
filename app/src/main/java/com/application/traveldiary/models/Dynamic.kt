@@ -8,7 +8,7 @@ class Dynamic(
     val dynamicId: String,
     val title: String,
     val content: String,
-    val pictures: List<Picture>, //图片不只一张
+    val pictures: List<String>, //图片不只一张
     val likes: Int,
     val postUser: User,
     val postTime: Date,
@@ -21,7 +21,7 @@ class Dynamic(
     fun getPictureUrls() : ArrayList<Uri> {
         val urls = arrayListOf<Uri>()
         pictures.forEach {
-            urls.add(Uri.parse(it.picture))
+            urls.add(Uri.parse(it))
         }
         return urls
     }

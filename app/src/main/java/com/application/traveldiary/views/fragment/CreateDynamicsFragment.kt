@@ -22,6 +22,7 @@ import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
 import com.application.traveldiary.databinding.LayoutAddImagesViewBinding
+import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.views.customView.BottomDialogView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.File
@@ -79,6 +80,7 @@ class CreateDynamicsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    //初始化数据
     private fun initData() {
         //配置动态的图片
         pictureAdapter = DynamicPictureAdapter()
@@ -87,39 +89,59 @@ class CreateDynamicsFragment : Fragment() {
         binding.recyclerView.adapter = pictureAdapter
     }
 
+    //处理触摸事件
     private fun touchEvent() {
 
         binding.addView.setOnClickListener {
-            val bottomSheetDialog = BottomSheetDialog(
-                requireContext()
-            )
-            val contentView = BottomDialogView(requireContext(), attrs = null)
-            bottomSheetDialog.setContentView(contentView)
-            bottomSheetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            contentView.addFromAlbumCallback {
-                getPhotoFromAlbum()
-                bottomSheetDialog.dismiss()
-            }
-            contentView.addTakePhotoCallback {
-                takePhoto()
-                bottomSheetDialog.dismiss()
-            }
-            contentView.cancelBtnCallback {
-                bottomSheetDialog.dismiss()
-            }
-            bottomSheetDialog.show()
+            addViewClicked()
+
         }
     }
 
+    private fun publishBtnClicked() {
+        binding.publishButton.setOnClickListener {
+            val title = binding.title.text
+            val content = binding.content.text
+            //Dynamic("", title, content, urisToString(), 0, )
+        }
+    }
 
-    fun getPhotoFromAlbum() {
+    private fun addViewClicked() {
+        val bottomSheetDialog = BottomSheetDialog(
+            requireContext()
+        )
+        val contentView = BottomDialogView(requireContext(), attrs = null)
+        bottomSheetDialog.setContentView(contentView)
+        bottomSheetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        // 给从相册选择按钮添加点击事件回调
+        contentView.addFromAlbumCallback {
+            getPhotoFromAlbum()
+            bottomSheetDialog.dismiss()
+        }
+        // 给拍摄按钮添加点击事件回调
+        contentView.addTakePhotoCallback {
+            takePhoto()
+            bottomSheetDialog.dismiss()
+        }
+        // 给取消按钮添加点击事件回调
+        contentView.cancelBtnCallback {
+            bottomSheetDialog.dismiss()
+        }
+        // 展示底部弹窗
+        bottomSheetDialog.show()
+    }
+
+
+    //从相册获得图片
+    private fun getPhotoFromAlbum() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         fromAlbumLauncher.launch(intent)
     }
 
-    fun takePhoto() {
+    //拍照获得图片
+    private fun takePhoto() {
         //创建File对象，用于存储拍照后的图片
         outputImage = File(requireContext().externalCacheDir, "output_image.jpg")
         if (outputImage.exists()) {
@@ -138,8 +160,8 @@ class CreateDynamicsFragment : Fragment() {
         takePhotoLauncher.launch(intent)
     }
 
-
-    fun addTextListener() {
+    //添加输入文本监听
+    private fun addTextListener() {
         binding.title.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
         checkPublish()
@@ -147,12 +169,10 @@ class CreateDynamicsFragment : Fragment() {
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-})
-
-binding.content.addTextChangedListener(object : TextWatcher {
-    override fun afterTextChanged(s: Editable?) {
-        checkPublish()
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}})
+        binding.content.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            checkPublish()
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -173,5 +193,13 @@ binding.content.addTextChangedListener(object : TextWatcher {
         binding.publishButton.isEnabled = binding.title.text.toString().isNotEmpty() &&
                 binding.content.text.toString().isNotEmpty() &&
                 uriList.isNotEmpty()
+    }
+
+    fun urisToString(): List<String> {
+        val temp = arrayListOf<String>()
+        uriList.forEach {
+            temp.add(it.toString())
+        }
+        return temp
     }
 }

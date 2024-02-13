@@ -17,6 +17,7 @@ import com.application.traveldiary.models.Comment
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.models.Picture
 import com.application.traveldiary.models.User
+import com.application.traveldiary.utils.CommunityTest
 import java.util.Date
 
 class CommunityFragment : Fragment() {
@@ -85,100 +86,6 @@ class CommunityFragment : Fragment() {
 
     //TODO 供测试使用
     private fun initTestData() {
-        val testDynamics = arrayListOf<Dynamic>()
-
-        val pictureList = listOf(
-            "https://imgs.wuliner.cn/imgs/demo_pic1.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic2.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic3.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic4.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic5.png",
-            "https://imgs.wuliner.cn/imgs/demo_pic6.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic7.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic8.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic9.png",
-            "https://imgs.wuliner.cn/imgs/demo_pic10.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic11.jpg",
-            "https://imgs.wuliner.cn/imgs/demo_pic12.jpg"
-        )
-
-
-        val avatar1 = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
-        val avatar2 = "https://imgs.wuliner.cn/imgs/avatar2.jpg"
-        val avatar3 = "https://imgs.wuliner.cn/imgs/avatar3.jpg"
-
-        val testData = Date(System.currentTimeMillis())
-
-        val picture1 = Picture(pictureList[0], testData, "")
-        val picture2 = Picture(pictureList[1], testData, "")
-        val picture3 = Picture(pictureList[2], testData, "")
-        val picture4 = Picture(pictureList[3], testData, "")
-        val picture5 = Picture(pictureList[4], testData, "")
-        val picture6 = Picture(pictureList[5], testData, "")
-        val picture7 = Picture(pictureList[6], testData, "")
-        val picture8 = Picture(pictureList[7], testData, "")
-        val picture9 = Picture(pictureList[8], testData, "")
-        val picture10 = Picture(pictureList[9], testData, "")
-        val picture11 = Picture(pictureList[10], testData, "")
-        val picture12 = Picture(pictureList[11], testData, "")
-
-
-
-        val pictures = arrayListOf(picture1, picture2, picture3, picture4, picture5, picture11)
-        val pictures2 = arrayListOf(picture6, picture7, picture8, picture9, picture10, picture12)
-
-        val users = listOf("伍柠贰", "小橙子", "大橘子", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺").mapIndexed { index, name ->
-            User(index, name, "123", "110", 0, if (index % 2 == 0) avatar3 else avatar2, "")
-        }
-
-        val commentsContent = listOf("我简直无法用语言来形容。",
-            "我真的感到非常的幸福和满足。",
-            "这张图片让我想起了我曾经去过的一个地方",
-            "它让我感到非常的平静和放松。",
-            "这张图片真的很有艺术感",
-            "这张图片让我想起了一首诗",
-            "我真的很羡慕摄影师",
-            "这张图片让我想起了我的家乡",
-            "它让我感到非常的舒适和愉快。",
-            "我可以感受到对于美景的热爱和敬仰。")
-
-        val comments1 = arrayListOf<Comment>()
-        val comments2 = arrayListOf<Comment>()
-        commentsContent.mapIndexed { index, content ->
-            val comment = Comment((index + 1).toString(), (index + 1).toString(), users[index], content, 10, testData, "")
-            if (index < commentsContent.size / 2) {
-                comments1.add(comment)
-            } else {
-                comments2.add(comment)
-            }
-        }
-
-
-
-        testDynamics.add(Dynamic(
-            "0",
-            "落日沉溺于橘色的海，\n晚风沦陷于赤诚的爱。",
-            "我在黄昏写上一封书信，载着落日的余晖和银河的浪漫。 寄给你，寄给温柔本身。",
-            pictures,
-            50,
-            users[0],
-            testData,
-            "Huawei P60 Pro",
-            comments1
-        ))
-
-        testDynamics.add(Dynamic(
-            "1",
-            "与其幻想，不如追寻",
-            "白云恋我一往情深，蓝天赐我无限盼望，选我所爱，爱我所选。",
-            pictures2,
-            34,
-            users[1],
-            testData,
-            "iPhone15 Pro Max",
-            comments2
-        ))
-
-        dynamics = testDynamics
+        dynamics = arrayListOf(CommunityTest.getDynamic(0), CommunityTest.getDynamic(1))
     }
 }
