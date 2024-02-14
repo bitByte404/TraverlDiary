@@ -29,6 +29,8 @@ object CommunityTest {
         "https://imgs.wuliner.cn/imgs/demo_pic12.jpg"
     )
 
+    var randomAvatar: String = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
+
 
     fun currentData() = Date(System.currentTimeMillis())
 
@@ -157,21 +159,13 @@ object CommunityTest {
         return redirectedUrl
     }
 
-    fun getRandomAvatar(scope: CoroutineScope): String {
-        var url: String? = null
-        scope.launch {
-            while (url == null) {
-                url = getRedirectedUrl("https://cdn.seovx.com/d/?mom=302")
-            }
-        }
-        return url!!
+    suspend fun loadRandomAvatar() {
+        randomAvatar = getRedirectedUrl("https://cdn.seovx.com/d/?mom=302") ?: "https://imgs.wuliner.cn/imgs/avatar1.jpg"
     }
 
-    fun getRandomUser(scope: CoroutineScope): User {
-        val avatar = getRandomAvatar(scope)
-        val user = getUser().apply {
-            head = avatar
+    fun getRandomUser(): User {
+        return getUser().apply {
+            head = randomAvatar
         }
-        return user
     }
 }

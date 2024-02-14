@@ -28,7 +28,7 @@ class CommunityViewModel : ViewModel() {
 
     var dynamics: MutableLiveData<ArrayList<Dynamic>?> = MutableLiveData()
     val currentUser: MutableLiveData<User>  by lazy {
-        MutableLiveData(CommunityTest.getUser())
+        MutableLiveData(CommunityTest.getRandomUser())
     }
 
     //加载数据

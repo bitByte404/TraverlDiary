@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,9 @@ import com.application.traveldiary.utils.CommunityTest
 import com.application.traveldiary.viewModel.CommunityViewModel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     lateinit var mPermissionManager: PermissionManager
@@ -33,7 +36,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         requestReadPermission()
         relateBottom()
+        loadData()
+    }
 
+    private fun loadData() {
+        lifecycleScope.launch {
+            CommunityTest.loadRandomAvatar()
+        }
     }
 
 

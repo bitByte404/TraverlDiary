@@ -4,12 +4,10 @@ import com.application.traveldiary.manager.BmobManager
 import com.application.traveldiary.models.Dynamic
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.io.FileOutputStream
-import java.io.OutputStreamWriter
-import java.io.FileInputStream
-import java.io.InputStreamReader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
 class DynamicManager private constructor() {
     private val mBmobManager = BmobManager.getInstance()
