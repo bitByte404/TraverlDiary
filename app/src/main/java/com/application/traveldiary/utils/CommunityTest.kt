@@ -29,14 +29,13 @@ object CommunityTest {
         "https://imgs.wuliner.cn/imgs/demo_pic12.jpg"
     )
 
-    var randomAvatar: String = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
-
+    var randomAvatar = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
 
     fun currentData() = Date(System.currentTimeMillis())
 
     fun getUser(index: Int = -1): User {
-        val users = listOf("伍柠贰", "小橙子", "大橘子", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺").mapIndexed { index, name ->
-            User(index, name, "123", "110", 0, if (index % 2 == 0) getAvatar(2) else getAvatar(1), "")
+        val users = listOf("大橘子", "小橙子", "伍柠贰", "wuliner", "大孙", "阿成", "小香", "白白", "沸羊羊", "旺旺", "芦苇", "沐阳", "杰哥").mapIndexed { index, name ->
+            User(index, name, "123", "110", 0, getAvatar(index), "")
         }
         if (index == -1) {
             return users.random()
@@ -50,7 +49,32 @@ object CommunityTest {
         val avatar1 = "https://imgs.wuliner.cn/imgs/avatar1.jpg"
         val avatar2 = "https://imgs.wuliner.cn/imgs/avatar2.jpg"
         val avatar3 = "https://imgs.wuliner.cn/imgs/avatar3.jpg"
-        val list = arrayListOf(avatar1, avatar2, avatar3)
+        val avatar4 = "https://img2.imgtp.com/2024/02/14/ujlvk04s.jpg"
+        val avatar5 = "https://img2.imgtp.com/2024/02/14/GUwVsVJ3.jpg"
+        val avatar6 = "https://img2.imgtp.com/2024/02/14/CfSTTAAz.jpg"
+        val avatar7 = "https://img2.imgtp.com/2024/02/14/3qZyb4NX.jpg"
+        val avatar8 = "https://img2.imgtp.com/2024/02/14/Cc35rJlt.jpg"
+        val avatar9 = "https://img2.imgtp.com/2024/02/14/uaz6z3t3.jpg"
+        val avatar10 = "https://img2.imgtp.com/2024/02/14/ApCCa9l7.jpg"
+        val avatar11 = "https://img2.imgtp.com/2024/02/14/nhgjRu9A.jpg"
+        val avatar12 = "https://img2.imgtp.com/2024/02/14/JiGXkP0a.png"
+        val avatar13 = "https://img2.imgtp.com/2024/02/14/AuoBzfUA.jpg"
+
+        val list = arrayListOf(
+            avatar1,
+            avatar2,
+            avatar3,
+            avatar4,
+            avatar5,
+            avatar6,
+            avatar7,
+            avatar8,
+            avatar9,
+            avatar10,
+            avatar11,
+            avatar12,
+            avatar13
+        )
         if (index == -1) {
             return list.random()
         }

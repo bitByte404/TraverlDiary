@@ -36,13 +36,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         requestReadPermission()
         relateBottom()
-        loadData()
-    }
-
-    private fun loadData() {
-        lifecycleScope.launch {
-            CommunityTest.loadRandomAvatar()
-        }
     }
 
 
