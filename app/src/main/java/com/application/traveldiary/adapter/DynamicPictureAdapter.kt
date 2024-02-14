@@ -34,7 +34,6 @@ class DynamicPictureAdapter() :
         fun bind(pictureUrl: Uri) {
             Glide.with(BmobApp.getContext())
                 .load(pictureUrl)
-                .override(500, 500)
                 .centerCrop()
                 .into(binding.imageView)
 

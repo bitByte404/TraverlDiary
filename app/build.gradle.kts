@@ -5,6 +5,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
 }
 
+
 android {
     namespace = "com.application.traveldiary"
     compileSdk = 34
@@ -93,4 +94,7 @@ dependencies {
 
     //SwipeRefreshLayout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    //PhotoView
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
 }
