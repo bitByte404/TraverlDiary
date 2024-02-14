@@ -81,7 +81,7 @@ class CommunityFragment : Fragment() {
             false
         )
         binding.recyclerView.adapter = adapter
-        adapter.setData(dynamics)
+//        adapter.setData(dynamics)
     }
 
 

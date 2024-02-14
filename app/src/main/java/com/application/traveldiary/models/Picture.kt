@@ -7,7 +7,6 @@ import android.provider.MediaStore
 import cn.bmob.v3.BmobObject
 
 class Picture(
-    val bitmap: Bitmap ,  //缩略图
     var uri: Uri,         //照片资源地址
     val takeTime: String,
     val location: String

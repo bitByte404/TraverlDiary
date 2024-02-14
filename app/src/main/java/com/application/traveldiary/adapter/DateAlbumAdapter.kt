@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
+import com.application.traveldiary.manager.AlbumManager
 import com.application.traveldiary.models.Picture
+import com.bumptech.glide.Glide
 
 class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var mList = listOf<Any>()
@@ -83,16 +85,16 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.v("wq","${mList[position]}")
         if (holder is DateHolder) {
             holder.textView.text = (mList[position] as String)
         } else if (holder is PhotoHolder) {
-            holder.imageView.setImageURI((mList[position] as Picture).uri)
+            Glide.with(holder.imageView.context)
+                .load((mList[position] as Picture).uri)
+                .override(256,256)
+                .error(R.drawable.icon_image_loading)
+                .into(holder.imageView)
             holder.bind(spanCount)
-//            val bitmap: Bitmap = ... // 你的Bitmap对象
-//            val byteCount = bitmap.allocationByteCount
-//            val sizeInKB = byteCount / 1024
-//            val sizeInMB = sizeInKB / 1024
+
 
 
             holder.imageView.apply {

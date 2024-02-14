@@ -80,8 +80,7 @@ class AlbumManager private constructor() {
         //获取保存在应用内部的照片Uri
         val mUri = fileManager.savePicFile(uri,picDate,context)
         //缩略图
-        val bitmap = getBitmapFormUri(context.contentResolver,mUri)
-        return Picture(bitmap!!,mUri,picDate,picAddress)
+        return Picture(mUri,picDate,picAddress)
     }
 
     //标准化list
@@ -112,23 +111,5 @@ class AlbumManager private constructor() {
         return resultList
     }
 
-    private fun getBitmapFormUri(contentResolver: ContentResolver, uri: Uri): Bitmap? {
-        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-        return bitmap.scale(150,150)
-//        return bitmap?.let { compressImage(it) }
-    }
-
-    private fun compressImage(image: Bitmap): Bitmap {
-        val baos = ByteArrayOutputStream()
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        var options = 100
-        while (baos.toByteArray().size / 1024 > 100 && options > 1) {
-            baos.reset()
-            image.compress(Bitmap.CompressFormat.JPEG, options, baos)
-            options -= 11
-        }
-        val isBm = ByteArrayInputStream(baos.toByteArray())
-        return BitmapFactory.decodeStream(isBm, null, null)!!
-    }
 
 }
