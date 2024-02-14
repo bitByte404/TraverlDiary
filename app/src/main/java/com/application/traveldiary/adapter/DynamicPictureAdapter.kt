@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.application.BmobApp
 import com.application.traveldiary.databinding.LayoutPiictureDynamicBinding
@@ -19,7 +20,7 @@ class DynamicPictureAdapter() :
 
     // item回调事件
     interface onImageItemClickListener {
-        fun onItemClick(imageUri: Uri)
+        fun onItemClick(imageUri: Uri, imageView: ImageView)
     }
 
     private var listener: onImageItemClickListener? = null
@@ -39,7 +40,7 @@ class DynamicPictureAdapter() :
 
             // 设置点击监听器
             itemView.setOnClickListener {
-                this@DynamicPictureAdapter.listener?.onItemClick(pictureUrl)
+                this@DynamicPictureAdapter.listener?.onItemClick(pictureUrl, binding.imageView)
             }
         }
     }

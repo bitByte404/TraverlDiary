@@ -3,13 +3,16 @@ package com.application.traveldiary.views.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,9 +32,13 @@ class CommunityFragment : Fragment() {
     val adapter: DynamicAdapter by lazy {
         DynamicAdapter().apply {
             setOnImageItemClickListener(object : DynamicPictureAdapter.onImageItemClickListener {
-                override fun onItemClick(imageUri: Uri) {
-                    val action = CommunityFragmentDirections.actionNavigationCommunityToPictureFullScreenFragment(imageUri)
-                    findNavController().navigate(action)
+
+                override fun onItemClick(imageUri: Uri, imageView: ImageView) {
+                    imageView.transitionName = "shared_element"
+                    val extras = FragmentNavigatorExtras(imageView to "shared_element")
+                    val action = CommunityFragmentDirections.
+                    actionNavigationCommunityToPictureFullScreenFragment(imageUri)
+                    findNavController().navigate(action, extras)
                 }
             })
         }
@@ -68,6 +75,14 @@ class CommunityFragment : Fragment() {
         binding.hotBar.setDefaultSort()
         lastSelectedBar = binding.hotBar
         observeData()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     //添加点击事件

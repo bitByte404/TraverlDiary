@@ -31,9 +31,7 @@
             app:popExitAnim="@anim/pop_exit_to_right_anim" />
         <action
             android:id="@+id/action_navigation_community_to_pictureFullScreenFragment"
-            app:destination="@id/pictureFullScreenFragment"
-            app:enterAnim="@anim/zoom_in_picture"
-            app:popExitAnim="@anim/zoom_out_picture" />
+            app:destination="@id/pictureFullScreenFragment" />
     </fragment>
 
     <fragment

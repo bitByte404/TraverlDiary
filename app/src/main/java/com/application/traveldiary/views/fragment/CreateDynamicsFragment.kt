@@ -9,14 +9,17 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -83,6 +86,14 @@ class CreateDynamicsFragment : Fragment() {
         requireActivity().contentResolver.takePersistableUriPermission(uri, takeFlags)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -104,10 +115,14 @@ class CreateDynamicsFragment : Fragment() {
     private fun initData() {
         //配置动态的图片
         pictureAdapter = DynamicPictureAdapter().apply {
+
             setOnImageItemClickListener(object : DynamicPictureAdapter.onImageItemClickListener {
-                override fun onItemClick(imageUri: Uri) {
-                    val action = CreateDynamicsFragmentDirections.actionCreateDynamicsFragmentToPictureFullScreenFragment2(imageUri)
-                    findNavController().navigate(action)
+                override fun onItemClick(imageUri: Uri, imageView: ImageView) {
+                    imageView.transitionName = "shared_element"
+                    val extras = FragmentNavigatorExtras(imageView to "shared_element")
+                    val action = CreateDynamicsFragmentDirections.
+                    actionCreateDynamicsFragmentToPictureFullScreenFragment2(imageUri)
+                    findNavController().navigate(action, extras)
                 }
             })
         }
