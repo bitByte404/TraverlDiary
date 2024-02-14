@@ -23,7 +23,6 @@ class FileManager private constructor(){
     private var uriGson:Gson = GsonBuilder()
         .registerTypeAdapter(Uri::class.java, UriTypeAdapter())
         .create()
-
     companion object{
         private var instance: FileManager? = null
         private var fileDirHead = ""
@@ -42,13 +41,11 @@ class FileManager private constructor(){
             Companion.fileDirPic = "$fileDir/albumPic"
             return instance!!
         }
-
-        fun getUriGson(): Gson {
-            val gson = GsonBuilder()
-                .registerTypeAdapter(Uri::class.java, UriTypeAdapter())
-                .create()
-            return gson
-        }
+    }
+    //检查所需的文件夹是否存在 然后创建
+    fun checkFileDir(){
+        checkFileDir(fileDirHead)
+        checkFileDir(fileDirPic)
     }
 
     //保存Picture类
@@ -59,15 +56,10 @@ class FileManager private constructor(){
         }
     }
 
-    //检查所需的文件夹是否存在 然后创建
-    fun checkFileDir(){
-        checkFileDir(fileDirHead)
-        checkFileDir(fileDirPic)
-    }
+    //从文件夹加载Picture类
     fun loadPicturesFromFile(): List<Picture> {
         //用来比较日期
         val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-
         //所有的Picture
         val picArr = arrayListOf<Picture>()
         val fileDir: File = File(fileDirHead) // 文件夹
@@ -88,9 +80,9 @@ class FileManager private constructor(){
 
 
     //保存照片文件
-    fun savePicFile(uri: Uri, takeTime: String):Uri {
-        val src = uri.toFile()
-        val dst = File(fileDirPic, "${generateUniqueFileName(takeTime)}.jpg)")
+    fun savePicFile(uri: Uri, takeTime: String,context: Context):Uri {
+        val src = getRealPathFromURI(context,uri)
+        val dst = File(fileDirPic, "${generateUniqueFileName(takeTime)}.jpg")
         val inStream = FileInputStream(src)
         val outStream = FileOutputStream(dst)
         val bufferedInStream = BufferedInputStream(inStream)

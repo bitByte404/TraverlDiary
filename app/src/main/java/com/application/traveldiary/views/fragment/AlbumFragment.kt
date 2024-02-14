@@ -88,5 +88,9 @@ class AlbumFragment : Fragment() {
         selectImageLauncher.launch(intent)
     }
 
+    override fun onPause() {
+        super.onPause()
+        System.gc()
+    }
 
 }

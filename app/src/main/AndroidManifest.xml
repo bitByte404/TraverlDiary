@@ -46,5 +46,8 @@
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.application.traveldiary.BmobContentProvider">
         </provider>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="3564c4d89ab3bbf02f28cc43edfe2ee6"/>
     </application>
 </manifest>

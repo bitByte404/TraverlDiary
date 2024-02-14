@@ -1,5 +1,6 @@
 package com.application.traveldiary.adapter
 
+import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun updateData(newData: List<Any>) {
         mList = newData
         notifyDataSetChanged()  //数据改变通知视图改变
+        System.gc()
     }
 
     //包含日期和照片 所以分两个Holder
@@ -86,9 +88,12 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.textView.text = (mList[position] as String)
         } else if (holder is PhotoHolder) {
             holder.imageView.setImageURI((mList[position] as Picture).uri)
-
-
             holder.bind(spanCount)
+//            val bitmap: Bitmap = ... // 你的Bitmap对象
+//            val byteCount = bitmap.allocationByteCount
+//            val sizeInKB = byteCount / 1024
+//            val sizeInMB = sizeInKB / 1024
+
 
             holder.imageView.apply {
                 setOnLongClickListener {
@@ -107,7 +112,6 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     notifyDataSetChanged()
                 }
             }
-
             if (choosing){
                 holder.chooseView.setImageResource(R.drawable.icon_circle_choose)
             }else{

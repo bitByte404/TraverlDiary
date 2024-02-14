@@ -59,4 +59,9 @@ class LocationTimeManager private constructor() {
         }
     }
 
+
+    fun aMap(context: Context){
+//        AMapLocationClient.updatePrivacyShow(context,true,true);
+//        AMapLocationClient.updatePrivacyAgree(context,true);
+    }
 }

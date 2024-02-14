@@ -1,31 +1,31 @@
 package com.application.traveldiary.manager
 
+import android.R.attr.data
+import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
-import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.ExifInterface
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
-import androidx.core.net.toUri
+import androidx.core.graphics.scale
 import com.application.traveldiary.models.Picture
-import java.io.BufferedInputStream
-import java.io.BufferedOutputStream
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
-import java.lang.StringBuilder
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 
 class AlbumManager private constructor() {
-    private val fileManager = FileManager.getInstance(fileDir)
     private val locationTimeManager = LocationTimeManager.getInstance()
     companion object {
         private var instance: AlbumManager? = null
+        private lateinit var fileManager:FileManager
         //保存的照片路径
         private var fileDir = ""
         //经典单例模式
@@ -38,6 +38,7 @@ class AlbumManager private constructor() {
                 }
             }
             this.fileDir = fileDir
+            fileManager = FileManager.getInstance(fileDir)
             return instance!!
         }
     }
@@ -56,6 +57,8 @@ class AlbumManager private constructor() {
 
         //照片列表
         val list = fileManager.loadPicturesFromFile()
+        if (list.isEmpty()) return mutableListOf()
+
         //整理为规范的列表 穿插入时间地点信息
         val resultList = standardizeList(list)
 
@@ -75,9 +78,10 @@ class AlbumManager private constructor() {
         //获取照片拍摄地点
         val picAddress = ""
         //获取保存在应用内部的照片Uri
-        val mUri = fileManager.savePicFile(uri,picDate)
-
-        return Picture(mUri,picDate,picAddress)
+        val mUri = fileManager.savePicFile(uri,picDate,context)
+        //缩略图
+        val bitmap = getBitmapFormUri(context.contentResolver,mUri)
+        return Picture(bitmap!!,mUri,picDate,picAddress)
     }
 
     //标准化list
@@ -107,4 +111,24 @@ class AlbumManager private constructor() {
         }
         return resultList
     }
+
+    private fun getBitmapFormUri(contentResolver: ContentResolver, uri: Uri): Bitmap? {
+        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        return bitmap.scale(150,150)
+//        return bitmap?.let { compressImage(it) }
+    }
+
+    private fun compressImage(image: Bitmap): Bitmap {
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        var options = 100
+        while (baos.toByteArray().size / 1024 > 100 && options > 1) {
+            baos.reset()
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos)
+            options -= 11
+        }
+        val isBm = ByteArrayInputStream(baos.toByteArray())
+        return BitmapFactory.decodeStream(isBm, null, null)!!
+    }
+
 }
