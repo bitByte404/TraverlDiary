@@ -135,7 +135,7 @@ class CreateDynamicsFragment : Fragment() {
 //            )
 
                 val dynamic = Dynamic("", title, content, urisToString(), 0, viewModel.currentUser.value!!, Date(), comments = arrayListOf())
-                viewModel.addDynamicFromTop(dynamic)
+                viewModel.addDynamicAndAddToFile(dynamic)
                 findNavController().navigateUp()
             }
         }

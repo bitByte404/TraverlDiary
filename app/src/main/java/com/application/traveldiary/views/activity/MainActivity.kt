@@ -1,5 +1,6 @@
 package com.application.traveldiary.views.activity
 
+import DynamicManager
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,17 +8,21 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.application.traveldiary.manager.PermissionManager
 
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.application.traveldiary.R
+import com.application.traveldiary.utils.CommunityTest
 import com.application.traveldiary.viewModel.CommunityViewModel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var mPermissionManager: PermissionManager
@@ -29,6 +34,29 @@ class MainActivity : AppCompatActivity() {
 
         requestReadPermission()
         relateBottom()
+
+    }
+
+    private fun loadData() {
+        val dynamicManager = DynamicManager.instance
+        lifecycleScope.launch {
+            val list =  dynamicManager.getDynamicFromFile("dynamics.txt")
+            if (list != null) {
+                communityViewModel.dynamics.value = ArrayList(list)
+            }
+        }
+    }
+
+    private fun saveData() {
+        val dynamicManager = DynamicManager.instance
+        lifecycleScope.launch {
+            dynamicManager.dynamicsIntoFile(listOf(
+                CommunityTest.getDynamic(0),
+                CommunityTest.getDynamic(1)
+            ), "dynamics.txt") {
+                Toast.makeText(applicationContext, "数据添加成功", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
 

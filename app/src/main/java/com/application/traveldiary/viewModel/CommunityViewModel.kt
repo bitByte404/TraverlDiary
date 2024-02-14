@@ -1,9 +1,11 @@
 package com.application.traveldiary.viewModel
 
+import DynamicManager
 import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.application.traveldiary.application.BmobApp
 import com.application.traveldiary.models.Dynamic
@@ -24,13 +26,21 @@ class CommunityViewModel : ViewModel() {
     }
 
 
-    val dynamics: MutableLiveData<ArrayList<Dynamic>?> = MutableLiveData()
+    var dynamics: MutableLiveData<ArrayList<Dynamic>?> = MutableLiveData()
     val currentUser: MutableLiveData<User>  by lazy {
         MutableLiveData(CommunityTest.getUser())
     }
 
     //加载数据
     fun loadDynamic(): ArrayList<Dynamic> {
+        val dynamicManager = DynamicManager.instance
+        viewModelScope.launch {
+            val list =  dynamicManager.getDynamicFromFile("dynamics.txt")
+            if (list != null) {
+                dynamics.value = ArrayList(list)
+            }
+        }
+
         //TODO 这是使用的还是预设数据
         if (dynamics.value == null) {
             dynamics.value = arrayListOf(CommunityTest.getDynamic(0), CommunityTest.getDynamic(1))
@@ -88,5 +98,15 @@ class CommunityViewModel : ViewModel() {
             Date(),
             comments = arrayListOf()
         )
+    }
+
+    fun addDynamicAndAddToFile(dynamic: Dynamic) {
+        addDynamicFromTop(dynamic)
+        val dynamicManager = DynamicManager.instance
+        viewModelScope.launch {
+            dynamicManager.dynamicsIntoFile(dynamics.value!!, "dynamics.txt") {
+                Toast.makeText(BmobApp.getContext(), "数据添加成功", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
