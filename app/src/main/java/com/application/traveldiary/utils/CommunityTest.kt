@@ -4,6 +4,12 @@ import android.os.Build
 import com.application.traveldiary.models.Comment
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.models.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.Date
 
 // 用于获取社区部分的测试数据
@@ -136,5 +142,36 @@ object CommunityTest {
 
     fun getPhoneBrand(): String {
         return Build.BRAND
+    }
+
+
+    suspend fun getRedirectedUrl(url: String, callback: () -> Unit = {}): String? {
+        var redirectedUrl = ""
+        withContext(Dispatchers.IO) {
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.instanceFollowRedirects = false
+            connection.connect()
+            redirectedUrl = connection.getHeaderField("Location")
+            connection.disconnect()
+        }
+        return redirectedUrl
+    }
+
+    fun getRandomAvatar(scope: CoroutineScope): String {
+        var url: String? = null
+        scope.launch {
+            while (url == null) {
+                url = getRedirectedUrl("https://cdn.seovx.com/d/?mom=302")
+            }
+        }
+        return url!!
+    }
+
+    fun getRandomUser(scope: CoroutineScope): User {
+        val avatar = getRandomAvatar(scope)
+        val user = getUser().apply {
+            head = avatar
+        }
+        return user
     }
 }

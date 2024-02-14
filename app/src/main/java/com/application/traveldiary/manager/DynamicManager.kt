@@ -25,6 +25,11 @@ class DynamicManager private constructor() {
     // 从指定文件路径获取动态集合
     suspend fun getDynamicFromFile(filename: String): List<Dynamic>? {
         return withContext(Dispatchers.IO) {
+            val file = context.getFileStreamPath(filename)
+            if (!file.exists()) {
+                return@withContext null
+            }
+
             val fileInputStream = context.openFileInput(filename)
             val reader = InputStreamReader(fileInputStream)
 

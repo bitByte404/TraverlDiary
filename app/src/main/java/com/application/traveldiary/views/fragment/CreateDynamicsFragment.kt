@@ -12,30 +12,21 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicPictureAdapter
-import com.application.traveldiary.application.BmobApp
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
-import com.application.traveldiary.databinding.LayoutAddImagesViewBinding
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.utils.CommunityTest
-import com.application.traveldiary.utils.DateUtils
-import com.application.traveldiary.utils.ImageUploader
 import com.application.traveldiary.viewModel.CommunityViewModel
 import com.application.traveldiary.views.customView.BottomDialogView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Date
@@ -133,6 +124,7 @@ class CreateDynamicsFragment : Fragment() {
 //                    Toast.makeText(requireContext(), "上传成功", Toast.LENGTH_SHORT).show()
 //                }
 //            )
+
 
                 val dynamic = Dynamic("", title, content, urisToString(), 0, viewModel.currentUser.value!!, Date(), comments = arrayListOf())
                 viewModel.addDynamicAndAddToFile(dynamic)

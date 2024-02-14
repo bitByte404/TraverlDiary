@@ -31,32 +31,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         requestReadPermission()
         relateBottom()
 
-    }
-
-    private fun loadData() {
-        val dynamicManager = DynamicManager.instance
-        lifecycleScope.launch {
-            val list =  dynamicManager.getDynamicFromFile("dynamics.txt")
-            if (list != null) {
-                communityViewModel.dynamics.value = ArrayList(list)
-            }
-        }
-    }
-
-    private fun saveData() {
-        val dynamicManager = DynamicManager.instance
-        lifecycleScope.launch {
-            dynamicManager.dynamicsIntoFile(listOf(
-                CommunityTest.getDynamic(0),
-                CommunityTest.getDynamic(1)
-            ), "dynamics.txt") {
-                Toast.makeText(applicationContext, "数据添加成功", Toast.LENGTH_LONG).show()
-            }
-        }
     }
 
 
