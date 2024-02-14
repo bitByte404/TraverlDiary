@@ -47,14 +47,13 @@
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_welcomeFragment_to_navigation_journey"
-            app:destination="@id/navigation_journey"
+            android:id="@+id/action_welcomeFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
             app:enterAnim="@anim/enter_from_right_anim"
             app:exitAnim="@anim/exit_to_left_anim"
             app:popEnterAnim="@anim/pop_enter_from_left_anim"
-            app:popExitAnim="@anim/pop_exit_to_right_anim"
-            app:popUpTo="@id/welcomeFragment"
-            app:popUpToInclusive="true" />
+            app:popExitAnim="@anim/pop_enter_from_left_anim"
+            app:popUpTo="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/guideFragment"
@@ -62,10 +61,11 @@
         android:label="fragment_guide"
         tools:layout="@layout/fragment_guide" >
         <action
-            android:id="@+id/action_guideFragment_to_navigation_journey"
-            app:destination="@id/navigation_journey"
+            android:id="@+id/action_guideFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
             app:enterAnim="@anim/enter_from_right_anim"
             app:exitAnim="@anim/exit_to_left_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/pop_enter_from_left_anim"
             app:popExitAnim="@anim/pop_exit_to_right_anim"
             app:popUpTo="@id/guideFragment"
@@ -75,4 +75,8 @@
         android:id="@+id/createDynamicsFragment"
         android:name="com.application.traveldiary.views.fragment.CreateDynamicsFragment"
         android:label="CreateDynamicsFragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.application.traveldiary.views.fragment.MainFragment"
+        android:label="MainFragment" />
 </navigation>

@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         requestReadPermission()
-        relateBottom()
     }
 
 
@@ -53,11 +52,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    private fun relateBottom() {
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        NavigationUI.setupWithNavController(navView, navController)
     }
 }

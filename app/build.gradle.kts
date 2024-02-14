@@ -79,4 +79,9 @@ dependencies {
     //Gson
     implementation ("com.google.code.gson:gson:2.10.1")
 
+    //viewpager2
+    implementation ("androidx.appcompat:appcompat:1.1.0-alpha05")
+    implementation ("com.android.support:design:28.0.0")
+    implementation ("androidx.viewpager2:viewpager2:1.0.0-beta02")
+
 }

@@ -23,8 +23,7 @@ class SecondFragment : Fragment() {
             //改变isFirst
             SPTools.defaultTools(requireContext()).isFirst = false
             //切换到主页
-            findNavController().navigate(R.id.action_guideFragment_to_navigation_journey)
-            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility = View.VISIBLE
+            findNavController().navigate(R.id.action_guideFragment_to_mainFragment)
         }
 
         return binding.root

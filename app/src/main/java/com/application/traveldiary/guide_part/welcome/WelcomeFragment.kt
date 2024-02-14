@@ -44,10 +44,7 @@ class WelcomeFragment : Fragment() {
             findNavController().navigate(R.id.action_welcomeFragment_to_guideFragment)
         }else{
             findNavController().
-            navigate(R.id.action_welcomeFragment_to_navigation_journey)
-            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
-                    View.VISIBLE
-
+            navigate(R.id.action_welcomeFragment_to_mainFragment)
         }
     }
 }
