@@ -73,6 +73,11 @@ class CreateDynamicsFragment : Fragment() {
 
     // 获取持球访问权限
     private fun takePersistableUriPermission(uri: Uri) {
+        val persistedUris = requireActivity().contentResolver.persistedUriPermissions
+        if (persistedUris.any { it.uri == uri }) {
+            // 先检测是否已经申请过权限，避免重复申请后报错
+            return
+        }
         val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION
         requireActivity().contentResolver.takePersistableUriPermission(uri, takeFlags)
