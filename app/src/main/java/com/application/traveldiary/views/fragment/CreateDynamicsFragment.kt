@@ -20,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.application.traveldiary.adapter.DynamicAdapter
 import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
 import com.application.traveldiary.models.Dynamic
@@ -62,11 +63,19 @@ class CreateDynamicsFragment : Fragment() {
                 }
             } else {
                 result.data?.data?.let { uri ->
+                    takePersistableUriPermission(uri)
                     uriList.add(uri)
                 }
             }
             pictureAdapter.setData(uriList)
         }
+    }
+
+    // 获取持球访问权限
+    private fun takePersistableUriPermission(uri: Uri) {
+        val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        requireActivity().contentResolver.takePersistableUriPermission(uri, takeFlags)
     }
 
     override fun onCreateView(
@@ -89,7 +98,14 @@ class CreateDynamicsFragment : Fragment() {
     //初始化数据
     private fun initData() {
         //配置动态的图片
-        pictureAdapter = DynamicPictureAdapter()
+        pictureAdapter = DynamicPictureAdapter().apply {
+            setOnImageItemClickListener(object : DynamicPictureAdapter.onImageItemClickListener {
+                override fun onItemClick(imageUri: Uri) {
+                    val action = CreateDynamicsFragmentDirections.actionCreateDynamicsFragmentToPictureFullScreenFragment2(imageUri)
+                    findNavController().navigate(action)
+                }
+            })
+        }
         binding.recyclerView.layoutManager =
             GridLayoutManager(context, 3)
         binding.recyclerView.adapter = pictureAdapter

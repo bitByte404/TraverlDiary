@@ -3,6 +3,7 @@ package com.application.traveldiary.adapter
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.application.BmobApp
 import com.application.traveldiary.databinding.LayoutPiictureDynamicBinding
@@ -16,7 +17,19 @@ class DynamicPictureAdapter() :
 
         private var mDataset = arrayListOf<Uri>()
 
-    class MyViewHolder(val binding: LayoutPiictureDynamicBinding) :
+    // item回调事件
+    interface onImageItemClickListener {
+        fun onItemClick(imageUri: Uri)
+    }
+
+    private var listener: onImageItemClickListener? = null
+
+    fun setOnImageItemClickListener(listener: onImageItemClickListener) {
+        this.listener = listener
+    }
+
+
+    inner class MyViewHolder(val binding: LayoutPiictureDynamicBinding) :
     RecyclerView.ViewHolder(binding.root) {
         fun bind(pictureUrl: Uri) {
             Glide.with(BmobApp.getContext())
@@ -24,6 +37,11 @@ class DynamicPictureAdapter() :
                 .override(500, 500)
                 .centerCrop()
                 .into(binding.imageView)
+
+            // 设置点击监听器
+            itemView.setOnClickListener {
+                this@DynamicPictureAdapter.listener?.onItemClick(pictureUrl)
+            }
         }
     }
 

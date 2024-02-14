@@ -43,7 +43,6 @@ object CommunityTest {
         return users[index]
     }
 
-
     // 获取头像， 默认返回随机头像，也可指定头像
     fun getAvatar(index: Int = -1): String {
         val avatar1 = "https://imgs.wuliner.cn/imgs/avatar1.jpg"

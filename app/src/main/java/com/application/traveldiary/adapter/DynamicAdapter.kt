@@ -21,7 +21,13 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
     //保存动态信息
     private var mDynamics = emptyList<Dynamic>()
 
-    class MyViewHolder(val binding: LayoutDynamicBinding) : RecyclerView.ViewHolder(binding.root) {
+    private var onImageItemClickListener: DynamicPictureAdapter.onImageItemClickListener? = null
+
+    fun setOnImageItemClickListener(listener: DynamicPictureAdapter.onImageItemClickListener) {
+        this.onImageItemClickListener = listener
+    }
+
+    inner class MyViewHolder(val binding: LayoutDynamicBinding) : RecyclerView.ViewHolder(binding.root) {
         val context = BmobApp.getContext()
         fun bind(dynamic: Dynamic) {
 
@@ -63,6 +69,11 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
 
             //配置动态的图片
             val pictureAdapter = DynamicPictureAdapter()
+            this@DynamicAdapter.onImageItemClickListener?.let {
+                pictureAdapter.setOnImageItemClickListener(
+                    it
+                )
+            }
             pictureAdapter.setData(dynamic.getPictureUrls())
 
             binding.recyclerviewPictures.layoutManager =

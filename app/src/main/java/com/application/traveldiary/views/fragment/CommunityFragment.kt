@@ -1,5 +1,7 @@
 package com.application.traveldiary.views.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
 import com.application.traveldiary.adapter.DynamicAdapter
+import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCommunityBinding
 import com.application.traveldiary.models.Dynamic
 import com.application.traveldiary.utils.CommunityTest
@@ -24,7 +27,14 @@ class CommunityFragment : Fragment() {
     private lateinit var dynamics: ArrayList<Dynamic>
     private lateinit var lastSelectedBar: PaginationView
     val adapter: DynamicAdapter by lazy {
-        DynamicAdapter()
+        DynamicAdapter().apply {
+            setOnImageItemClickListener(object : DynamicPictureAdapter.onImageItemClickListener {
+                override fun onItemClick(imageUri: Uri) {
+                    val action = CommunityFragmentDirections.actionNavigationCommunityToPictureFullScreenFragment(imageUri)
+                    findNavController().navigate(action)
+                }
+            })
+        }
     }
 
     // 获取ViewModel的实例
