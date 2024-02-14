@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobObject
 class Picture(
     var uri: Uri,         //照片资源地址
     val takeTime: String,
-    val location: String
+    val location: String?
 ) : BmobObject() {
     val picture = ""
 

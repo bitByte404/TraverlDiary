@@ -76,7 +76,7 @@ class AlbumManager private constructor() {
         //照片拍摄时间
         val picDate = locationTimeManager.getPhotoTakeTime(exifInterface)
         //获取照片拍摄地点
-        val picAddress = ""
+        val picAddress = locationTimeManager.getPhotoLocationFromUri(context,uri,exifInterface)
         //获取保存在应用内部的照片Uri
         val mUri = fileManager.savePicFile(uri,picDate,context)
         //缩略图
@@ -89,25 +89,31 @@ class AlbumManager private constructor() {
         val resultList = mutableListOf<Any>()
         var lastDate = list[0].takeTime
         val tempArr = mutableListOf<Picture>()
-        val locationStr = StringBuilder()
-        list.forEach{
-            Log.v("wq","${it.takeTime}  ${it.uri}")
-            if (it.location != ""){
-                locationStr.append(",${it.location}")
-            }
+        val locationSet = mutableSetOf<String>()
+        var lastSb:String =""
+        val sb = StringBuilder()
+        list.forEach{ it ->
             if (it.takeTime != lastDate){
-                resultList.add("${lastDate}${locationStr}")
+                Log.v("wq","${it.takeTime} ${sb}")
+                resultList.add("${lastDate}${sb}")
                 resultList.addAll(tempArr)
                 lastDate = it.takeTime
-                locationStr.clear()
+                locationSet.clear()
+                sb.clear()
                 tempArr.clear()
+            }
+            if (it.location != "" && it.location != null){
+                if(locationSet.add(",${it.location}")) {
+                    sb.append(",${it.location}")
+                }
             }
             tempArr.add(it)
         }
         if (tempArr.isNotEmpty()) {
-            resultList.add("${tempArr[0].takeTime}${locationStr}")
+            resultList.add("${tempArr[0].takeTime}${sb}")
             resultList.addAll(tempArr)
         }
+
         return resultList
     }
 
