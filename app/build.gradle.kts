@@ -85,15 +85,10 @@ dependencies {
     implementation ("com.android.support:design:28.0.0")
     implementation ("androidx.viewpager2:viewpager2:1.0.0-beta02")
 
-    //Gaode map
-//    implementation(fileTree(mapOf("include" to listOf("*.jar"),"dir" to "libs")))
-//    implementation("com.amap.api:3dmap:latest.integration")
-//    implementation("com.amap.api:3dmap:4.0.0")
-//    implementation("com.amap.api:location:3.0.0")
-//    implementation("com.amap.api:search:4.0.0")
-
     //koHttp
     implementation ("com.squareup.okhttp3:okhttp:4.0.0")
 
-
+    //viewModel
+    implementation ("androidx.activity:activity-ktx:1.7.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 }

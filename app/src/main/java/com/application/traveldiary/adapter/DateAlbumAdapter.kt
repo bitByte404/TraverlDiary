@@ -1,6 +1,7 @@
 package com.application.traveldiary.adapter
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val DATE = 0
     private val PIC = 1
     private var choosing = false
+    var callback:((Picture)->Unit) = {}
 
     fun updateData(newData: List<Any>) {
         mList = newData
@@ -29,30 +31,19 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     //包含日期和照片 所以分两个Holder
-    class DateHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DateHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById(R.id.date) as TextView
     }
 
-    class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.image) as ImageView
         val chooseView: ImageView = itemView.findViewById(R.id.circle) as ImageView
-        var isChosen:OptionState = OptionState.Null
-            set(bool:OptionState){
-                when(bool){
-                    OptionState.Null -> chooseView.setImageResource(0)
-                    OptionState.Choose -> chooseView.setImageResource(R.drawable.icon_circle_choose)
-                    OptionState.Chosen -> chooseView.setImageResource(R.drawable.icon_circle_chosen)
-                }
-                Log.v("wq","set")
-                field = bool
-            }
-            get(){
-                return field
-            }
 
-        fun bind(spanCount: Int) {
+        fun bind(spanCount: Int,picture: Picture) {
             setShape(spanCount)
-
+            imageView.setOnClickListener{
+                this@DateAlbumAdapter.callback(picture)
+            }
         }
 
         private fun setShape(spanCount:Int){
@@ -63,10 +54,6 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             layoutParams.width = imageViewWidth
             layoutParams.height = imageViewWidth
             imageView.layoutParams = layoutParams
-        }
-
-        enum class OptionState(){
-            Choose,Chosen,Null
         }
 
     }
@@ -91,35 +78,9 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             Glide.with(holder.imageView.context)
                 .load((mList[position] as Picture).uri)
                 .override(256,256)
-                .error(R.drawable.icon_image_loading)
+                .placeholder(R.drawable.icon_image_loading)
                 .into(holder.imageView)
-            holder.bind(spanCount)
-
-
-
-            holder.imageView.apply {
-                setOnLongClickListener {
-                    choosing = true
-                    Log.v("wq","${choosing}")
-                    notifyDataSetChanged()
-                    return@setOnLongClickListener true
-                }
-                setOnClickListener {
-                    holder.isChosen
-                    if (holder.isChosen == PhotoHolder.OptionState.Chosen) {
-                        PhotoHolder.OptionState.Choose
-                    } else{
-                        PhotoHolder.OptionState.Chosen
-                    }
-                    notifyDataSetChanged()
-                }
-            }
-            if (choosing){
-                holder.chooseView.setImageResource(R.drawable.icon_circle_choose)
-            }else{
-                holder.chooseView.setImageResource(0)
-                Log.v("wq","${choosing}")
-            }
+            holder.bind(spanCount,mList[position] as Picture)
         }
     }
 

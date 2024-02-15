@@ -6,33 +6,6 @@
     app:startDestination="@id/welcomeFragment">
 
     <fragment
-        android:id="@+id/navigation_journey"
-        android:name="com.application.traveldiary.views.fragment.JourneyFragment"
-        android:label="Journey"
-        tools:layout="@layout/fragment_journey" />
-
-    <fragment
-        android:id="@+id/navigation_album"
-        android:name="com.application.traveldiary.views.fragment.AlbumFragment"
-        android:label="Album"
-        tools:layout="@layout/fragment_album" />
-
-    <fragment
-        android:id="@+id/navigation_community"
-        android:name="com.application.traveldiary.views.fragment.CommunityFragment"
-        android:label="Community"
-        tools:layout="@layout/fragment_community" >
-        <action
-            android:id="@+id/action_navigation_community_to_createDynamicsFragment"
-            app:destination="@id/createDynamicsFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_person"
-        android:name="com.application.traveldiary.views.fragment.PersonFragment"
-        android:label="Person"
-        tools:layout="@layout/fragment_person" />
-    <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.application.traveldiary.guide_part.welcome.WelcomeFragment"
         android:label="fragment_welcome"
@@ -81,5 +54,28 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.application.traveldiary.views.fragment.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_pictureFragment"
+            app:destination="@id/pictureFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createDynamicsFragment"
+            app:destination="@id/createDynamicsFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/pictureFragment"
+        android:name="com.application.traveldiary.views.fragment.PictureFragment"
+        android:label="PictureFragment" />
+    <fragment
+        android:id="@+id/journeyFragment"
+        android:name="com.application.traveldiary.views.fragment.JourneyFragment"
+        android:label="fragment_journey"
+        tools:layout="@layout/fragment_journey" />
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.application.traveldiary.views.fragment.AlbumFragment"
+        android:label="AlbumFragment" >
+    </fragment>
+
 </navigation>

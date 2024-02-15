@@ -66,7 +66,7 @@ class CommunityFragment : Fragment() {
 
     private fun addButtonTouchEvent() {
         binding.addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_community_to_createDynamicsFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_createDynamicsFragment)
         }
     }
 
