@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.application.traveldiary.manager.JourneyLayoutManager
-import com.application.traveldiary.adapter.JourneyAdapter
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.application.traveldiary.adapter.JourneysAdapter
 import com.application.traveldiary.adapter.TimelineAdapter
 import com.application.traveldiary.databinding.FragmentJourneyBinding
 import com.application.traveldiary.utils.journeyCreator
@@ -31,16 +32,19 @@ class JourneyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val tLayoutManger = LinearLayoutManager(requireContext())
-
         binding.timeAxisRecyclerView.apply {
             layoutManager = tLayoutManger
             adapter = TimelineAdapter(timeCreator())
         }
 
-        val jLayoutManger = JourneyLayoutManager(requireContext(), journeyCreator())
-        binding.tasksRecyclerView.apply {
-            layoutManager = jLayoutManger
-            adapter = JourneyAdapter(journeyCreator())
+        val tsLayoutManger =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.journeysRecyclerView.apply {
+            layoutManager = tsLayoutManger
+            adapter = JourneysAdapter(journeyCreator())
+            // 使用 PagerSnapHelper 辅助实现整页滑动效果
+            val pagerSnapHelper = PagerSnapHelper()
+            pagerSnapHelper.attachToRecyclerView(this)
         }
     }
 }
