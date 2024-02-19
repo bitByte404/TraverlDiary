@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/datePicker">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
@@ -50,20 +50,19 @@
         android:layout_height="56dp"
         android:layout_marginStart="50dp"
         android:gravity="center"
-        android:text="前一天"
+        android:text="yerterday"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/datePicker"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/datePicker"
         android:layout_width="100dp"
         android:layout_height="56dp"
         android:gravity="center"
-        android:text="2月5日"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/tomorrow"
         app:layout_constraintHorizontal_bias="0.5"
@@ -75,11 +74,11 @@
         android:layout_width="100dp"
         android:layout_height="56dp"
         android:gravity="center"
-        android:text="后一天"
+        android:text="tomorrow"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/datePicker"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
