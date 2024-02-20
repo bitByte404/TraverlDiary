@@ -30,6 +30,9 @@ class MainFragment : Fragment()  {
         binding.viewpager.apply {
             adapter = ViewPagerAdapter(requireActivity() as AppCompatActivity,fragments)
 
+            //取消滑动切换页面
+            isUserInputEnabled = false
+
             // 设置ViewPager2的页面改变监听器
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
