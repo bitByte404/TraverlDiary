@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.adapter.JourneysAdapter
 import com.application.traveldiary.adapter.TimelineAdapter
 import com.application.traveldiary.databinding.FragmentJourneyBinding
@@ -62,6 +63,24 @@ class JourneyFragment : Fragment() {
             // 使用 PagerSnapHelper 辅助实现整页滑动效果
             val pagerSnapHelper = PagerSnapHelper()
             pagerSnapHelper.attachToRecyclerView(this)
+
+            // 左右滑动改变相应日期
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                private var lastFirstVisibleItem = 0
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val nextVisibleItem =
+                        (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    if (nextVisibleItem < lastFirstVisibleItem) {
+                        // 向左滑动
+                        switchToYesterday()
+                    } else if (nextVisibleItem > lastFirstVisibleItem) {
+                        // 向右滑动
+                        switchTomorrow()
+                    }
+                    lastFirstVisibleItem = nextVisibleItem
+                }
+            })
         }
 
         /**
@@ -129,7 +148,7 @@ class JourneyFragment : Fragment() {
     /**
      * 跳转到前一天
      */
-    private fun switchToYesterday() {
+    fun switchToYesterday() {
         val selectedDate = binding.datePicker.text.toString()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = dateFormat.parse(selectedDate)
@@ -145,7 +164,7 @@ class JourneyFragment : Fragment() {
     /**
      * 跳转到后一天
      */
-    private fun switchTomorrow() {
+    fun switchTomorrow() {
         val selectedDate = binding.datePicker.text.toString()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = dateFormat.parse(selectedDate)
