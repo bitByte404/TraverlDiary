@@ -36,17 +36,16 @@ class MainFragment : Fragment()  {
             // 设置ViewPager2的页面改变监听器
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    binding.navView.menu.getItem(position).isChecked = true
                 }
             })
 
             // 设置BottomNavigationView的选择监听器
             binding.navView.setOnItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.navigation_journey -> this.currentItem = 0
-                    R.id.navigation_album -> this.currentItem = 1
-                    R.id.navigation_community -> this.currentItem = 2
-                    R.id.navigation_person -> this.currentItem = 3
+                    R.id.navigation_journey -> setCurrentItem(0,false)
+                    R.id.navigation_album -> setCurrentItem(1,false)
+                    R.id.navigation_community -> setCurrentItem(2,false)
+                    R.id.navigation_person -> setCurrentItem(3,false)
                 }
                 true
             }
