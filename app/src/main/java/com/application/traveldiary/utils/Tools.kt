@@ -19,8 +19,9 @@ fun timeCreator(): List<TimeItem> {
     return timeArray
 }
 
-fun journeyCreator(): List<JourneyItem> {
+fun journeyCreator(): List<List<JourneyItem>> {
     // 生成五个以上的 Destination 对象
+    val journeysList = mutableListOf<List<JourneyItem>>()
     val destinationList = mutableListOf<JourneyItem>()
     for (i in 1..3) {
         val destination = Destination(
@@ -46,7 +47,10 @@ fun journeyCreator(): List<JourneyItem> {
         destinationList.add(JourneyItem(ticket))
     }
     destinationList.sortBy { it.journey.fromTime }
-    return destinationList
+    for (i in 0..3) {
+        journeysList.add(destinationList)
+    }
+    return journeysList
 }
 
 /**

@@ -73,6 +73,9 @@ dependencies {
     //lottie
     implementation("com.airbnb.android:lottie:6.1.0")
 
+    //datePciker
+    implementation("com.google.android.material:material:1.12.0-alpha03")
+
     //photoView
     implementation ("com.github.chrisbanes.photoview:library:+")
     implementation ("com.github.bumptech.glide:glide:3.7.0")
