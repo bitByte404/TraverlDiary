@@ -4,5 +4,6 @@ class Destination(
     var name: String,
     fromTime: Float,
     toTime: Float,
-    isHappened: Boolean
-) : Journey(nameOrId = name, fromTime, toTime, isHappened)
+    isHappened: Boolean,
+    date: String
+) : Journey(nameOrId = name, fromTime, toTime, isHappened, date)
