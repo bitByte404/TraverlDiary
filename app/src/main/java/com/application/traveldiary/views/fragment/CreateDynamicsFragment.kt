@@ -18,20 +18,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.application.traveldiary.adapter.DynamicAdapter
 import com.application.traveldiary.adapter.DynamicPictureAdapter
 import com.application.traveldiary.databinding.FragmentCreateDynamicsBinding
 import com.application.traveldiary.models.Dynamic
-import com.application.traveldiary.utils.CommunityTest
 import com.application.traveldiary.viewModel.CommunityViewModel
 import com.application.traveldiary.views.customView.BottomDialogView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Date
 
@@ -111,6 +107,11 @@ class CreateDynamicsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onResume() {
+        super.onResume()
+        pictureAdapter.setData(uriList)
+    }
+
     //初始化数据
     private fun initData() {
         //配置动态的图片
@@ -148,6 +149,7 @@ class CreateDynamicsFragment : Fragment() {
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
 
+            // TODO
 //            val dynamic = viewModel.uploadAndGetDynamic(
 //                uriList,
 //                title,

@@ -36,8 +36,8 @@ class CommunityFragment : Fragment() {
                 override fun onItemClick(imageUri: Uri, imageView: ImageView) {
                     imageView.transitionName = "shared_element"
                     val extras = FragmentNavigatorExtras(imageView to "shared_element")
-                    val action = CommunityFragmentDirections.
-                    actionNavigationCommunityToPictureFullScreenFragment(imageUri)
+                    val action = MainFragmentDirections
+                        .actionMainFragmentToPictureFullScreenFragment(imageUri)
                     findNavController().navigate(action, extras)
                 }
             })
@@ -116,7 +116,7 @@ class CommunityFragment : Fragment() {
 
     private fun addButtonTouchEvent() {
         binding.addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_community_to_createDynamicsFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_createDynamicsFragment)
         }
     }
 

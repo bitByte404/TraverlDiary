@@ -105,16 +105,9 @@ dependencies {
     //datePciker
     implementation("com.google.android.material:material:1.12.0-alpha03")
 
-    //photoView
-    implementation ("com.github.chrisbanes.photoview:library:+")
-    implementation ("com.github.bumptech.glide:glide:3.7.0")
-
-    //Gson
-    implementation ("com.google.code.gson:gson:2.10.1")
-
     //viewpager2
     implementation ("androidx.appcompat:appcompat:1.1.0-alpha05")
-    implementation ("com.android.support:design:28.0.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation ("androidx.viewpager2:viewpager2:1.0.0-beta02")
 
     //koHttp

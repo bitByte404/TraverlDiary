@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.application.traveldiary.databinding.FragmentPictureFullScreenBinding
 import com.bumptech.glide.Glide
@@ -33,6 +34,7 @@ class PictureFullScreenFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val imageUri = args.imageUri
@@ -48,7 +50,7 @@ class PictureFullScreenFragment : Fragment() {
                 override fun onResourceReady(
                     resource: Drawable,
                     model: Any,
-                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    target: Target<Drawable>?,
                     dataSource: DataSource,
                     isFirstResource: Boolean
                 ): Boolean {
@@ -67,7 +69,7 @@ class PictureFullScreenFragment : Fragment() {
             })
             .into(photoView)
         binding.root.setOnClickListener {
-            //findNavController().navigateUp()
+            findNavController().navigateUp()
         }
     }
 }

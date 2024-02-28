@@ -50,7 +50,11 @@
     <fragment
         android:id="@+id/createDynamicsFragment"
         android:name="com.application.traveldiary.views.fragment.CreateDynamicsFragment"
-        android:label="CreateDynamicsFragment" />
+        android:label="CreateDynamicsFragment" >
+    <action
+        android:id="@+id/action_createDynamicsFragment_to_pictureFullScreenFragment2"
+        app:destination="@id/pictureFullScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.application.traveldiary.views.fragment.MainFragment"
@@ -61,7 +65,34 @@
         <action
             android:id="@+id/action_mainFragment_to_createDynamicsFragment"
             app:destination="@id/createDynamicsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_pictureFullScreenFragment"
+            app:destination="@id/pictureFullScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_community"
+        android:name="com.application.traveldiary.views.fragment.CommunityFragment"
+        android:label="Community"
+        tools:layout="@layout/fragment_community" >
+        <action
+            android:id="@+id/action_navigation_community_to_createDynamicsFragment"
+            app:destination="@id/createDynamicsFragment"
+            app:enterAnim="@anim/enter_from_right_anim"
+            app:exitAnim="@anim/exit_to_left_anim"
+            app:popEnterAnim="@anim/pop_enter_from_left_anim"
+            app:popExitAnim="@anim/pop_exit_to_right_anim" />
+        <action
+            android:id="@+id/action_navigation_community_to_pictureFullScreenFragment"
+            app:destination="@id/pictureFullScreenFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/pictureFullScreenFragment"
+        android:name="com.application.traveldiary.views.fragment.PictureFullScreenFragment"
+        android:label="PictureFullScreenFragment" >
+        <argument
+            android:name="imageUri"
+            app:argType="android.net.Uri" />
     </fragment>
     <fragment
         android:id="@+id/pictureFragment"
@@ -75,21 +106,7 @@
     <fragment
         android:id="@+id/albumFragment"
         android:name="com.application.traveldiary.views.fragment.AlbumFragment"
-        android:label="AlbumFragment" >
-    <fragment
-        android:id="@+id/createDynamicsFragment"
-        android:name="com.application.traveldiary.views.fragment.CreateDynamicsFragment"
-        android:label="CreateDynamicsFragment" >
-        <action
-            android:id="@+id/action_createDynamicsFragment_to_pictureFullScreenFragment2"
-            app:destination="@id/pictureFullScreenFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/pictureFullScreenFragment"
-        android:name="com.application.traveldiary.views.fragment.PictureFullScreenFragment"
-        android:label="PictureFullScreenFragment" >
-        <argument
-            android:name="imageUri"
-            app:argType="android.net.Uri" />
-    </fragment>
+        tools:layout="@layout/fragment_album"
+        android:label="AlbumFragment" />
+
 </navigation>
