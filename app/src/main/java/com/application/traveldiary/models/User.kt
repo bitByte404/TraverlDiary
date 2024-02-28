@@ -2,8 +2,9 @@ package com.application.traveldiary.models
 
 import cn.bmob.v3.BmobObject
 
+
 class User(
-    val userId: Int,
+    val userId: Int = 0,
     var name: String,
     var password: String,
     var phone: String,
@@ -11,4 +12,5 @@ class User(
     var head: String, //TODO 修改头像为链接地址
     var IP: String,
 ) : BmobObject() {
+
 }

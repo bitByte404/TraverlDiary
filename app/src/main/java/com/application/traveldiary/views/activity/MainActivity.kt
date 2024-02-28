@@ -1,5 +1,6 @@
 package com.application.traveldiary.views.activity
 
+import DynamicManager
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,23 +8,32 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.application.traveldiary.manager.PermissionManager
 
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.application.traveldiary.R
+import com.application.traveldiary.utils.CommunityTest
+import com.application.traveldiary.viewModel.CommunityViewModel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     lateinit var mPermissionManager: PermissionManager
+    private val communityViewModel: CommunityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         requestReadPermission()
     }
 

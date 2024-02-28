@@ -21,7 +21,13 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
     //保存动态信息
     private var mDynamics = emptyList<Dynamic>()
 
-    class MyViewHolder(val binding: LayoutDynamicBinding) : RecyclerView.ViewHolder(binding.root) {
+    private var onImageItemClickListener: DynamicPictureAdapter.onImageItemClickListener? = null
+
+    fun setOnImageItemClickListener(listener: DynamicPictureAdapter.onImageItemClickListener) {
+        this.onImageItemClickListener = listener
+    }
+
+    inner class MyViewHolder(val binding: LayoutDynamicBinding) : RecyclerView.ViewHolder(binding.root) {
         val context = BmobApp.getContext()
         fun bind(dynamic: Dynamic) {
 
@@ -39,7 +45,11 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             //设置标题
             binding.title.text = dynamic.title
             //设置评论的条数
-            binding.allComment.text = "查看全部${dynamic.comments.size}条评论"
+            binding.allComment.text = if (dynamic.comments.size == 0) {
+                "暂无评论，快来评论一下吧"
+            } else {
+                "查看全部${dynamic.comments.size}条评论"
+            }
             //设置手机型号
             binding.phone.text = dynamic.phone
             //设置日期
@@ -58,7 +68,14 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
             binding.recyclerviewComments.adapter = commentsAdapter
 
             //配置动态的图片
-            val pictureAdapter = DynamicPictureAdapter(dynamic.getPictureUrls())
+            val pictureAdapter = DynamicPictureAdapter()
+            this@DynamicAdapter.onImageItemClickListener?.let {
+                pictureAdapter.setOnImageItemClickListener(
+                    it
+                )
+            }
+            pictureAdapter.setData(dynamic.getPictureUrls())
+
             binding.recyclerviewPictures.layoutManager =
                 GridLayoutManager(context, 3)
             binding.recyclerviewPictures.adapter = pictureAdapter
@@ -81,5 +98,10 @@ class DynamicAdapter : RecyclerView.Adapter<DynamicAdapter.MyViewHolder>() {
     //设置动态的数据
     fun setData(dynamics: List<Dynamic>) {
         mDynamics = dynamics
+    }
+
+    fun setDataAndRefresh(dynamics: List<Dynamic>) {
+        mDynamics = dynamics
+        notifyDataSetChanged()
     }
 }

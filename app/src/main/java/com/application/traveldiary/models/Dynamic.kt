@@ -1,13 +1,17 @@
 package com.application.traveldiary.models
 
+import android.net.Uri
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import cn.bmob.v3.BmobObject
 import java.util.Date
 
-class Dynamic(
-    val dynamicId: String,
+@Entity
+data class Dynamic(
+    @PrimaryKey val dynamicId: String,
     val title: String,
     val content: String,
-    val pictures: List<Picture>, //图片不只一张
+    val pictures: List<String>, //图片不只一张
     val likes: Int,
     val postUser: User,
     val postTime: Date,
@@ -17,12 +21,11 @@ class Dynamic(
     var comments : ArrayList<Comment>
 ) : BmobObject() {
     //将动态的图片Url全部取出
-    fun getPictureUrls() : List<String> {
-        val urls = arrayListOf<String>()
+    fun getPictureUrls() : ArrayList<Uri> {
+        val urls = arrayListOf<Uri>()
         pictures.forEach {
-            urls.add(it.picture)
+            urls.add(Uri.parse(it))
         }
         return urls
     }
-
 }

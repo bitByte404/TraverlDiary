@@ -3,6 +3,7 @@
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven("https://jitpack.io")
     }
 }
 dependencyResolutionManagement {
@@ -13,7 +14,6 @@ dependencyResolutionManagement {
         maven (url ="https://www.jitpack.io" )
         maven (url ="https://jitpack.io" )
     }
-
 }
 
     buildscript {
