@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.application.traveldiary.PersonFragment
 import com.application.traveldiary.R
 import com.application.traveldiary.adapter.ViewPagerAdapter
 import com.application.traveldiary.databinding.FragmentAlbumBinding
@@ -26,7 +27,9 @@ class MainFragment : Fragment()  {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val fragments = listOf<Fragment>(JourneyFragment(),AlbumFragment(),CommunityFragment(),PersonFragment()) //,
+        val fragments = listOf<Fragment>(JourneyFragment(),AlbumFragment(),CommunityFragment(),
+            PersonFragment()
+        ) //,
         binding.viewpager.apply {
             adapter = ViewPagerAdapter(requireActivity() as AppCompatActivity,fragments)
 

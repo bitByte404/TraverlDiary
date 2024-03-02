@@ -1,4 +1,4 @@
-package com.application.traveldiary.views.fragment
+package com.application.traveldiary
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.application.traveldiary.databinding.FragmentPersonBinding
 
+
 class PersonFragment : Fragment() {
+
     private lateinit var binding: FragmentPersonBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentPersonBinding.inflate(inflater)
+        binding = FragmentPersonBinding.inflate(inflater,null,false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var profile =binding.shapeableImageView
@@ -70,5 +71,3 @@ class PersonFragment : Fragment() {
     private fun trendsAll(){}
 
 }
-
-
