@@ -84,7 +84,7 @@ class AlbumManager private constructor() {
     }
 
     //标准化list
-    private fun standardizeList(list:List<Picture>):MutableList<Any>{
+    private  fun standardizeList(list:List<Picture>):MutableList<Any>{
         //穿插进去时间地点
         val resultList = mutableListOf<Any>()
         var lastDate = list[0].takeTime

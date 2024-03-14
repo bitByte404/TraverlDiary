@@ -8,4 +8,9 @@
         <!--设置未选中颜色-->
         <attr name="unselected_color" format="color|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="PhotoView">
+        <!--资源-->
+
+    </declare-styleable>
 </resources>
