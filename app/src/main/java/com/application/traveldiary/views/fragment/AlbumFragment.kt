@@ -1,6 +1,7 @@
 package com.application.traveldiary.views.fragment
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,6 +23,7 @@ import com.application.traveldiary.manager.AlbumManager
 import com.application.traveldiary.manager.PermissionManager
 import com.application.traveldiary.viewModel.AlbumViewModel
 import com.application.traveldiary.adapter.DateAlbumAdapter
+import com.application.traveldiary.views.selif_define_views.PhotoView
 
 class AlbumFragment : Fragment() {
     private lateinit var binding: FragmentAlbumBinding
@@ -61,6 +63,7 @@ class AlbumFragment : Fragment() {
         mAdapter.callback = {
             mViewModel.picture = it
             findNavController().navigate(R.id.action_mainFragment_to_pictureFragment)
+
         }
         //配置layoutmanager
         val gridLayoutManager = GridLayoutManager(context,mAdapter.spanCount)
@@ -101,4 +104,12 @@ class AlbumFragment : Fragment() {
         System.gc()
     }
 
+    fun popPicAlertDialog(pic:Uri){
+        val photo = PhotoView(requireContext(),null)
+        photo.setPic(pic)
+        AlertDialog.Builder(context)
+            .setView(photo)
+            .create()
+            .show()
+    }
 }

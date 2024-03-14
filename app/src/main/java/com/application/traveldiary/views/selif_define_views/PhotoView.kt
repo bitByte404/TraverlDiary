@@ -8,6 +8,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Picture
+import android.graphics.Point
+import android.graphics.Region
 import android.net.Uri
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -15,13 +17,16 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import android.widget.ImageView
 import android.widget.OverScroller
+import androidx.core.graphics.contains
+import androidx.core.net.toFile
 import com.application.traveldiary.R
 import java.io.File
 
-class PhotoView (context: Context, attributeSet: AttributeSet?): View(context,attributeSet){
-    private var mBitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.vertical)
-    //    private var mBitmap: Bitmap = BitmapFactory.decodeResource(resources,R.drawable.horizental)
+class PhotoView (context: Context, attributeSet: AttributeSet?): androidx.appcompat.widget.AppCompatImageView(context,attributeSet){
+//    private lateinit var mBitmap:Bitmap
+        private var mBitmap: Bitmap = BitmapFactory.decodeResource(resources,R.drawable.vertical)
 //    private var mBitmap: Bitmap = BitmapFactory.decodeResource(resources,R.drawable.small)
     private val mPaint by lazy {
         Paint()
@@ -64,6 +69,8 @@ class PhotoView (context: Context, attributeSet: AttributeSet?): View(context,at
     private var bounceScaleAnimator: ObjectAnimator?
     private val scaleGestureDetector: ScaleGestureDetector
 
+
+
     init {
         gestureDetector = GestureDetector(context,PhotoViewGestureDetectorListener())
         scaleGestureDetector = ScaleGestureDetector(context,PhotoViewScaleGestureDetectorListener())
@@ -71,6 +78,10 @@ class PhotoView (context: Context, attributeSet: AttributeSet?): View(context,at
         bounceScaleAnimator = getBounceScaleAnimator()
         overScroller = OverScroller(context)
         flingRunner = FlingRunner()
+    }
+
+    fun setPic(uri:Uri){
+        mBitmap = BitmapFactory.decodeFile(uri.toFile().absolutePath)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -81,8 +92,10 @@ class PhotoView (context: Context, attributeSet: AttributeSet?): View(context,at
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        val scaleFraction = (currentScale - smallScale) / (bigScale - smallScale)
+
         //滑动移动
-        canvas.translate(offsetX ,offsetY  )
+        canvas.translate(offsetX * scaleFraction,offsetY * scaleFraction )
 
         //放大缩小 坐标系缩放
         canvas.scale(currentScale,currentScale,width/2f,height/2f)
@@ -236,6 +249,7 @@ class PhotoView (context: Context, attributeSet: AttributeSet?): View(context,at
         override fun onShowPress(e: MotionEvent) {}
 
         override fun onDown(e: MotionEvent): Boolean {
+
             return true
         }
 

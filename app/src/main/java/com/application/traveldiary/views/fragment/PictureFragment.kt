@@ -26,12 +26,8 @@ class PictureFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        binding.photoview.apply {
-//            Glide.with(requireContext())
-//                .load(mViewModel.picture!!.uri)
-//                .fitCenter()
-//                .error(R.drawable.icon_heart)
-//                .into(this)
-//        }
+        binding.photoview.apply {
+            setPic(mViewModel.picture!!.uri)
+        }
     }
 }
