@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.traveldiary.R
 import com.application.traveldiary.databinding.FragmentAlbumBinding
@@ -21,7 +22,6 @@ import com.application.traveldiary.manager.PermissionManager
 import com.application.traveldiary.viewModel.AlbumViewModel
 import com.application.traveldiary.adapter.DateAlbumAdapter
 import com.application.traveldiary.adapter.DateAlbumDecoration
-import com.application.traveldiary.manager.MyGridLayoutManager
 import com.application.traveldiary.views.selif_define_views.PhotoView
 
 class AlbumFragment : Fragment() {
@@ -65,14 +65,9 @@ class AlbumFragment : Fragment() {
 
         }
         //配置layoutmanager
-        val gridLayoutManager = MyGridLayoutManager(requireContext(),mAdapter.spanCount)
+        val gridLayoutManager = GridLayoutManager(requireContext(),mAdapter.spanCount)
         //配置recyclerview
         mRecyclerView.apply {
-            gridLayoutManager.setCheckScroll{
-                mAdapter.isFirstOfGroup(it)
-            }
-
-
             layoutManager = gridLayoutManager
             adapter = mAdapter
             addItemDecoration(DateAlbumDecoration())

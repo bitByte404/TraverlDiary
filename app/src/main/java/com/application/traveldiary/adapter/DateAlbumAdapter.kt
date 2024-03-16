@@ -86,6 +86,23 @@ class DateAlbumAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
 
+    private var temp = 0
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        val manager = recyclerView.layoutManager as GridLayoutManager
+        manager.spanSizeLookup = object :SpanSizeLookup(){
+            override fun getSpanSize(position: Int): Int {
+                return if (isFirstOfGroup(position + 1)){
+                    val column = (position + temp) % spanCount
+                    temp += (spanCount - column - 1)
+                    spanCount - column
+                }else {
+                    1
+                }
+            }
+        }
+    }
+
 }
 
 ////
