@@ -6,7 +6,6 @@
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/image"
         android:scaleType="centerCrop"
-        android:padding="2dp"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 

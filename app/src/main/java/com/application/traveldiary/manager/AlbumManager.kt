@@ -51,7 +51,7 @@ class AlbumManager private constructor() {
 
 
     //加载图片
-    fun loadPictures(context: Context): MutableList<Any> {
+    fun loadPictures(context: Context): List<Picture> {
         //判断文件夹是否存在
         fileManager.checkFileDir()
 
@@ -63,7 +63,7 @@ class AlbumManager private constructor() {
         val resultList = standardizeList(list)
 
         //返回最终规范的list
-        return resultList
+        return list
     }
 
 

@@ -10,12 +10,12 @@ import com.application.traveldiary.models.Picture
 class AlbumViewModel:ViewModel(){
 
     // 创建一个MutableLiveData对象来存储你的数据
-    var albumList: MutableLiveData<List<Any>> = MutableLiveData()
+    var albumList: MutableLiveData<List<Picture>> = MutableLiveData()
     //传入到pictureFragment的uri
     var picture: Picture? = null
 
     // 更新数据
-    fun updateData(newData: List<Any>) {
+    fun updateData(newData: List<Picture>) {
         albumList.value = newData
     }
 }
